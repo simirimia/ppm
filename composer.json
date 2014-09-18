@@ -1,6 +1,32 @@
 {
+
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "redbeanphp",
+                "version": "4.0.9",
+                "dist": {
+                    "url": "http://www.redbeanphp.com/downloadredbean.php",
+                    "type": "tar"
+                }
+            }
+        }
+    ],
+
     "require": {
         "monolog/monolog": "1.2.*",
-        "aura/autoload": "dev-master"
-    }
+        "psr/http-message": "1.0.x-dev",
+        "aura/autoload": "2.0.x-dev",
+        "redbeanphp": "4.0.*"
+    },
+
+    "autoload": {
+        "files": [
+            "vendor/redbeanphp/rb.php"
+        ]
+    },
+
+    "minimum-stability": "dev"
+
 }
