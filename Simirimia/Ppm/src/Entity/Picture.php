@@ -12,30 +12,46 @@ namespace Simirimia\Ppm\Entity;
 class Picture {
 
     /**
+     * @var int
+     */
+    private $id;
+
+    /**
      * @var string
      */
-    private $path;
+    private $path = '';
 
     /**
-     * @var bool
+     * @var string
      */
-    private $isProcessed;
+    private $thumbSmall = '';
 
     /**
-     * @param boolean $isProcessed
+     * @var string
      */
-    public function setIsProcessed($isProcessed)
+    private $thumbMedium = '';
+
+    /**
+     * @var string
+     */
+    private $thumbLarge = '';
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
     {
-        $this->isProcessed = (bool)$isProcessed;
+        $this->id = $id;
     }
 
     /**
-     * @return boolean
+     * @return int
      */
-    public function getIsProcessed()
+    public function getId()
     {
-        return $this->isProcessed;
+        return $this->id;
     }
+
 
     /**
      * @param string $path
@@ -52,6 +68,55 @@ class Picture {
     {
         return $this->path;
     }
+
+    /**
+     * @param string $thumbLarge
+     */
+    public function setThumbLarge($thumbLarge)
+    {
+        $this->thumbLarge = $thumbLarge;
+    }
+
+    /**
+     * @return string
+     */
+    public function getThumbLarge()
+    {
+        return $this->thumbLarge;
+    }
+
+    /**
+     * @param string $thumbMedium
+     */
+    public function setThumbMedium($thumbMedium)
+    {
+        $this->thumbMedium = $thumbMedium;
+    }
+
+    /**
+     * @return string
+     */
+    public function getThumbMedium()
+    {
+        return $this->thumbMedium;
+    }
+
+    /**
+     * @param string $thumbSmall
+     */
+    public function setThumbSmall($thumbSmall)
+    {
+        $this->thumbSmall = $thumbSmall;
+    }
+
+    /**
+     * @return string
+     */
+    public function getThumbSmall()
+    {
+        return $this->thumbSmall;
+    }
+
 
 
 

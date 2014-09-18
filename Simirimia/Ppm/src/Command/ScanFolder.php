@@ -26,10 +26,12 @@ class ScanFolder {
     public function process()
     {
         foreach( glob($this->path) as $path ) {
-            $picture = new Picture();
-            $picture->setPath( $path );
-            $picture->setIsProcessed( false );
-            $this->repository->save( $picture );
+
+            if ( null === $this->repository->findByPath($path) ) {
+                $picture = new Picture();
+                $picture->setPath( $path );
+                $this->repository->save( $picture );
+            }
         }
     }
 

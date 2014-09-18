@@ -12,12 +12,70 @@ use Simirimia\Ppm\Entity\Picture as PictureEntity;
 
 class Picture {
 
+    /**
+     * @param PictureEntity $entity
+     */
     public function save( PictureEntity $entity )
     {
-        $picture = \R::dispense( 'picture' );
-        $picture->isProcessed = $entity->getIsProcessed();
-        $picture->path = $entity->getPath();
-        \R::store( $picture );
+        \R::store( $this->entityToBean( $entity ) );
     }
 
-} 
+    /**
+     * @param $path
+     * @return null|PictureEntity
+     * @throws \Exception
+     */
+    public function findByPath( $path )
+    {
+        $data = \R::find( 'picture', 'path = ? ', [ $path ] );
+        if ( empty($data) ) {
+            return null;
+        }
+
+        if ( !is_array($data)  ) {
+            throw new \Exception('no array, wtf?');
+        }
+
+        if ( count($data) > 1 ) {
+            throw new \Exception( 'Inconsistent data. Path needs to be unique' );
+        }
+
+        return $this->beanToEntity( array_pop($data) );
+    }
+
+    /**
+     * @param $bean
+     * @return PictureEntity
+     */
+    private function beanToEntity( $bean )
+    {
+        $entity = new PictureEntity();
+        $entity->setId($bean->id);
+        $entity->setPath($bean->path);
+        $entity->setThumbSmall( $bean->thumbSmall );
+        $entity->setThumbMedium( $bean->thumbMedium );
+        $entity->setThumbLarge( $bean->thumbLarge );
+        return $entity;
+    }
+
+    /**
+     * @param PictureEntity $entity
+     * @return \OODBBean
+     */
+    private function entityToBean( PictureEntity $entity )
+    {
+        if ( empty($entity->getId()) ) {
+            $bean = \R::dispense( 'picture' );
+        } else {
+            $bean = \R::load( 'picture', $entity->getId() );
+        }
+
+        $bean->path = $entity->getPath();
+        $bean->thumbSmall = $entity->getThumbSmall();
+        $bean->thumbMedium = $entity->getThumbMedium();
+        $bean->thumbLarge = $entity->getThumbLarge();
+
+        return $bean;
+    }
+
+}
