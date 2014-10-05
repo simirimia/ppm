@@ -13,10 +13,11 @@ R::setup('mysql:host=localhost;dbname=ppm','ppm','ppmpw');
 // ******
 
 
-$command = new Simirimia\Ppm\Command\ScanFolder( '/home/verena/Bilder/*.jpg', new Simirimia\Ppm\Repository\Picture() );
+$command = new Simirimia\Ppm\Command\ScanFolder( '/home/verena/Bilder/*.jpg' );
 
+$handler = new Simirimia\Ppm\CommandHandler\ScanFolder( $command, new Simirimia\Ppm\Repository\Picture() );
 
-$command->process();
+$handler->process();
 
 // ******
 

@@ -9,6 +9,7 @@
 namespace Simirimia\Ppm\Repository;
 
 use Simirimia\Ppm\Entity\Picture as PictureEntity;
+use \R;
 
 class Picture {
 
@@ -17,7 +18,7 @@ class Picture {
      */
     public function save( PictureEntity $entity )
     {
-        \R::store( $this->entityToBean( $entity ) );
+        R::store( $this->entityToBean( $entity ) );
     }
 
     /**
@@ -27,20 +28,31 @@ class Picture {
      */
     public function findByPath( $path )
     {
-        $data = \R::find( 'picture', 'path = ? ', [ $path ] );
-        if ( empty($data) ) {
+        $bean = R::findOne( 'picture', 'path = ? ', [ $path ] );
+        if ( empty($bean) ) {
             return null;
         }
 
-        if ( !is_array($data)  ) {
-            throw new \Exception('no array, wtf?');
-        }
+        return $this->beanToEntity( $bean );
+    }
 
-        if ( count($data) > 1 ) {
-            throw new \Exception( 'Inconsistent data. Path needs to be unique' );
-        }
+    public function findWithoutTummbnails()
+    {
+        //$beans = R::find()
+    }
 
-        return $this->beanToEntity( array_pop($data) );
+    /**
+     * @return array
+     */
+    public function findAll()
+    {
+        $data = R::findAll( 'picture' );
+        $result = [];
+
+        foreach( $data as $bean ) {
+            $result[] = $this->beanToEntity( $bean );
+        }
+        return $result;
     }
 
     /**
@@ -65,9 +77,9 @@ class Picture {
     private function entityToBean( PictureEntity $entity )
     {
         if ( empty($entity->getId()) ) {
-            $bean = \R::dispense( 'picture' );
+            $bean = R::dispense( 'picture' );
         } else {
-            $bean = \R::load( 'picture', $entity->getId() );
+            $bean = R::load( 'picture', $entity->getId() );
         }
 
         $bean->path = $entity->getPath();
