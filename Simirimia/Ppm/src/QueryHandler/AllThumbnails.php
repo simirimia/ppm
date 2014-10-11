@@ -39,16 +39,18 @@ class AllThumbnails
         foreach( $pictures as $picture ) {
             switch( $this->command->getType() ) {
                 case 'small':
-                    $data[] = [ 'href' => '/thumbnail/' . $picture->getThumbSmall() ];
+                    $thumbnail = [ 'href' => '/thumbnail/' . $picture->getThumbSmall() ];
                     break;
                 case 'medium':
-                    $data[] = [ 'href' => '/thumbnail/' . $picture->getThumbMedium() ];
+                    $thumbnail = [ 'href' => '/thumbnail/' . $picture->getThumbMedium() ];
                     break;
                 case 'large':
-                    $data[] = [ 'href' => '/thumbnail/' . $picture->getThumbLarge() ];
+                    $thumbnail = [ 'href' => '/thumbnail/' . $picture->getThumbLarge() ];
                     break;
             }
+            $thumbnail['tags'] = $picture->getTags();
 
+            $data[] = $thumbnail;
         }
 
         return $data;

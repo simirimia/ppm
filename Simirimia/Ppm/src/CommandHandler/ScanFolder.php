@@ -32,14 +32,33 @@ class ScanFolder {
 
     public function process()
     {
-        foreach( glob($this->command->getPath() ) as $path ) {
+        $this->scan( $this->command->getPath() . '/*' );
+    }
+
+    private function scan( $dir )
+    {
+        foreach( glob($dir, GLOB_ONLYDIR ) as $subfolder ) {
+            $this->scan( $subfolder . '/*' );
+        }
+        $this->scanForPicures( $dir );
+    }
+
+    private function scanForPicures( $dir )
+    {
+        $basePath = explode( '/', $this->command->getPath() );
+        $dirPath = explode( '/', $dir );
+        $pathTags = array_diff( $dirPath, $basePath, ['*'] );
+
+        foreach( glob( $dir . '*.JPG' ) as $path ) {
 
             if ( null === $this->repository->findByPath($path) ) {
                 $picture = new Picture();
                 $picture->setPath( $path );
+                $picture->addTags( $pathTags );
                 $this->repository->save( $picture );
             }
         }
+
     }
 
 } 

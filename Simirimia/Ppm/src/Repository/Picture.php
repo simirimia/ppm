@@ -75,6 +75,11 @@ class Picture {
         $entity->setThumbLarge( $bean->thumbLarge );
         $entity->setExifComplete( @unserialize( $bean->exifComplete ) );
         $entity->setExif( @unserialize($bean->exif) );
+
+        $tags = R::tag( $bean );
+
+        $entity->setTags( $tags );
+
         return $entity;
     }
 
@@ -102,6 +107,8 @@ class Picture {
         $bean->thumbLarge = $entity->getThumbLarge();
         $bean->exifComplete = $exifComplete;
         $bean->exif = $exif;
+
+        R::tag( $bean, $entity->getTags() );
 
         return $bean;
     }

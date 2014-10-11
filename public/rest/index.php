@@ -18,7 +18,7 @@ $logger->addInfo( 'Logging started' );
 
 if ( false === isset($_SERVER['REQUEST_METHOD']) )
 {
-    $_SERVER['REQUEST_METHOD'] = 'GET';
+    $_SERVER['REQUEST_METHOD'] = 'POST';
 }
 
 switch( $_SERVER['REQUEST_METHOD'] ){
@@ -36,8 +36,10 @@ switch( $_SERVER['REQUEST_METHOD'] ){
 if (isset($_SERVER['REQUEST_URI'])) {
     $url = $_SERVER['REQUEST_URI'];
 } else {
-    //$url = "/rest/pictures/thumbnails/create";
-    $url = "/rest/pictures/thumbnails/small";
+    $url = "/rest/pictures/thumbnails/create";
+    //$url = "/rest/pictures/thumbnails/small";
+    //$url = '/rest/pictures/scan';
+    //$url = '/rest/picture/extract-exif';
 }
 
 $result = $dispather->dispatch( $url );

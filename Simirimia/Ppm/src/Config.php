@@ -19,7 +19,8 @@ class Config
 
     public function getSourcePicturePath()
     {
-        return '/home/verena/Bilder/*.JPG';
+        //return '/home/verena/Bilder';
+        return '/media/Bilder/01 - Urlaube usw./2011';
     }
 
 } 

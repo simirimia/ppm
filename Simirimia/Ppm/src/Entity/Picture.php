@@ -44,6 +44,11 @@ class Picture {
     /**
      * @var array
      */
+    private $tags = [];
+
+    /**
+     * @var array
+     */
     private $exif = [];
 
     /**
@@ -159,6 +164,37 @@ class Picture {
         return $this->exif;
     }
 
+    /**
+     * @param $tag
+     */
+    public function addTag( $tag )
+    {
+        $this->tags[] = (string)$tag;
+    }
+
+    /**
+     * @param array $tags
+     */
+    public function addTags( array $tags )
+    {
+        $this->tags = array_merge( $this->tags, $tags );
+    }
+
+    /**
+     * @param array $tags
+     */
+    public function setTags( array $tags )
+    {
+        $this->tags = $tags;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
 
     // Exif access shortcuts
 
