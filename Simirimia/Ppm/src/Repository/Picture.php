@@ -36,9 +36,15 @@ class Picture {
         return $this->beanToEntity( $bean );
     }
 
-    public function findWithoutTummbnails()
+    public function findWithoutThumbnails()
     {
-        //$beans = R::find()
+        $data = R::find( 'picture', "thump_small =''" );
+        $result = [];
+
+        foreach( $data as $bean ) {
+            $result[] = $this->beanToEntity( $bean );
+        }
+        return $result;
     }
 
     /**
@@ -67,6 +73,8 @@ class Picture {
         $entity->setThumbSmall( $bean->thumbSmall );
         $entity->setThumbMedium( $bean->thumbMedium );
         $entity->setThumbLarge( $bean->thumbLarge );
+        $entity->setExifComplete( @unserialize( $bean->exifComplete ) );
+        $entity->setExif( @unserialize($bean->exif) );
         return $entity;
     }
 
@@ -82,10 +90,18 @@ class Picture {
             $bean = R::load( 'picture', $entity->getId() );
         }
 
+        $exifComplete = $entity->getExifComplete();
+        $exifComplete = serialize( $exifComplete );
+
+        $exif = $entity->getExif();
+        $exif = serialize( $exif );
+
         $bean->path = $entity->getPath();
         $bean->thumbSmall = $entity->getThumbSmall();
         $bean->thumbMedium = $entity->getThumbMedium();
         $bean->thumbLarge = $entity->getThumbLarge();
+        $bean->exifComplete = $exifComplete;
+        $bean->exif = $exif;
 
         return $bean;
     }

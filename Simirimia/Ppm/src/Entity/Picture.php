@@ -37,6 +37,16 @@ class Picture {
     private $thumbLarge = '';
 
     /**
+     * @var array
+     */
+    private $exifComplete = [];
+
+    /**
+     * @var array
+     */
+    private $exif = [];
+
+    /**
      * @param int $id
      */
     public function setId($id)
@@ -116,6 +126,39 @@ class Picture {
     {
         return $this->thumbSmall;
     }
+
+    /**
+     * @param array $exifComplete
+     */
+    public function setExifComplete($exifComplete)
+    {
+        $this->exifComplete = $exifComplete;
+    }
+
+    /**
+     * @return array
+     */
+    public function getExifComplete()
+    {
+        return $this->exifComplete;
+    }
+
+    /**
+     * @param array $exif
+     */
+    public function setExif($exif)
+    {
+        $this->exif = $exif;
+    }
+
+    /**
+     * @return array
+     */
+    public function getExif()
+    {
+        return $this->exif;
+    }
+
 
 
 
