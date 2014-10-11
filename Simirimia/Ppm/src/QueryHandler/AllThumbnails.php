@@ -49,6 +49,7 @@ class AllThumbnails
                     break;
             }
             $thumbnail['tags'] = $picture->getTags();
+            $thumbnail['id'] = $picture->getId();
 
             $data[] = $thumbnail;
         }

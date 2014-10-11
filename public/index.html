@@ -72,9 +72,8 @@
                 <a class="img-thumbnail" href="#">
                     <img src="{{thumbnail.href}}" />
                 </a>
-                <div ng-repeat="tag in thumbnail.tags">
-                    <span class="label label-info">{{tag}}</span>
-                </div>
+                <span class="label label-primary">{{thumbnail.id}}</span>
+                <span class="label label-info" ng-repeat="tag in thumbnail.tags">{{tag}}</span>
             </div>
 
 

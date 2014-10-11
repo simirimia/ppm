@@ -16,9 +16,12 @@ $logger = new \Monolog\Logger( 'ppm' );
 $logger->pushHandler( new Monolog\Handler\StreamHandler( __DIR__ . '/../../log/ppm.log' ) );
 $logger->addInfo( 'Logging started' );
 
-if ( false === isset($_SERVER['REQUEST_METHOD']) )
-{
-    $_SERVER['REQUEST_METHOD'] = 'POST';
+if ( false === isset($_SERVER['REQUEST_METHOD']) ) {
+    if ( isset($_SERVER['argv'][1]) ) {
+        $_SERVER['REQUEST_METHOD'] = $_SERVER['argv'][1];
+    } else {
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+    }
 }
 
 switch( $_SERVER['REQUEST_METHOD'] ){
@@ -35,10 +38,12 @@ switch( $_SERVER['REQUEST_METHOD'] ){
 
 if (isset($_SERVER['REQUEST_URI'])) {
     $url = $_SERVER['REQUEST_URI'];
+} elseif ($_SERVER['argv'][2]) {
+    $url = $_SERVER['argv'][2];
 } else {
     //$url = "/rest/pictures/thumbnails/create";
     //$url = "/rest/pictures/thumbnails/small";
-    $url = '/rest/pictures/scan';
+    //$url = '/rest/pictures/scan';
     //$url = '/rest/picture/extract-exif';
 }
 

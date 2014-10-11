@@ -19,7 +19,7 @@ class CommandDispatcher extends Dispatcher
         {
             case '/rest/pictures/thumbnails/create':
                 $command = new Command\GenerateThumbnails( new Config() );
-                $handler = new CommandHandler\GenerateThumbnails( $command, new PictureRepository() );
+                $handler = new CommandHandler\GenerateThumbnails( $command, new PictureRepository(), $this->getLogger() );
                 return $handler;
             case '/rest/pictures/scan':
                 $command = new Command\ScanFolder( new Config() );
@@ -27,7 +27,7 @@ class CommandDispatcher extends Dispatcher
                 return $handler;
             case '/rest/picture/extract-exif':
                 $command = new Command\ExtractExif();
-                $handler = new CommandHandler\ExtractExif( $command, new PictureRepository() );
+                $handler = new CommandHandler\ExtractExif( $command, new PictureRepository(), $this->getLogger() );
                 return $handler;
         }
 

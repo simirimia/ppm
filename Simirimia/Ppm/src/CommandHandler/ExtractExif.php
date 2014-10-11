@@ -13,6 +13,7 @@ use Intervention\Image\ImageManager;
 use Simirimia\Ppm\Command\ExtractExif as ExctractExifCommand;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Entity\Picture;
+use Monolog\Logger;
 
 class ExtractExif {
 
@@ -26,10 +27,16 @@ class ExtractExif {
      */
     private $repository;
 
-    public function __construct( ExctractExifCommand $command, PictureRepository $repository )
+    /**
+     * @var \Monolog\Logger
+     */
+    private $logger;
+
+    public function __construct( ExctractExifCommand $command, PictureRepository $repository, Logger $logger )
     {
         $this->command = $command;
         $this->repository = $repository;
+        $this->logger = $logger;
     }
 
     public function process()
@@ -42,6 +49,8 @@ class ExtractExif {
 
     private function extract( Picture $picture )
     {
+        $this->logger->addDebug( 'Extracting EXIF for picure ID: ' . $picture->getId() . ' with name: ' . $picture->getPath() );
+
         $imageManager = new ImageManager();
         $image = $imageManager->make( $picture->getPath() );
         $exifComplete = $image->exif();
@@ -74,6 +83,7 @@ class ExtractExif {
 
         $picture->setExif( $exif );
         $picture->setExifComplete( $exif );
+
         $this->repository->save( $picture );
     }
 

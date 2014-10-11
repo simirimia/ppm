@@ -13,6 +13,7 @@ use Intervention\Image\ImageManager;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Command\GenerateThumbnails as GenerateThumbnailsCommand;
 use Simirimia\Ppm\Entity\Picture;
+use Monolog\Logger;
 
 class GenerateThumbnails
 {
@@ -27,10 +28,16 @@ class GenerateThumbnails
      */
     private $command;
 
-    public function __construct( GenerateThumbnailsCommand $command, PictureRepository $repository )
+    /**
+     * @var \Monolog\Logger
+     */
+    private $logger;
+
+    public function __construct( GenerateThumbnailsCommand $command, PictureRepository $repository, Logger $logger )
     {
         $this->command = $command;
         $this->repository = $repository;
+        $this->logger = $logger;
     }
 
     public function process()
@@ -43,6 +50,13 @@ class GenerateThumbnails
 
     private function generateThumbnails( Picture $picture )
     {
+        if ( $picture->getThumbSmall() != '' ) {
+            $this->logger->addDebug( 'Thumbnail creation canceled for picture ID: ' . $picture->getId() );
+            return;
+        }
+
+        $this->logger->addDebug( 'Thumbnail creation for picture ID: ' . $picture->getId() . ' with name ' . $picture->getPath() );
+
         $thumbnailSizes = [
             'small' => 300,
             'medium' => 800,
@@ -64,9 +78,18 @@ class GenerateThumbnails
                 });
 
             switch( $picture->getExifOrientation() ) {
+                case 0:
+                    break;
+                case 1:
+                    break;
                 case 6:
                     $image->rotate( 270 );
                     break;
+                case 8:
+                    break;
+                default:
+                    throw new \Exception( 'Invalid Orientation: ' . $picture->getExifOrientation() . ' for picture ID: ' . $picture->getId() . ' with name: ' . $picture->getPath() );
+
             }
 
             $filename = $picture->getId() . '_' . (string)$size . '.jpg';
