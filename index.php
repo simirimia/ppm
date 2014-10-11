@@ -14,7 +14,7 @@ $loader->register();
 R::setup('mysql:host=localhost;dbname=ppm','ppm','ppmpw');
 
 $logger = new \Monolog\Logger( 'ppm' );
-$logger->pushHandler( new Monolog\Handler\StreamHandler( __DIR__ . '/ppm.log' ) );
+$logger->pushHandler( new Monolog\Handler\StreamHandler( __DIR__ . '/log/ppm.log' ) );
 $logger->addInfo( 'Logging inititalised' );
 // ******
 
@@ -23,11 +23,16 @@ $logger->addInfo( 'Logging inititalised' );
 
 //phpinfo();
 
+$pictureRepository = new Simirimia\Ppm\Repository\Picture();
+
+$command = new Simirimia\Ppm\Command\GenerateThumbnails( '/srv/www/ppm/thumbnails' );
+$handler = new Simirimia\Ppm\CommandHandler\GenerateThumbnails( $command, $pictureRepository );
+
 //$command = new Simirimia\Ppm\Command\ScanFolder( '/home/verena/Bilder/*.JPG' );
-//$handler = new Simirimia\Ppm\CommandHandler\ScanFolder( $command, new Simirimia\Ppm\Repository\Picture() );
+//$handler = new Simirimia\Ppm\CommandHandler\ScanFolder( $command, $pictureRepository );
 
 //$command = new Simirimia\Ppm\Command\ExtractExif();
-//$handler = new Simirimia\Ppm\CommandHandler\ExtractExif( $command, new Simirimia\Ppm\Repository\Picture() );
+//$handler = new Simirimia\Ppm\CommandHandler\ExtractExif( $command, $pictureRepository );
 
 
 $handler->process();

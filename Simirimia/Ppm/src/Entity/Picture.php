@@ -160,7 +160,12 @@ class Picture {
     }
 
 
+    // Exif access shortcuts
 
+    public function getExifOrientation()
+    {
+        return isset($this->exif['Orientation']) ? $this->exif['Orientation'] : null;
+    }
 
 
 } 

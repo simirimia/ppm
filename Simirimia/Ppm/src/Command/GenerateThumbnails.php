@@ -8,24 +8,26 @@
 
 namespace Simirimia\Ppm\Command;
 
-use Simirimia\Ppm\Repository\Picture as PictureRepository;
-use Simirimia\Ppm\Entity\Picture;
-
 class GenerateThumbnails {
 
     /**
-     * @var \Simirimia\Ppm\Repository\Picture
+     * @var string
      */
-    private $repository;
+    private $thumbnailPath;
 
-    public function __construct( PictureRepository $repository )
+    public function __construct( $thumbnailsPath )
     {
-        $this->repository = $repository;
+        $this->thumbnailPath = (string)$thumbnailsPath;
     }
 
-    public function process()
+    /**
+     * @return string
+     */
+    public function getThumbnailPath()
     {
-        $allP
+        return $this->thumbnailPath;
     }
+
+
 
 } 

@@ -70,7 +70,7 @@ class ExtractExif {
             }
         }
 
-        var_dump( $exif );
+        //var_dump( $exif );
 
         $picture->setExif( $exif );
         $picture->setExifComplete( $exif );
