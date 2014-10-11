@@ -68,9 +68,9 @@
 
 
 
-            <div ng-repeat="phone in phones" class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <div ng-repeat="thumbnail in thumbnails" class="col-lg-3 col-md-4 col-xs-6 thumb">
                 <a class="thumbnail" href="#">
-                    <p>{{phone.name}}</p>
+                    <img src="{{thumbnail.href}}" />
                 </a>
             </div>
 

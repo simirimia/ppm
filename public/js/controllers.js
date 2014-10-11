@@ -2,8 +2,8 @@ var ppmApp = angular.module('ppmApp', []);
 
 ppmApp.controller('PpmCtrl', function ($scope, $http) {
 
-    $http.get('data.php').success(function(data) {
-        $scope.phones = data;
+    $http.get('/rest/pictures/thumbnails/small').success(function(data) {
+        $scope.thumbnails = data;
     });
 
 });

@@ -69,19 +69,21 @@ class GenerateThumbnails
                     break;
             }
 
-            $path = $this->command->getThumbnailPath() . '/' . $picture->getId() . '_' . (string)$size;
+            $filename = $picture->getId() . '_' . (string)$size . '.jpg';
+
+            $path = $this->command->getThumbnailPath() . '/' . $filename;
 
             $image->save( $path );
 
             switch( $name ) {
                 case 'small':
-                    $picture->setThumbSmall( $path );
+                    $picture->setThumbSmall( $filename );
                     break;
                 case 'medium':
-                    $picture->setThumbMedium( $path );
+                    $picture->setThumbMedium( $filename );
                     break;
                 case 'large':
-                    $picture->setThumbLarge( $path );
+                    $picture->setThumbLarge( $filename );
                     break;
             }
         }
