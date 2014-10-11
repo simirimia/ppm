@@ -23,10 +23,10 @@ if ( false === isset($_SERVER['REQUEST_METHOD']) )
 
 switch( $_SERVER['REQUEST_METHOD'] ){
     case 'GET':
-        $dispather = new \Simirimia\Ppm\QueryDispatcher();
+        $dispather = new \Simirimia\Ppm\QueryDispatcher( $logger );
         break;
     case 'POST':
-        $dispather = new \Simirimia\Ppm\CommandDispatcher();
+        $dispather = new \Simirimia\Ppm\CommandDispatcher( $logger );
         break;
     default:
         echo json_encode( [ 'error' => 'Unknown HTTP method' ] );
@@ -36,9 +36,9 @@ switch( $_SERVER['REQUEST_METHOD'] ){
 if (isset($_SERVER['REQUEST_URI'])) {
     $url = $_SERVER['REQUEST_URI'];
 } else {
-    $url = "/rest/pictures/thumbnails/create";
+    //$url = "/rest/pictures/thumbnails/create";
     //$url = "/rest/pictures/thumbnails/small";
-    //$url = '/rest/pictures/scan';
+    $url = '/rest/pictures/scan';
     //$url = '/rest/picture/extract-exif';
 }
 

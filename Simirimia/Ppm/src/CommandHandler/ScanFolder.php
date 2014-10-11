@@ -11,6 +11,7 @@ namespace Simirimia\Ppm\CommandHandler;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Entity\Picture;
 use Simirimia\Ppm\Command\ScanFolder as ScanFolderCommand;
+use Monolog\Logger;
 
 class ScanFolder {
 
@@ -24,10 +25,16 @@ class ScanFolder {
      */
     private $repository;
 
-    public function __construct( ScanFolderCommand $command, PictureRepository $repository )
+    /**
+     * @var \Monolog\Logger
+     */
+    private $logger;
+
+    public function __construct( ScanFolderCommand $command, PictureRepository $repository, Logger $logger )
     {
         $this->command = $command;
         $this->repository = $repository;
+        $this->logger = $logger;
     }
 
     public function process()
@@ -37,14 +44,18 @@ class ScanFolder {
 
     private function scan( $dir )
     {
-        foreach( glob($dir, GLOB_ONLYDIR ) as $subfolder ) {
-            $this->scan( $subfolder . '/*' );
+        $this->logger->addDebug( 'Scanning dir: ' . $dir . ' for other dirs' );
+
+        foreach( glob($dir, GLOB_ONLYDIR ) as $subFolder ) {
+            $this->scan( $subFolder . '/*' );
         }
         $this->scanForPicures( $dir );
     }
 
     private function scanForPicures( $dir )
     {
+        $this->logger->addDebug( 'Scanning dir: ' . $dir . ' for pictures ' );
+
         $basePath = explode( '/', $this->command->getPath() );
         $dirPath = explode( '/', $dir );
         $pathTags = array_diff( $dirPath, $basePath, ['*'] );
@@ -52,11 +63,15 @@ class ScanFolder {
         foreach( glob( $dir . '*.JPG' ) as $path ) {
 
             if ( null === $this->repository->findByPath($path) ) {
+                $this->logger->addDebug( 'Adding picture: ' . $path );
                 $picture = new Picture();
                 $picture->setPath( $path );
                 $picture->addTags( $pathTags );
                 $this->repository->save( $picture );
+            } else {
+                $this->logger->addDebug( 'Skipping picture: ' . $path );
             }
+
         }
 
     }

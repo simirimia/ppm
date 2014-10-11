@@ -8,8 +8,19 @@
 
 namespace Simirimia\Ppm;
 
+use Monolog\Logger;
+
 abstract class Dispatcher
 {
+    /**
+     * @var \Monolog\Logger
+     */
+    private $logger;
+
+    public function __construct( Logger $logger )
+    {
+        $this->logger = $logger;
+    }
 
     public function dispatch( $url )
     {
@@ -20,6 +31,14 @@ abstract class Dispatcher
         }
 
         return $handler->process();
+    }
+
+    /**
+     * @return Logger
+     */
+    protected function getLogger()
+    {
+        return $this->logger;
     }
 
     protected abstract function resolveUrl( $url );

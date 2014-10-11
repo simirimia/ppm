@@ -23,7 +23,7 @@ class CommandDispatcher extends Dispatcher
                 return $handler;
             case '/rest/pictures/scan':
                 $command = new Command\ScanFolder( new Config() );
-                $handler = new CommandHandler\ScanFolder( $command, new PictureRepository() );
+                $handler = new CommandHandler\ScanFolder( $command, new PictureRepository(), $this->getLogger() );
                 return $handler;
             case '/rest/picture/extract-exif':
                 $command = new Command\ExtractExif();
