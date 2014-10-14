@@ -22,9 +22,9 @@ abstract class Dispatcher
         $this->logger = $logger;
     }
 
-    public function dispatch( $url )
+    public function dispatch( Request $request )
     {
-        $handler = $this->resolveUrl( $url );
+        $handler = $this->resolveUrl( $request );
 
         if ( $handler === null ) {
             return [ 'error' => 'No handler found' ];
@@ -41,6 +41,6 @@ abstract class Dispatcher
         return $this->logger;
     }
 
-    protected abstract function resolveUrl( $url );
+    protected abstract function resolveUrl( Request $request );
 
 } 

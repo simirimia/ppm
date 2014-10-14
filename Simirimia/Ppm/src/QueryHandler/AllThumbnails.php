@@ -32,7 +32,7 @@ class AllThumbnails
 
     public function process()
     {
-        $pictures = $this->repository->findAll();
+        $pictures = $this->repository->findLimitedSet( $this->command->getLimit(), $this->command->getOffset() );
         $data = [];
 
         /** @var $picture Picture */

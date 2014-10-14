@@ -61,6 +61,20 @@ class Picture {
         return $result;
     }
 
+    public function findLimitedSet( $limit, $offset )
+    {
+        $limit = (int)$limit;
+        $offset = (int)$offset;
+        $data = R::getAll( 'SELECT * FROM picture LIMIT ' . $limit . ' OFFSET ' . $offset );
+        $data = R::convertToBeans( 'picture', $data );
+        $result = [];
+
+        foreach( $data as $bean ) {
+            $result[] = $this->beanToEntity( $bean );
+        }
+        return $result;
+    }
+
     /**
      * @param $bean
      * @return PictureEntity
@@ -82,6 +96,7 @@ class Picture {
 
         return $entity;
     }
+
 
     /**
      * @param PictureEntity $entity

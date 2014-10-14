@@ -12,10 +12,10 @@ use Simirimia\Ppm\Repository\Picture as PictureRepository;
 
 class CommandDispatcher extends Dispatcher
 {
-    protected  function resolveUrl( $url )
+    protected  function resolveUrl( Request $request )
     {
 
-        switch( $url )
+        switch( $request->getUrl() )
         {
             case '/rest/pictures/thumbnails/create':
                 $command = new Command\GenerateThumbnails( new Config() );

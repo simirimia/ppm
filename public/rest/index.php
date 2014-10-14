@@ -36,18 +36,9 @@ switch( $_SERVER['REQUEST_METHOD'] ){
 }
 
 
-if (isset($_SERVER['REQUEST_URI'])) {
-    $url = $_SERVER['REQUEST_URI'];
-} elseif ($_SERVER['argv'][2]) {
-    $url = $_SERVER['argv'][2];
-} else {
-    //$url = "/rest/pictures/thumbnails/create";
-    //$url = "/rest/pictures/thumbnails/small";
-    //$url = '/rest/pictures/scan';
-    //$url = '/rest/picture/extract-exif';
-}
 
-$result = $dispather->dispatch( $url );
+
+$result = $dispather->dispatch( \Simirimia\Ppm\Request::createFromSuperGlobals() );
 
 echo json_encode( $result );
 

@@ -12,13 +12,13 @@ use Simirimia\Ppm\Repository\Picture as PictureRepository;
 
 class QueryDispatcher extends Dispatcher
 {
-    protected function resolveUrl( $url )
+    protected function resolveUrl( Request $request )
     {
 
-        switch( $url )
+        switch( $request->getUrl() )
         {
             case '/rest/pictures/thumbnails/small':
-                $query = new Query\AllThumbnails( 'small' );
+                $query = new Query\AllThumbnails( 'small', $request->getPageSize(), $request->getPageSize()*$request->getPage() );
                 $handler = new QueryHandler\AllThumbnails( $query, new PictureRepository() );
                 return $handler;
         }
