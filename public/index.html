@@ -75,8 +75,8 @@
 
 
             <div ng-repeat="thumbnail in thumbnails" class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="img-thumbnail" href="#">
-                    <img src="{{thumbnail.href}}" />
+                <a class="img-thumbnail" href="#" ng-click="showThumbnailModal(thumbnail.id)">
+                    <img ng-src="{{thumbnail.href}}" />
                 </a>
                 <span class="label label-primary">{{thumbnail.id}}</span>
                 <span class="label label-info" ng-repeat="tag in thumbnail.tags">{{tag}}</span>
@@ -92,6 +92,22 @@
         </div>
 
         <hr>
+
+
+        <!-- partials -->
+
+        <script type="text/ng-template" id="myModalContent.html">
+            <div>
+                <!--<span class="glyphicon glyphicon-search"></span>-->
+                <button type="button" class="close" ng-click="close()">X</button>
+            </div>
+            <div>
+                <img src="/thumbnail/{{ pictureId }}_800.jpg">
+            </div>
+        </script>
+
+
+
 
         <!-- Footer
         <footer>
