@@ -18,29 +18,39 @@ $logger->addInfo( 'Logging started' );
 
 if ( false === isset($_SERVER['REQUEST_METHOD']) ) {
     if ( isset($_SERVER['argv'][1]) ) {
-        $_SERVER['REQUEST_METHOD'] = $_SERVER['argv'][1];
+        $requestMethod = $_SERVER['argv'][1];
     } else {
-        $_SERVER['REQUEST_METHOD'] = 'POST';
+        $requestMethod = 'POST';
     }
+} else {
+    $requestMethod = $_SERVER['REQUEST_METHOD'];
 }
 
-switch( $_SERVER['REQUEST_METHOD'] ){
+
+switch( $requestMethod ) {
     case 'GET':
-        $dispather = new \Simirimia\Ppm\QueryDispatcher( $logger );
+        $dispatcher = new \Simirimia\Ppm\QueryDispatcher( $logger );
         break;
     case 'POST':
-        $dispather = new \Simirimia\Ppm\CommandDispatcher( $logger );
+        $dispatcher = new \Simirimia\Ppm\CommandDispatcher( $logger );
         break;
     default:
         echo json_encode( [ 'error' => 'Unknown HTTP method' ] );
+        die();
 }
 
 
+$result = $dispatcher->dispatch( \Simirimia\Ppm\Request::createFromSuperGlobals() );
 
 
-$result = $dispather->dispatch( \Simirimia\Ppm\Request::createFromSuperGlobals() );
+if ( $result instanceof \Simirimia\Ppm\ArrayResult ) {
+    $renderer = new \Simirimia\Ppm\ArrayResultRenderer( $result );
+} elseif( $result instanceof \Simirimia\Ppm\FilePathResult ) {
+    $renderer = new \Simirimia\Ppm\FilePathRenderer( $result );
+}
 
-echo json_encode( $result );
+
+$renderer->render();
 
 
 // ******

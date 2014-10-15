@@ -26,8 +26,8 @@ ppmApp.controller('PpmCtrl', function ($scope, $http, $modal) {
     $scope.previewSize = 800;
     $scope.showThumbnailModal = function( pictureId ) {
         var modalInstance = $modal.open({
-            templateUrl: 'myModalContent.html',
-            controller: 'ModalInstanceCtrl',
+            templateUrl: 'thumbnailPreview.html',
+            controller: 'ThumbnailPreviewInstanceCtrl',
             size: 'lg',
             resolve: {
                 pictureId: function() {
@@ -55,7 +55,7 @@ ppmApp.controller('PpmCtrl', function ($scope, $http, $modal) {
 });
 
 
-ppmApp.controller('ModalInstanceCtrl', function ($scope, $modalInstance, pictureId, size) {
+ppmApp.controller('ThumbnailPreviewInstanceCtrl', function ($scope, $modalInstance, pictureId, size) {
     $scope.pictureId = pictureId;
     $scope.size = size;
 

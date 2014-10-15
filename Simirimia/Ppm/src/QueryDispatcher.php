@@ -15,12 +15,20 @@ class QueryDispatcher extends Dispatcher
     protected function resolveUrl( Request $request )
     {
 
+        // static URLs without variables
         switch( $request->getUrl() )
         {
             case '/rest/pictures/thumbnails/small':
                 $query = new Query\AllThumbnails( 'small', $request->getPageSize(), $request->getPageSize()*$request->getPage() );
-                $handler = new QueryHandler\AllThumbnails( $query, new PictureRepository() );
-                return $handler;
+                return new QueryHandler\AllThumbnails( $query, new PictureRepository() );
+        }
+
+        // dynamic URLs
+        $matches = [];
+
+        if ( preg_match( '#/rest/pictures/(\d.)/original#', $request->getUrl(), $matches ) ) {
+            $query = new Query\Original( $matches[1] );
+            return new QueryHandler\Original( $query, new PictureRepository() );
         }
 
 

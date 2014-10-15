@@ -47,6 +47,17 @@ class Picture {
         return $result;
     }
 
+    public function findById( $id )
+    {
+        $id = (int)$id;
+        $bean = R::load( 'picture', $id );
+        if ( empty($bean) ) {
+            return null;
+        }
+
+        return $this->beanToEntity( $bean );
+    }
+
     /**
      * @return array
      */

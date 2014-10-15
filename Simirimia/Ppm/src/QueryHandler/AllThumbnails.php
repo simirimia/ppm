@@ -8,6 +8,7 @@
 
 namespace Simirimia\Ppm\QueryHandler;
 
+use Simirimia\Ppm\ArrayResult;
 use Simirimia\Ppm\Query\AllThumbnails as AllThumbnailsCommand;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Entity\Picture;
@@ -54,6 +55,6 @@ class AllThumbnails
             $data[] = $thumbnail;
         }
 
-        return $data;
+        return new ArrayResult( $data );
     }
 } 
