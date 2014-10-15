@@ -11,9 +11,15 @@ footer {
 }
 
 .modal-lg {
-    width: 70%;
+    width: 80%;
+    border: none;
 }
 
 .modal-content {
-    background: transparent;
+    background: #222222;
+    border: none;
+}
+
+.modal-image-wrapper {
+    padding: 2em;
 }

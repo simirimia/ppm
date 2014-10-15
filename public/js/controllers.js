@@ -40,11 +40,11 @@ ppmApp.controller('PpmCtrl', function ($scope, $http, $modal) {
             backdrop: true
         });
 
-        modalInstance.result.then(function ( pictureId ) {
-            $scope.previewSize = 1400;
-            $scope.showThumbnailModal( pictureId );
+        modalInstance.result.then(function ( ret ) {
+            $scope.previewSize = ret[1];
+            $scope.showThumbnailModal( ret[0] );
         }, function () {
-            $scope.previewSize = 800;
+            //$scope.previewSize = 800;
         });
 
     };
@@ -60,8 +60,12 @@ ppmApp.controller('ModalInstanceCtrl', function ($scope, $modalInstance, picture
     $scope.size = size;
 
     $scope.showLarge = function() {
-        $modalInstance.close( pictureId );
-    }
+        $modalInstance.close( [ pictureId, 1400 ] );
+    };
+
+    $scope.showSmall = function() {
+        $modalInstance.close( [ pictureId, 800 ] );
+    };
 
     $scope.close = function() {
         $modalInstance.dismiss('close');
