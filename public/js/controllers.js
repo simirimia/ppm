@@ -23,17 +23,30 @@ ppmApp.controller('PpmCtrl', function ($scope, $http, $modal) {
     };
 
 
+    $scope.previewSize = 800;
     $scope.showThumbnailModal = function( pictureId ) {
         var modalInstance = $modal.open({
             templateUrl: 'myModalContent.html',
             controller: 'ModalInstanceCtrl',
+            size: 'lg',
             resolve: {
                 pictureId: function() {
                     return pictureId;
+                },
+                size: function() {
+                    return $scope.previewSize;
                 }
             },
             backdrop: true
         });
+
+        modalInstance.result.then(function ( pictureId ) {
+            $scope.previewSize = 1400;
+            $scope.showThumbnailModal( pictureId );
+        }, function () {
+            $scope.previewSize = 800;
+        });
+
     };
 
 
@@ -42,10 +55,17 @@ ppmApp.controller('PpmCtrl', function ($scope, $http, $modal) {
 });
 
 
-ppmApp.controller('ModalInstanceCtrl', function ($scope, $modalInstance, pictureId) {
+ppmApp.controller('ModalInstanceCtrl', function ($scope, $modalInstance, pictureId, size) {
     $scope.pictureId = pictureId;
+    $scope.size = size;
+
+    $scope.showLarge = function() {
+        $modalInstance.close( pictureId );
+    }
 
     $scope.close = function() {
         $modalInstance.dismiss('close');
     };
+
+
 });
