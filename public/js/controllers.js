@@ -9,18 +9,18 @@ ppmApp.controller('PpmCtrl', function ($scope, $http, $modal) {
     $scope.thumbnailsPageChanged = function() {
         console.log( 'New thumbnail page: ' + $scope.thumbnailsCurrentPage );
         $scope.loadThumbnails( $scope );
-    }
+    };
 
     $scope.setPage = function( pageNumber ) {
         console.log( 'setting page to: ' + pageNumber );
         $scope.currentPage = pageNumber;
-    }
+    };
 
     $scope.loadThumbnails = function( $scope ) {
         $http.get('/rest/pictures/thumbnails/small?page=' + $scope.thumbnailsCurrentPage + '&pageSize=' + $scope.thumbnailsPageSize).success(function(data) {
             $scope.thumbnails = data;
         });
-    }
+    };
 
 
     $scope.showThumbnailModal = function( pictureId ) {
@@ -34,7 +34,7 @@ ppmApp.controller('PpmCtrl', function ($scope, $http, $modal) {
             },
             backdrop: true
         });
-    }
+    };
 
 
     // init calls
@@ -47,5 +47,5 @@ ppmApp.controller('ModalInstanceCtrl', function ($scope, $modalInstance, picture
 
     $scope.close = function() {
         $modalInstance.dismiss('close');
-    }
+    };
 });
