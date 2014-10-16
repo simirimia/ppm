@@ -16,9 +16,15 @@ class FilePathResult {
      */
     private $path;
 
-    public function __construct( $path )
+    /**
+     * @var string
+     */
+    private $mimeType;
+
+    public function __construct( $path, $mimeType )
     {
         $this->path = (string)$path;
+        $this->mimeType = (string)$mimeType;
     }
 
     /**
@@ -29,5 +35,12 @@ class FilePathResult {
         return $this->path;
     }
 
+    /**
+     * @return string
+     */
+    public function getMimeType()
+    {
+        return $this->mimeType;
+    }
 
 }

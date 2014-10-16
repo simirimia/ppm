@@ -23,10 +23,12 @@ class FilePathRenderer
 
     public function render()
     {
-        $path = $this->result->getPath();
         if ( file_exists( $this->result->getPath() ) ) {
+            header(  'Content-type: ' . $this->result->getMimeType() );
             $handle = fopen( $this->result->getPath(), 'r' );
             fpassthru( $handle );
+        } else {
+            var_dump( $this->result->getPath() );
         }
     }
 }

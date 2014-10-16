@@ -41,6 +41,6 @@ class Original
     public function process()
     {
         $picture = $this->repository->findById( $this->command->getId() );
-        return new FilePathResult( $picture->getPath() );
+        return new FilePathResult( $picture->getPath(), 'image/jpeg' );
     }
 } 

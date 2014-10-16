@@ -55,7 +55,7 @@ ppmApp.controller('PpmCtrl', function ($scope, $http, $modal) {
 });
 
 
-ppmApp.controller('ThumbnailPreviewInstanceCtrl', function ($scope, $modalInstance, pictureId, size) {
+ppmApp.controller('ThumbnailPreviewInstanceCtrl', function ($scope, $modalInstance, $window, pictureId, size) {
     $scope.pictureId = pictureId;
     $scope.size = size;
 
@@ -71,5 +71,8 @@ ppmApp.controller('ThumbnailPreviewInstanceCtrl', function ($scope, $modalInstan
         $modalInstance.dismiss('close');
     };
 
+    $scope.showOriginal = function() {
+        $window.open('/rest/pictures/' + pictureId + '/original');
+    }
 
 });

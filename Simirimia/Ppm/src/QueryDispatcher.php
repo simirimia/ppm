@@ -26,7 +26,7 @@ class QueryDispatcher extends Dispatcher
         // dynamic URLs
         $matches = [];
 
-        if ( preg_match( '#/rest/pictures/(\d.)/original#', $request->getUrl(), $matches ) ) {
+        if ( preg_match( '#/rest/pictures/(\d*)/original#', $request->getUrl(), $matches ) ) {
             $query = new Query\Original( $matches[1] );
             return new QueryHandler\Original( $query, new PictureRepository() );
         }
