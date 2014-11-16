@@ -86,6 +86,23 @@ class Picture {
         return $result;
     }
 
+    public function findByTag( $tag, $limit, $offset )
+    {
+        $limit = (int)$limit;
+        $offset = (int)$offset;
+        $data = R::tagged( 'picture', [$tag] );
+
+        $data = array_slice( $data, $offset, $limit );
+
+        $data = R::convertToBeans( 'picture', $data );
+        $result = [];
+
+        foreach( $data as $bean ) {
+            $result[] = $this->beanToEntity( $bean );
+        }
+        return $result;
+    }
+
     /**
      * @param $bean
      * @return PictureEntity
