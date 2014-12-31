@@ -31,6 +31,11 @@ class QueryDispatcher extends Dispatcher
             return new QueryHandler\Original( $query, new PictureRepository() );
         }
 
+        if ( preg_match( '#/rest/pictures/(\d*)/exif#', $request->getUrl(), $matches ) ) {
+            $query = new Query\Exif( $matches[1] );
+            return new QueryHandler\Exif( $query, new PictureRepository() );
+        }
+
         if ( preg_match(  '#/rest/tags/(.*)/thumbnails/small#', $request->getUrl(), $matches ) ) {
             $query = new Query\ThumbnailsPerTag( 'small', urldecode($matches[1]), $request->getPageSize(), $request->getPageSize()*$request->getPage() );
             return new QueryHandler\ThumbnailsPerTag( $query, new PictureRepository() );

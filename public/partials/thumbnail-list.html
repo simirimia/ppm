@@ -18,7 +18,7 @@
             <a class="img-thumbnail" href="#" ng-click="showThumbnailModal(thumbnail.id)">
                 <img ng-src="{{thumbnail.href}}" />
             </a>
-            <span class="label label-primary">{{thumbnail.id}}</span>
+            <span class="label label-primary"><a ng-click="showDetail(thumbnail.id)">{{thumbnail.id}}</a></span>
             <span class="label label-info" ng-repeat="tag in thumbnail.tags"><a ng-click="showThumbnailsForTag(tag)">{{tag}}</a></span>
         </div>
 

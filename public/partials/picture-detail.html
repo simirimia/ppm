@@ -1,3 +1,7 @@
 <div>
-    picture-detail.html partial to show picuture {{pictureId}}
+
+    <img src="/thumbnail/{{ pictureId }}_1400.jpg">
+
+    <div ng-repeat="exifDetail in exif" >{{exifDetail.name}}: {{exifDetail.value}}</div>
+
 </div>

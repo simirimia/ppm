@@ -68,6 +68,11 @@ ppmControllers.ThumbnailListHelper_init = function( $scope, $modal, $location ) 
         $location.path( 'pictures/tags/' + tag );
     };
 
+    $scope.showDetail = function( pictureId ) {
+        console.log( 'Show detail view for pictureId:' + pictureId );
+        $location.path( '/pictures/' + pictureId );
+    };
+
     $scope.previewSize = 800;
     $scope.showThumbnailModal = function( pictureId ) {
         var modalInstance = $modal.open({
@@ -123,7 +128,31 @@ ppmControllers.controller('ThumbnailPreviewInstanceCtrl', function ($scope, $mod
 });
 
 // controller for the picture detail view
-ppmControllers.controller('PictureDetailCtrl', ['$scope', '$routeParams',
-     function($scope, $routeParams) {
+ppmControllers.controller('PictureDetailCtrl', function($scope, $routeParams, $http) {
+
          $scope.pictureId = $routeParams.pictureId;
-}]);
+
+         $scope.loadExif = function(  pictureId) {
+             $http.get('/rest/pictures/' + pictureId + '/exif').success(function(data) {
+                 $scope.exif = data;
+             });
+         };
+
+         $scope.loadExif( $routeParams.pictureId );
+});
+
+/*
+ppmControllers.controller('PictureDetailCtrl', ['$scope', '$routeParams', '$http',
+    function($scope, $routeParams, $http) {
+
+        $scope.pictureId = $routeParams.pictureId;
+
+        $scope.loadExif = function() {
+            $http.get('/rest/pictures/' + pictureId + '/exif').success(function(data) {
+                $scope.exif = data;
+            });
+        };
+
+        $scope.loadExif();
+    }]);
+    */
