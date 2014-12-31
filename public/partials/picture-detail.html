@@ -1,9 +1,14 @@
 <div>
 
-    <img src="/thumbnail/{{ pictureId }}_1400.jpg">
+    <div>
+        <h2>TAGS</h2>
+        <div>
+            <span class="label label-info" ng-repeat="tag in details.tags"><a ng-click="showThumbnailsForTag(tag)">{{tag}}</a></span>
+        </div>
+        <input name="'newTag" ng-model="newTag" ng-keypress="newTagKeyPressed()" /> <button ng-click="addTag()">Add Tag</button>
+    </div>
 
-    <h2>TAGS</h2>
-    <span class="label label-info" ng-repeat="tag in details.tags"><a ng-click="showThumbnailsForTag(tag)">{{tag}}</a></span>
+    <img src="/thumbnail/{{ pictureId }}_1400.jpg">
 
     <h2>EXIF</h2>
     <div ng-repeat="exif in details.exif" >{{exif.name}}: {{exif.value}}</div>

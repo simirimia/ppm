@@ -23,6 +23,10 @@ class Request
      * @var int
      */
     private $pageSize;
+    /**
+     * @var string
+     */
+    private $body;
 
     public static function createFromSuperGlobals()
     {
@@ -40,12 +44,13 @@ class Request
         $url = explode( '?', $url );
         $url = array_shift( $url );
 
-        return new Request( $url, $_GET );
+        return new Request( $url, $_GET, file_get_contents('php://input') );
     }
 
-    public function __construct( $url, array $queryParams )
+    public function __construct( $url, array $queryParams, $body )
     {
         $this->url = (string)$url;
+        $this->body = $body;
 
         $this->page = isset($queryParams['page']) ? $queryParams['page'] : 1;
         $this->pageSize = isset($queryParams['pageSize']) ? $queryParams['pageSize'] : 20;
@@ -74,6 +79,15 @@ class Request
     {
         return $this->url;
     }
+
+    /**
+     * @return string
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
 
 
 } 
