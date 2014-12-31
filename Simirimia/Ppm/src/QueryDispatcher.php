@@ -32,7 +32,7 @@ class QueryDispatcher extends Dispatcher
         }
 
         if ( preg_match(  '#/rest/tags/(.*)/thumbnails/small#', $request->getUrl(), $matches ) ) {
-            $query = new Query\ThumbnailsPerTag( 'small', $matches[1], $request->getPageSize(), $request->getPageSize()*$request->getPage() );
+            $query = new Query\ThumbnailsPerTag( 'small', urldecode($matches[1]), $request->getPageSize(), $request->getPageSize()*$request->getPage() );
             return new QueryHandler\ThumbnailsPerTag( $query, new PictureRepository() );
         }
 

@@ -5,7 +5,50 @@ ppmControllers.controller('PpmCtrl', function($scope) {
 
 });
 
-ppmControllers.controller('ThumbnailListCtrl', function ($scope, $http, $modal) {
+/**
+ * Thumbnail view which shows thumbnails for all pictures
+ */
+ppmControllers.controller('ThumbnailListCtrl', function ($scope, $http, $modal, $location) {
+
+
+    $scope.loadThumbnails = function( $scope ) {
+        $http.get('/rest/pictures/thumbnails/small?page=' + $scope.thumbnailsCurrentPage + '&pageSize=' + $scope.thumbnailsPageSize).success(function(data) {
+            $scope.thumbnails = data;
+        });
+    };
+
+
+    // init calls
+    ppmControllers.ThumbnailListHelper_init( $scope, $modal, $location );
+    $scope.loadThumbnails( $scope );
+});
+
+/**
+ * Thumbnail view which shows thumbnails for all pictures with a given tag
+ */
+ppmControllers.controller('ThumbnailsListByTagCtrl', function ($scope, $http, $modal, $routeParams, $location) {
+
+    $scope.loadThumbnails = function( $scope ) {
+        $http.get('/rest/tags/' + $routeParams.tag + '/thumbnails/small?page=' + $scope.thumbnailsCurrentPage + '&pageSize=' + $scope.thumbnailsPageSize).success(function(data) {
+            $scope.thumbnails = data;
+        });
+    };
+
+    $scope.selectedTag = $routeParams.tag;
+
+    // init calls
+    ppmControllers.ThumbnailListHelper_init( $scope, $modal, $location );
+
+
+    $scope.loadThumbnails( $scope );
+
+
+});
+
+/**
+ * Base stuff done for all controller which produce a thumbnail list as output
+ */
+ppmControllers.ThumbnailListHelper_init = function( $scope, $modal, $location ) {
 
     $scope.thumbnailsCurrentPage = 1;
     $scope.thumbnailsPageSize = 20;
@@ -21,18 +64,9 @@ ppmControllers.controller('ThumbnailListCtrl', function ($scope, $http, $modal) 
         $scope.currentPage = pageNumber;
     };
 
-    $scope.loadThumbnails = function( $scope ) {
-        $http.get('/rest/pictures/thumbnails/small?page=' + $scope.thumbnailsCurrentPage + '&pageSize=' + $scope.thumbnailsPageSize).success(function(data) {
-            $scope.thumbnails = data;
-        });
-    };
-
     $scope.showThumbnailsForTag = function( tag ) {
-        $http.get('/rest/tags/' + tag + '/thumbnails/small?page=' + $scope.thumbnailsCurrentPage + '&pageSize=' + $scope.thumbnailsPageSize).success(function(data) {
-            $scope.thumbnails = data;
-        });
-    }
-
+        $location.path( 'pictures/tags/' + tag );
+    };
 
     $scope.previewSize = 800;
     $scope.showThumbnailModal = function( pictureId ) {
@@ -61,9 +95,8 @@ ppmControllers.controller('ThumbnailListCtrl', function ($scope, $http, $modal) 
     };
 
 
-    // init calls
-    $scope.loadThumbnails( $scope );
-});
+};
+
 
 
 // controller for overlay with bigger preview within the thumbnail list view
