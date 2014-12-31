@@ -1,6 +1,11 @@
-var ppmApp = angular.module('ppmApp', ['ui.bootstrap']);
 
-ppmApp.controller('PpmCtrl', function ($scope, $http, $modal) {
+var ppmControllers = angular.module('ppmControllers', []);
+
+ppmControllers.controller('PpmCtrl', function($scope) {
+
+});
+
+ppmControllers.controller('ThumbnailListCtrl', function ($scope, $http, $modal) {
 
     $scope.thumbnailsCurrentPage = 1;
     $scope.thumbnailsPageSize = 20;
@@ -21,6 +26,12 @@ ppmApp.controller('PpmCtrl', function ($scope, $http, $modal) {
             $scope.thumbnails = data;
         });
     };
+
+    $scope.showThumbnailsForTag = function( tag ) {
+        $http.get('/rest/tags/' + tag + '/thumbnails/small?page=' + $scope.thumbnailsCurrentPage + '&pageSize=' + $scope.thumbnailsPageSize).success(function(data) {
+            $scope.thumbnails = data;
+        });
+    }
 
 
     $scope.previewSize = 800;
@@ -55,7 +66,8 @@ ppmApp.controller('PpmCtrl', function ($scope, $http, $modal) {
 });
 
 
-ppmApp.controller('ThumbnailPreviewInstanceCtrl', function ($scope, $modalInstance, $window, pictureId, size) {
+// controller for overlay with bigger preview within the thumbnail list view
+ppmControllers.controller('ThumbnailPreviewInstanceCtrl', function ($scope, $modalInstance, $window, pictureId, size) {
     $scope.pictureId = pictureId;
     $scope.size = size;
 
@@ -76,3 +88,9 @@ ppmApp.controller('ThumbnailPreviewInstanceCtrl', function ($scope, $modalInstan
     }
 
 });
+
+// controller for the picture detail view
+ppmControllers.controller('PictureDetailCtrl', ['$scope', '$routeParams',
+     function($scope, $routeParams) {
+         $scope.pictureId = $routeParams.pictureId;
+}]);

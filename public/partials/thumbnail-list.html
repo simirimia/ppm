@@ -1,0 +1,54 @@
+
+<!-- Page Content -->
+<div class="container">
+
+    <div>
+        <pagination total-items="1000" ng-change="thumbnailsPageChanged()" ng-model="thumbnailsCurrentPage" max-size="thumbnailsPageSize" class="pagination-sm" boundary-links="true"></pagination>
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-12">
+            <h1 class="page-header">Thumbnail Gallery</h1>
+        </div>
+
+
+
+        <div ng-repeat="thumbnail in thumbnails" class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <a class="img-thumbnail" href="#" ng-click="showThumbnailModal(thumbnail.id)">
+                <img ng-src="{{thumbnail.href}}" />
+            </a>
+            <span class="label label-primary">{{thumbnail.id}}</span>
+            <span class="label label-info" ng-repeat="tag in thumbnail.tags"><a ng-click="showThumbnailsForTag(tag)">{{tag}}</a></span>
+        </div>
+
+
+
+    </div>
+
+
+    <div>
+        <pagination total-items="1000" ng-change="thumbnailsPageChanged()" ng-model="thumbnailsCurrentPage" max-size="thumbnailsPageSize" class="pagination-sm" boundary-links="true"></pagination>
+    </div>
+
+    <hr>
+
+
+    <!-- partials -->
+
+    <script type="text/ng-template" id="thumbnailPreview.html">
+        <div>
+            <span class="glyphicon glyphicon-plus" ng-click="showLarge()">&nbsp;</span>
+            <span class="glyphicon glyphicon-minus" ng-click="showSmall()">&nbsp;</span>
+            <span class="glyphicon glyphicon-cloud-download" ng-click="showOriginal()">&nbsp;</span>
+            <button type="button" class="close" ng-click="close()">X</button>
+        </div>
+        <div class="modal-image-wrapper">
+            <img src="/thumbnail/{{ pictureId }}_{{size}}.jpg">
+        </div>
+    </script>
+
+
+
+</div>
+<!-- /.container -->
