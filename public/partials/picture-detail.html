@@ -2,6 +2,10 @@
 
     <img src="/thumbnail/{{ pictureId }}_1400.jpg">
 
-    <div ng-repeat="exifDetail in exif" >{{exifDetail.name}}: {{exifDetail.value}}</div>
+    <h2>TAGS</h2>
+    <span class="label label-info" ng-repeat="tag in details.tags"><a ng-click="showThumbnailsForTag(tag)">{{tag}}</a></span>
+
+    <h2>EXIF</h2>
+    <div ng-repeat="exif in details.exif" >{{exif.name}}: {{exif.value}}</div>
 
 </div>

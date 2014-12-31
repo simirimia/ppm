@@ -26,15 +26,25 @@ class QueryDispatcher extends Dispatcher
         // dynamic URLs
         $matches = [];
 
-        if ( preg_match( '#/rest/pictures/(\d*)/original#', $request->getUrl(), $matches ) ) {
-            $query = new Query\Original( $matches[1] );
-            return new QueryHandler\Original( $query, new PictureRepository() );
+        // URLs starting with /rest/pictures
+
+        if ( preg_match( '#/rest/pictures/(\d*)/details#', $request->getUrl(), $matches ) ) {
+            $query = new Query\PictureDetails( $matches[1] );
+            return new QueryHandler\PictureDetails( $query, new PictureRepository() );
         }
 
         if ( preg_match( '#/rest/pictures/(\d*)/exif#', $request->getUrl(), $matches ) ) {
             $query = new Query\Exif( $matches[1] );
             return new QueryHandler\Exif( $query, new PictureRepository() );
         }
+
+        if ( preg_match( '#/rest/pictures/(\d*)/original#', $request->getUrl(), $matches ) ) {
+            $query = new Query\Original( $matches[1] );
+            return new QueryHandler\Original( $query, new PictureRepository() );
+        }
+
+
+        // URLs starting with /rest/tags
 
         if ( preg_match(  '#/rest/tags/(.*)/thumbnails/small#', $request->getUrl(), $matches ) ) {
             $query = new Query\ThumbnailsPerTag( 'small', urldecode($matches[1]), $request->getPageSize(), $request->getPageSize()*$request->getPage() );
