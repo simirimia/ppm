@@ -19,7 +19,7 @@ class QueryDispatcher extends Dispatcher
         switch( $request->getUrl() )
         {
             case '/rest/pictures/thumbnails/small':
-                $query = new Query\AllThumbnails( 'small', $request->getPageSize(), $request->getPageSize()*$request->getPage() );
+                $query = new Query\AllThumbnails( 'small', $request->getPageSize(), $request->getPageSize()*($request->getPage()-1) );
                 return new QueryHandler\AllThumbnails( $query, new PictureRepository() );
         }
 
@@ -47,7 +47,7 @@ class QueryDispatcher extends Dispatcher
         // URLs starting with /rest/tags
 
         if ( preg_match(  '#/rest/tags/(.*)/thumbnails/small#', $request->getUrl(), $matches ) ) {
-            $query = new Query\ThumbnailsPerTag( 'small', urldecode($matches[1]), $request->getPageSize(), $request->getPageSize()*$request->getPage() );
+            $query = new Query\ThumbnailsPerTag( 'small', urldecode($matches[1]), $request->getPageSize(), $request->getPageSize()*($request->getPage()-1) );
             return new QueryHandler\ThumbnailsPerTag( $query, new PictureRepository() );
         }
 
