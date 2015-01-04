@@ -11,6 +11,11 @@ namespace Simirimia\Ppm;
 
 class Request
 {
+    const GET = 'GET';
+    const POST = 'POST';
+    const DELETE = 'DELETE';
+    const PUT = 'PUT';
+
     /**
      * @var string
      */
@@ -27,6 +32,10 @@ class Request
      * @var string
      */
     private $body;
+    /**
+     * @var string
+     */
+    private $method;
 
     public static function createFromSuperGlobals()
     {
@@ -44,16 +53,18 @@ class Request
         $url = explode( '?', $url );
         $url = array_shift( $url );
 
-        return new Request( $url, $_GET, file_get_contents('php://input') );
+        return new Request( $url, $_GET, file_get_contents('php://input'), $_SERVER['REQUEST_METHOD'] );
     }
 
-    public function __construct( $url, array $queryParams, $body )
+    public function __construct( $url, array $queryParams, $body, $requestMethod )
     {
         $this->url = (string)$url;
         $this->body = $body;
 
         $this->page = isset($queryParams['page']) ? $queryParams['page'] : 1;
         $this->pageSize = isset($queryParams['pageSize']) ? $queryParams['pageSize'] : 20;
+
+        $this->method = $requestMethod;
     }
 
     /**
@@ -87,6 +98,15 @@ class Request
     {
         return $this->body;
     }
+
+    /**
+     * @return string
+     */
+    public function getMethod()
+    {
+        return $this->method;
+    }
+
 
 
 

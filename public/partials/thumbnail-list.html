@@ -18,6 +18,11 @@
             <a class="img-thumbnail" href="#" ng-click="showThumbnailModal(thumbnail.id)">
                 <img ng-src="{{thumbnail.href}}" />
             </a>
+
+
+            <span ng-if="!hasTag('ppm.print.mark', thumbnail.tags)" class="glyphicon glyphicon-print" ng-click="addTag(thumbnail.id, 'ppm.print.mark')">&nbsp;</span>
+            <span ng-if="hasTag('ppm.print.mark', thumbnail.tags)" class="glyphicon glyphicon-print ppm-glyphicon-state-active" ng-click="removeTag(thumbnail.id, 'ppm.print.mark')">&nbsp;</span>
+
             <span class="label label-primary"><a ng-click="showDetail(thumbnail.id)">{{thumbnail.id}}</a></span>
             <span class="label label-info" ng-repeat="tag in thumbnail.tags"><a ng-click="showThumbnailsForTag(tag)">{{tag}}</a></span>
         </div>

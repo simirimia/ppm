@@ -18,7 +18,7 @@ ppmControllers.controller('ThumbnailListCtrl', function ($scope, $http, $modal, 
 
 
     // init calls
-    ppmControllers.ThumbnailListHelper_init($scope, $modal, $location);
+    ppmControllers.ThumbnailListHelper_init($scope, $modal, $location, $http);
     $scope.loadThumbnails($scope);
 });
 
@@ -36,7 +36,7 @@ ppmControllers.controller('ThumbnailsListByTagCtrl', function ($scope, $http, $m
     $scope.selectedTag = $routeParams.tag;
 
     // init calls
-    ppmControllers.ThumbnailListHelper_init($scope, $modal, $location);
+    ppmControllers.ThumbnailListHelper_init($scope, $modal, $location, $http);
 
 
     $scope.loadThumbnails($scope);
@@ -47,7 +47,7 @@ ppmControllers.controller('ThumbnailsListByTagCtrl', function ($scope, $http, $m
 /**
  * Base stuff done for all controller which produce a thumbnail list as output
  */
-ppmControllers.ThumbnailListHelper_init = function ($scope, $modal, $location) {
+ppmControllers.ThumbnailListHelper_init = function ($scope, $modal, $location, $http) {
 
     $scope.thumbnailsCurrentPage = 1;
     $scope.thumbnailsPageSize = 20;
@@ -70,6 +70,32 @@ ppmControllers.ThumbnailListHelper_init = function ($scope, $modal, $location) {
     $scope.showDetail = function (pictureId) {
         console.log('Show detail view for pictureId:' + pictureId);
         $location.path('/pictures/' + pictureId);
+    };
+
+    $scope.addTag = function ( pictureId, tag ) {
+        console.log( 'Adding tag ' + tag + ' to picture with ID ' + pictureId );
+        $http.post( '/rest/pictures/' + pictureId + '/tags', tag).success( function(data) {
+            console.log( 'Tag update returned: ' + data );
+            //$scope.details.tags = data.tags;
+        } );
+    };
+
+    $scope.removeTag = function ( pictureId, tag ) {
+        console.log( 'Removing tag ' + tag + ' to picture with ID ' + pictureId );
+        $http.delete( '/rest/pictures/' + pictureId + '/tags/' + tag).success( function(data) {
+            console.log( 'Tag removal returned: ' + data );
+            //$scope.details.tags = data.tags;
+        } );
+    };
+
+    $scope.hasTag = function( tag, tags ) {
+        var returnValue = false;
+        tags.forEach( function( e ) {
+            if ( e == tag ) {
+                returnValue = true;
+            }
+        } );
+        return returnValue;
     };
 
     $scope.previewSize = 800;

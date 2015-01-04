@@ -23,3 +23,7 @@ footer {
 .modal-image-wrapper {
     padding: 2em;
 }
+
+.ppm-glyphicon-state-active {
+    color: #BBAA22;
+}

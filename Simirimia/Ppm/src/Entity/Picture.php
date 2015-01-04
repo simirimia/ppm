@@ -172,6 +172,10 @@ class Picture {
         $this->tags[] = (string)$tag;
     }
 
+    public function removeTag( $tag ) {
+        $this->tags = array_diff( $this->tags, [ $tag ] );
+    }
+
     /**
      * @param array $tags
      */

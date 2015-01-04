@@ -31,6 +31,7 @@ switch( $requestMethod ) {
     case 'GET':
         $dispatcher = new \Simirimia\Ppm\QueryDispatcher( $logger );
         break;
+    case 'DELETE':
     case 'POST':
         $dispatcher = new \Simirimia\Ppm\CommandDispatcher( $logger );
         break;

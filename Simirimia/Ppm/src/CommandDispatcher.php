@@ -33,12 +33,21 @@ class CommandDispatcher extends Dispatcher
 
         // URLs including some parameters
 
-        if ( preg_match( '#/rest/pictures/(\d*)/tags#', $request->getUrl(), $matches ) ) {
-            $command = new Command\AddTag( (int)$matches[1], (string)$request->getBody() );
-            $handler = new CommandHandler\AddTag( $command, new PictureRepository(), $this->getLogger() );
-            return $handler;
+        if ( preg_match( '#/rest/pictures/(\d*)/tags$#', $request->getUrl(), $matches ) ) {
+            if ( $request->getMethod() == Request::POST ) {
+                $command = new Command\AddTag( (int)$matches[1], (string)$request->getBody() );
+                $handler = new CommandHandler\AddTag( $command, new PictureRepository(), $this->getLogger() );
+                return $handler;
+            }
         }
 
+        if ( preg_match( '#/rest/pictures/(\d*)/tags/(.*)#', $request->getUrl(), $matches ) ) {
+            if ( $request->getMethod() == Request::DELETE ) {
+                $command = new Command\RemoveTag( (int)$matches[1], (string)$matches[2] );
+                $handler = new CommandHandler\RemoveTag( $command, new PictureRepository(), $this->getLogger() );
+                return $handler;
+            }
+        }
 
         return null;
     }
