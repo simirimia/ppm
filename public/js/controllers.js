@@ -76,7 +76,7 @@ ppmControllers.ThumbnailListHelper_init = function ($scope, $modal, $location, $
         console.log( 'Adding tag ' + tag + ' to picture with ID ' + pictureId );
         $http.post( '/rest/pictures/' + pictureId + '/tags', tag).success( function(data) {
             console.log( 'Tag update returned: ' + data );
-            //$scope.details.tags = data.tags;
+            $scope.thumbnails[pictureId].tags = data.tags;
         } );
     };
 
@@ -84,7 +84,7 @@ ppmControllers.ThumbnailListHelper_init = function ($scope, $modal, $location, $
         console.log( 'Removing tag ' + tag + ' to picture with ID ' + pictureId );
         $http.delete( '/rest/pictures/' + pictureId + '/tags/' + tag).success( function(data) {
             console.log( 'Tag removal returned: ' + data );
-            //$scope.details.tags = data.tags;
+            $scope.thumbnails[pictureId].tags = data.tags;
         } );
     };
 

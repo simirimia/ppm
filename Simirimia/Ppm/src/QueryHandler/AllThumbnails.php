@@ -52,7 +52,7 @@ class AllThumbnails
             $thumbnail['tags'] = $picture->getTags();
             $thumbnail['id'] = $picture->getId();
 
-            $data[] = $thumbnail;
+            $data[$picture->getId()] = $thumbnail;
         }
 
         return new ArrayResult( $data );
