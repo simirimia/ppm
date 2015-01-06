@@ -51,7 +51,7 @@ ppmControllers.ThumbnailListHelper_init = function ($scope, $modal, $location, $
 
     $scope.thumbnailsCurrentPage = 1;
     $scope.thumbnailsPageSize = 20;
-
+    $scope.mainPicture = { id: 0, href: '' };
 
     $scope.thumbnailsPageChanged = function () {
         console.log('New thumbnail page: ' + $scope.thumbnailsCurrentPage);
@@ -83,7 +83,7 @@ ppmControllers.ThumbnailListHelper_init = function ($scope, $modal, $location, $
     $scope.removeTag = function ( pictureId, tag ) {
         console.log( 'Removing tag ' + tag + ' to picture with ID ' + pictureId );
         $http.delete( '/rest/pictures/' + pictureId + '/tags/' + tag).success( function(data) {
-            console.log( 'Tag removal returned: ' + data );
+            console.log( 'Tag removal returned: ', data );
             $scope.thumbnails[pictureId].tags = data.tags;
         } );
     };
@@ -97,6 +97,30 @@ ppmControllers.ThumbnailListHelper_init = function ($scope, $modal, $location, $
         } );
         return returnValue;
     };
+
+    $scope.onDragComplete=function(data,evt){
+        console.log("drag success, data:", data);
+    }
+    $scope.onDropComplete=function( pictureId ,evt ){
+        console.log("drop success, source data", pictureId);
+        if ( $scope.mainPicture.id == 0 ) {
+            console.log('setting new main picture');
+            $scope.mainPicture = $scope.thumbnails[pictureId];
+        } else {
+            console.log( 'Marking as Alternative' );
+            $http.post( 'rest/pictures/' + $scope.mainPicture.id + '/alternatives', pictureId).success(
+                function(data) {
+                    console.log( 'Adding alternative returnded: ', data );
+                }
+            );
+        }
+    }
+    $scope.resetMainPicture = function() {
+        console.log('reset main picture. Was:', $scope.mainPicture);
+        $scope.mainPicture = { id: 0, href: '' };
+    }
+
+
 
     $scope.previewSize = 800;
     $scope.showThumbnailModal = function (pictureId) {
@@ -123,7 +147,6 @@ ppmControllers.ThumbnailListHelper_init = function ($scope, $modal, $location, $
         });
 
     };
-
 
 };
 

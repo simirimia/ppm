@@ -52,6 +52,11 @@ class Picture {
     private $exif = [];
 
     /**
+     * @var Picture
+     */
+    private $isAlternativeTo = null;
+
+    /**
      * @param int $id
      */
     public function setId($id)
@@ -206,6 +211,23 @@ class Picture {
     {
         return isset($this->exif['Orientation']) ? $this->exif['Orientation'] : null;
     }
+
+    /**
+     * @param Picture $isAlternativeTo
+     */
+    public function setIsAlternativeTo( Picture $isAlternativeTo )
+    {
+        $this->isAlternativeTo = $isAlternativeTo;
+    }
+
+    /**
+     * @return Picture
+     */
+    public function getIsAlternativeTo()
+    {
+        return $this->isAlternativeTo;
+    }
+
 
 
 } 

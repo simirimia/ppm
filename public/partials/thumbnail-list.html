@@ -13,21 +13,36 @@
         </div>
 
 
+        <div style="width: 25%; float: left">
 
-        <div ng-repeat="thumbnail in thumbnails" class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <a class="img-thumbnail" href="#" ng-click="showThumbnailModal(thumbnail.id)">
-                <img ng-src="{{thumbnail.href}}" />
-            </a>
+            Main Picture, ID: {{mainPicture.id}}
+            <div ng-drop="true" ng-drop-success="onDropComplete($data,$event)">
+                DROP HERE
+            </div>
+            <span ng-click="resetMainPicture()">(Reset)</span>
+            <img ng-src="{{mainPicture.href}}" ng-if="mainPicture.id != 0" />
 
-
-            <span ng-if="!hasTag('ppm.print.mark', thumbnail.tags)" class="glyphicon glyphicon-print" ng-click="addTag(thumbnail.id, 'ppm.print.mark')">&nbsp;</span>
-            <span ng-if="hasTag('ppm.print.mark', thumbnail.tags)" class="glyphicon glyphicon-print ppm-glyphicon-state-active" ng-click="removeTag(thumbnail.id, 'ppm.print.mark')">&nbsp;</span>
-
-            <span class="label label-primary"><a ng-click="showDetail(thumbnail.id)">{{thumbnail.id}}</a></span>
-            <span class="label label-info" ng-repeat="tag in thumbnail.tags"><a ng-click="showThumbnailsForTag(tag)">{{tag}}</a></span>
         </div>
+        <div style="width: 74%; float: left">
 
 
+            <div ng-repeat="thumbnail in thumbnails" class="col-lg-3 col-md-4 col-xs-6 thumb">
+
+                <a class="img-thumbnail" href="#" ng-click="showThumbnailModal(thumbnail.id)" > <!---->
+                    <img ng-src="{{thumbnail.href}}" />
+                </a>
+
+                <span  ng-drag="true" ng-drag-data="{{thumbnail.id}}" ng-drag-succuess="onDragComplete($data,$event)">Drag me!</span>
+
+                <span ng-if="!hasTag('ppm.print.mark', thumbnail.tags)" class="glyphicon glyphicon-print" ng-click="addTag(thumbnail.id, 'ppm.print.mark')">&nbsp;</span>
+                <span ng-if="hasTag('ppm.print.mark', thumbnail.tags)" class="glyphicon glyphicon-print ppm-glyphicon-state-active" ng-click="removeTag(thumbnail.id, 'ppm.print.mark')">&nbsp;</span>
+
+                <span class="label label-primary"><a ng-click="showDetail(thumbnail.id)">{{thumbnail.id}}</a></span>
+                <span class="label label-info" ng-repeat="tag in thumbnail.tags"><a ng-click="showThumbnailsForTag(tag)">{{tag}}</a></span>
+            </div>
+
+
+        </div>
 
     </div>
 

@@ -76,7 +76,7 @@ class Picture {
     {
         $limit = (int)$limit;
         $offset = (int)$offset;
-        $data = R::getAll( 'SELECT * FROM picture LIMIT ' . $limit . ' OFFSET ' . $offset );
+        $data = R::getAll( 'SELECT * FROM picture WHERE is_alternative_to = 0 LIMIT ' . $limit . ' OFFSET ' . $offset );
         $data = R::convertToBeans( 'picture', $data );
         $result = [];
 
@@ -90,9 +90,21 @@ class Picture {
     {
         $limit = (int)$limit;
         $offset = (int)$offset;
-        $data = R::tagged( 'picture', [$tag] );
 
-        $data = array_slice( $data, $offset, $limit );
+        //$data = R::tagged( 'picture', [$tag] );
+        //$data = array_slice( $data, $offset, $limit );
+
+        $data = R::getAll( 'SELECT p.*
+                            FROM picture p
+                            JOIN picture_tag pt ON p.id=pt.picture_id
+                            JOIN tag t ON t.id = pt.tag_id
+                            WHERE p.is_alternative_to = 0
+                            AND t.title = ?
+                            LIMIT ?
+                            OFFSET ?',
+
+            [$tag, $limit, $offset]
+        );
 
         $data = R::convertToBeans( 'picture', $data );
         $result = [];
@@ -117,6 +129,10 @@ class Picture {
         $entity->setThumbLarge( $bean->thumbLarge );
         $entity->setExifComplete( @unserialize( $bean->exifComplete ) );
         $entity->setExif( @unserialize($bean->exif) );
+
+        if ( $bean->isAlternativeTo > 0 ) {
+            $entity->setIsAlternativeTo( $this->findById( $bean->isAlternativeTo ) );
+        }
 
         $tags = R::tag( $bean );
 
@@ -150,6 +166,14 @@ class Picture {
         $bean->thumbLarge = $entity->getThumbLarge();
         $bean->exifComplete = $exifComplete;
         $bean->exif = $exif;
+
+        $alternative = $entity->getIsAlternativeTo();
+        if ( $alternative === null ) {
+            $bean->isAlternativeTo = 0;
+        } else {
+            $bean->isAlternativeTo = $alternative->getId();
+        }
+
 
         R::tag( $bean, $entity->getTags() );
 

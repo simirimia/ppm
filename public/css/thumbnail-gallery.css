@@ -2,6 +2,11 @@ body {
     padding-top: 70px; /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
 }
 
+/* bootstrap overrides */
+.container {
+    width: 100%;
+}
+
 .thumb {
     margin-bottom: 30px;
 }
@@ -26,4 +31,12 @@ footer {
 
 .ppm-glyphicon-state-active {
     color: #BBAA22;
+}
+
+.drag-over {
+    background-color: yellow;
+}
+
+.drag-over {
+    background-color: red;
 }
