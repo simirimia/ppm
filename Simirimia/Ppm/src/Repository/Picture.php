@@ -129,6 +129,7 @@ class Picture {
         $entity->setThumbLarge( $bean->thumbLarge );
         $entity->setExifComplete( @unserialize( $bean->exifComplete ) );
         $entity->setExif( @unserialize($bean->exif) );
+        $entity->setHasAlternatives( $bean->hasAternatives );
 
         if ( $bean->isAlternativeTo > 0 ) {
             $entity->setIsAlternativeTo( $this->findById( $bean->isAlternativeTo ) );
@@ -173,6 +174,9 @@ class Picture {
         } else {
             $bean->isAlternativeTo = $alternative->getId();
         }
+
+        $bean->hasAternatives = $entity->getHasAlternatives();
+
 
 
         R::tag( $bean, $entity->getTags() );

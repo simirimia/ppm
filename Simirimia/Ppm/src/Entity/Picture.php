@@ -57,6 +57,11 @@ class Picture {
     private $isAlternativeTo = null;
 
     /**
+     * @var bool
+     */
+    private $hasAlternatives = false;
+
+    /**
      * @param int $id
      */
     public function setId($id)
@@ -213,11 +218,12 @@ class Picture {
     }
 
     /**
-     * @param Picture $isAlternativeTo
+     * @param Picture $mainPicture
      */
-    public function setIsAlternativeTo( Picture $isAlternativeTo )
+    public function setIsAlternativeTo( Picture $mainPicture )
     {
-        $this->isAlternativeTo = $isAlternativeTo;
+        $this->isAlternativeTo = $mainPicture;
+        $mainPicture->setHasAlternatives( true );
     }
 
     /**
@@ -227,6 +233,23 @@ class Picture {
     {
         return $this->isAlternativeTo;
     }
+
+    /**
+     * @param boolean $hasAlternatives
+     */
+    public function setHasAlternatives($hasAlternatives)
+    {
+        $this->hasAlternatives = $hasAlternatives;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getHasAlternatives()
+    {
+        return $this->hasAlternatives;
+    }
+
 
 
 

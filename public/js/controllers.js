@@ -204,5 +204,16 @@ ppmControllers.controller('PictureDetailCtrl', function ($scope, $routeParams, $
         console.log( foo );
     }
 
+    $scope.showAlternatives = function() {
+        console.log('Routing to: ' + 'pictures/' + $scope.pictureId + '/alternatives');
+        $location.path('pictures/' + $scope.pictureId + '/alternatives');
+    }
+
     $scope.loadDetails($routeParams.pictureId);
 });
+
+
+// the welcome controller
+ppmControllers.controller( 'WelcomeController', function() {
+
+} )

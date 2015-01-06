@@ -45,6 +45,7 @@ class PictureDetails
         $exif = $picture->getExif();
 
         $data = [
+            'hasAlternatives' => $picture->getHasAlternatives(),
             'tags' => $picture->getTags(),
             'exif' => []
         ];

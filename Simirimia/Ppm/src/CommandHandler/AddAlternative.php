@@ -48,6 +48,7 @@ class AddAlternative
         $alternativePicture->setIsAlternativeTo( $mainPicture );
 
         $this->repository->save($alternativePicture);
+        $this->repository->save($mainPicture);
 
         return new ArrayResult([
             'status' => 'success'

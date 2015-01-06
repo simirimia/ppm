@@ -26,8 +26,16 @@ ppmApp.config(['$routeProvider',
                 controller: 'PictureDetailCtrl'
             }).
 
+            //'pictures/' + $scope.pictureId + '/alternatives'
+            when('pictures/:pictureId/alternatives',{
+                templateUrl: 'partials/picture-detail-alternatives.html',
+                controller: 'PictureDetailCtrl'
+            }).
+
             // the default route
             otherwise({
-                redirectTo: '/pictures'
+                //redirectTo: '/pictures'
+                templateUrl: 'partials/welcome.html',
+                controller: 'WelcomeController'
             });
     }]);
