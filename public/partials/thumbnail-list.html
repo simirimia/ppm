@@ -2,9 +2,6 @@
 <!-- Page Content -->
 <div class="container">
 
-    <div>
-        <pagination total-items="1000" ng-change="thumbnailsPageChanged()" ng-model="thumbnailsCurrentPage" max-size="thumbnailsPageSize" class="pagination-sm" boundary-links="true"></pagination>
-    </div>
 
     <div class="row">
 
@@ -26,7 +23,7 @@
         <div style="width: 74%; float: left">
 
 
-            <div ng-repeat="thumbnail in thumbnails" class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <div ng-repeat="thumbnail in thumbnails" class="col-lg-3 col-md-4 col-xs-6 thumb" >
 
                 <a class="img-thumbnail" href="#" ng-click="showThumbnailModal(thumbnail.id)" > <!---->
                     <img ng-src="{{thumbnail.href}}" />
@@ -38,18 +35,23 @@
                 <span ng-if="hasTag('ppm.print.mark', thumbnail.tags)" class="glyphicon glyphicon-print ppm-glyphicon-state-active" ng-click="removeTag(thumbnail.id, 'ppm.print.mark')">&nbsp;</span>
 
                 <span class="label label-primary"><a ng-click="showDetail(thumbnail.id)">{{thumbnail.id}}</a></span>
-                <span class="label label-info" ng-repeat="tag in thumbnail.tags"><a ng-click="showThumbnailsForTag(tag)">{{tag}}</a></span>
+                <span class="label label-info" ng-repeat="tag in thumbnail.tags">
+                    <span style="color:red;display: none">Remove</span>
+                    <span ng-click="showThumbnailsForTag(tag)" onmouseout="this.parent.firstChild.display='none'" onmouseenter="console.log('mouseenter',this.parent);this.parent.firstChild.display='block'">{{tag}}</span>
+                </span>
             </div>
 
 
         </div>
 
+        <div infinite-scroll="myPagingFunction()" infinite-scroll-distance="0">
+            Loading more stuff ....
+        </div>
+
     </div>
 
 
-    <div>
-        <pagination total-items="1000" ng-change="thumbnailsPageChanged()" ng-model="thumbnailsCurrentPage" max-size="thumbnailsPageSize" class="pagination-sm" boundary-links="true"></pagination>
-    </div>
+
 
     <hr>
 

@@ -16,6 +16,13 @@ ppmControllers.controller('ThumbnailListCtrl', function ($scope, $http, $modal, 
         });
     };
 
+    $scope.appendMoreThumbnails = function() {
+        $http.get('/rest/pictures/thumbnails/small?page=' + $scope.thumbnailsCurrentPage + '&pageSize=' + $scope.thumbnailsPageSize).success(function (data) {
+            jQuery.extend( $scope.thumbnails, data );
+
+        });
+    }
+
 
     // init calls
     ppmControllers.ThumbnailListHelper_init($scope, $modal, $location, $http);
@@ -30,6 +37,12 @@ ppmControllers.controller('ThumbnailsListByTagCtrl', function ($scope, $http, $m
     $scope.loadThumbnails = function ($scope) {
         $http.get('/rest/tags/' + $routeParams.tag + '/thumbnails/small?page=' + $scope.thumbnailsCurrentPage + '&pageSize=' + $scope.thumbnailsPageSize).success(function (data) {
             $scope.thumbnails = data;
+        });
+    };
+
+    $scope.appendMoreThumbnails = function ($scope) {
+        $http.get('/rest/tags/' + $routeParams.tag + '/thumbnails/small?page=' + $scope.thumbnailsCurrentPage + '&pageSize=' + $scope.thumbnailsPageSize).success(function (data) {
+            jQuery.extend( $scope.thumbnails, data );
         });
     };
 
@@ -120,8 +133,6 @@ ppmControllers.ThumbnailListHelper_init = function ($scope, $modal, $location, $
         $scope.mainPicture = { id: 0, href: '' };
     }
 
-
-
     $scope.previewSize = 800;
     $scope.showThumbnailModal = function (pictureId) {
         var modalInstance = $modal.open({
@@ -147,6 +158,14 @@ ppmControllers.ThumbnailListHelper_init = function ($scope, $modal, $location, $
         });
 
     };
+
+    $scope.myPagingFunction = function() {
+        console.log( 'pagination function called' );
+        // $scope.thumbnailsPageSize += 20;
+        // $scope.loadThumbnails( $scope );
+        $scope.thumbnailsCurrentPage++;
+        $scope.appendMoreThumbnails();
+    }
 
 };
 

@@ -2,6 +2,7 @@ var ppmApp = angular.module('ppmApp', [
     'ui.bootstrap',
     'ngRoute',
     'ngDraggable',
+    'infinite-scroll',
     'ppmControllers'
 ]);
 
