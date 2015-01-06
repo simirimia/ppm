@@ -42,7 +42,7 @@ class GenerateThumbnails
 
     public function process()
     {
-        $pictures = $this->repository->findAll();
+        $pictures = $this->repository->findWithoutThumbnails();
         foreach ( $pictures as $picture ) {
             $this->generateThumbnails( $picture );
         }
@@ -51,9 +51,16 @@ class GenerateThumbnails
     private function generateThumbnails( Picture $picture )
     {
         if ( $picture->getThumbSmall() != '' ) {
-            $this->logger->addDebug( 'Thumbnail creation canceled for picture ID: ' . $picture->getId() );
+            $this->logger->addDebug( 'Thumbnail creation canceled for picture ID: ' . $picture->getId() . ' -- already exists' );
             return;
         }
+
+        if ( $picture->getExifOrientation() == '' ) {
+            $this->logger->addDebug( 'Thumbnail creation canceled for picture ID: ' . $picture->getId() . ' -- no EXIF information' );
+            return;
+        }
+
+
 
         $this->logger->addDebug( 'Thumbnail creation for picture ID: ' . $picture->getId() . ' with name ' . $picture->getPath() );
 
@@ -66,7 +73,7 @@ class GenerateThumbnails
         $imageManager = new ImageManager();
 
 
-        echo "ID: " . $picture->getId() . " Rotation: " . $picture->getExifOrientation() . "\n";
+        $this->logger->addDebug( "ID: " . $picture->getId() . " Rotation: " . $picture->getExifOrientation() . "\n" );
 
 
         foreach( $thumbnailSizes as $name => $size )
@@ -88,6 +95,7 @@ class GenerateThumbnails
                 case 8:
                     break;
                 default:
+                    $this->logger->addError( 'Invalid Orientation: ' . $picture->getExifOrientation() . ' for picture ID: ' . $picture->getId() . ' with name: ' . $picture->getPath() );
                     throw new \Exception( 'Invalid Orientation: ' . $picture->getExifOrientation() . ' for picture ID: ' . $picture->getId() . ' with name: ' . $picture->getPath() );
 
             }

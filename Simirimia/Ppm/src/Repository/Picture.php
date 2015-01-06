@@ -38,7 +38,18 @@ class Picture {
 
     public function findWithoutThumbnails()
     {
-        $data = R::find( 'picture', "thump_small =''" );
+        $data = R::find( 'picture', "thumb_small =''" );
+        $result = [];
+
+        foreach( $data as $bean ) {
+            $result[] = $this->beanToEntity( $bean );
+        }
+        return $result;
+    }
+
+    public function findWithoutExif()
+    {
+        $data = R::find( 'picture', "exif_complete='a:0:{}'" );
         $result = [];
 
         foreach( $data as $bean ) {

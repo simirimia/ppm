@@ -50,10 +50,19 @@ class Request
             //$url = '/rest/picture/extract-exif';
             $url = '';
         }
+
+        if (isset($_SERVER['REQUEST_METHOD'])) {
+            $method = $_SERVER['REQUEST_METHOD'];
+        } elseif( isset($_SERVER['argv'][1]) ) {
+            $method = $_SERVER['argv'][1];
+        } else {
+            $method = 'POST';
+        }
+
         $url = explode( '?', $url );
         $url = array_shift( $url );
 
-        return new Request( $url, $_GET, file_get_contents('php://input'), $_SERVER['REQUEST_METHOD'] );
+        return new Request( $url, $_GET, file_get_contents('php://input'), $method );
     }
 
     public function __construct( $url, array $queryParams, $body, $requestMethod )

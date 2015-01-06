@@ -41,7 +41,7 @@ class ExtractExif {
 
     public function process()
     {
-        $pictures = $this->repository->findAll();
+        $pictures = $this->repository->findWithoutExif();
         foreach ( $pictures as $picture ) {
             $this->extract( $picture );
         }

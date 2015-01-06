@@ -49,10 +49,10 @@ class ScanFolder {
         foreach( glob($dir, GLOB_ONLYDIR ) as $subFolder ) {
             $this->scan( $subFolder . '/*' );
         }
-        $this->scanForPicures( $dir );
+        $this->scanForPictures( $dir );
     }
 
-    private function scanForPicures( $dir )
+    private function scanForPictures( $dir )
     {
         $this->logger->addDebug( 'Scanning dir: ' . $dir . ' for pictures ' );
 

@@ -48,6 +48,9 @@ if ( $result instanceof \Simirimia\Ppm\ArrayResult ) {
     $renderer = new \Simirimia\Ppm\ArrayResultRenderer( $result );
 } elseif( $result instanceof \Simirimia\Ppm\FilePathResult ) {
     $renderer = new \Simirimia\Ppm\FilePathRenderer( $result );
+} else {
+    var_dump( $result );
+    die( 'Unknown return type' );
 }
 
 
