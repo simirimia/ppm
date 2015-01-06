@@ -1,0 +1,23 @@
+{
+  "name": "PPM - P Picture Manager",
+  "version": "0.0.1",
+  "authors": [
+    "simirimia <simirimia@triosolutions.at>"
+  ],
+  "description": "Picture Manager app, build for self-educational purpose",
+  "main": "index.html",
+  "license": "AGPL",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-bootstrap": "~0.12.0",
+    "angular-route": "1.2",
+    "ngDraggable": "*"
+  }
+}
