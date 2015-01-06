@@ -9,6 +9,7 @@
 namespace Simirimia\Ppm;
 
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
+use Simirimia\Ppm\Repository\Picture;
 
 class CommandDispatcher extends Dispatcher
 {
@@ -28,6 +29,10 @@ class CommandDispatcher extends Dispatcher
             case '/rest/pictures/extract-exif':
                 $command = new Command\ExtractExif();
                 $handler = new CommandHandler\ExtractExif( $command, new PictureRepository(), $this->getLogger() );
+                return $handler;
+            case '/rest/pictures/rebuild-path-tags':
+                $command = new Command\RebuildPathTags( new Config );
+                $handler = new CommandHandler\RebuildPathTags( $command, new PictureRepository(), $this->getLogger() );
                 return $handler;
         }
 
