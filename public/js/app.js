@@ -3,7 +3,9 @@ var ppmApp = angular.module('ppmApp', [
     'ngRoute',
     'ngDraggable',
     'infinite-scroll',
-    'ppmControllers'
+    'ppmControllers',
+    'ppmThumbnailListControllers',
+    'ppmPictureDetailControllers'
 ]);
 
 
@@ -26,13 +28,10 @@ ppmApp.config(['$routeProvider',
                 templateUrl: 'partials/picture-detail.html',
                 controller: 'PictureDetailCtrl'
             }).
-
-            //'pictures/' + $scope.pictureId + '/alternatives'
-            when('pictures/:pictureId/alternatives',{
+            when('/pictures/:pictureId/alternatives',{ //when('/alternatives/:pictureId',{
                 templateUrl: 'partials/picture-detail-alternatives.html',
                 controller: 'PictureDetailCtrl'
             }).
-
             // the default route
             otherwise({
                 //redirectTo: '/pictures'
