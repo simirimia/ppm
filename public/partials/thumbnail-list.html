@@ -9,23 +9,30 @@
             <h1 class="page-header">Thumbnail Gallery ({{selectedTag}})</h1>
         </div>
 
-
-        <div style="width: 25%; float: left">
-
-            Main Picture, ID: {{mainPicture.id}}
-            <div ng-drop="true" ng-drop-success="onDropComplete($data,$event)">
-                DROP HERE
+        <div class="panel panel-default" style="position: fixed; top: 200px">
+            <div class="panel-heading">
+                <h3 class="panel-title">Toolbox</h3>
             </div>
-            <span ng-click="resetMainPicture()">(Reset)</span>
-            <img ng-src="{{mainPicture.href}}" ng-if="mainPicture.id != 0" />
+            <div class="panel-body">
+                Main Picture, ID: {{mainPicture.id}}
+                <div ng-drop="true" ng-drop-success="onDropComplete($data,$event)">
+                    DROP HERE
+                </div>
+                <span ng-click="resetMainPicture()">(Reset)</span>
+                <img ng-src="{{mainPicture.href}}" ng-if="mainPicture.id != 0" />
+            </div>
 
         </div>
-        <div style="width: 74%; float: left">
+
+        <div style="width: 20%; float: left">
+            go on scrolling ...
+        </div>
+        <div style="width: 79%; float: left">
 
 
             <div ng-repeat="thumbnail in thumbnails" class="col-lg-3 col-md-4 col-xs-6 thumb" >
 
-                <a class="img-thumbnail" href="#" ng-click="showThumbnailModal(thumbnail.id)" > <!---->
+                <a class="img-thumbnail" href="#" ng-click="showThumbnailModal(thumbnail.id)" >
                     <img ng-src="{{thumbnail.href}}" />
                 </a>
 
@@ -34,7 +41,7 @@
                 <span ng-if="!hasTag('ppm.print.mark', thumbnail.tags)" class="glyphicon glyphicon-print" ng-click="addTag(thumbnail.id, 'ppm.print.mark')">&nbsp;</span>
                 <span ng-if="hasTag('ppm.print.mark', thumbnail.tags)" class="glyphicon glyphicon-print ppm-glyphicon-state-active" ng-click="removeTag(thumbnail.id, 'ppm.print.mark')">&nbsp;</span>
 
-                <span class="label label-primary"><a ng-click="showDetail(thumbnail.id)">{{thumbnail.id}}</a></span>
+                <span class="label label-primary" ng-click="showDetail(thumbnail.id)">{{thumbnail.id}}</span>
                 <span class="label label-info" ng-repeat="tag in thumbnail.tags">
                     <span style="color:red;display: none">Remove</span>
                     <span ng-click="showThumbnailsForTag(tag)" onmouseout="this.parent.firstChild.display='none'" onmouseenter="console.log('mouseenter',this.parent);this.parent.firstChild.display='block'">{{tag}}</span>
