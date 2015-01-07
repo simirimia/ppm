@@ -8,12 +8,14 @@
 
 namespace Simirimia\Ppm\CommandHandler;
 
+use Intervention\Image\Exception\NotReadableException;
 use Intervention\Image\ImageManager;
 
 use Simirimia\Ppm\Command\ExtractExif as ExctractExifCommand;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Entity\Picture;
 use Monolog\Logger;
+use Simirimia\Ppm\ArrayResult;
 
 class ExtractExif {
 
@@ -43,8 +45,14 @@ class ExtractExif {
     {
         $pictures = $this->repository->findWithoutExif();
         foreach ( $pictures as $picture ) {
-            $this->extract( $picture );
+            try {
+                $this->extract( $picture );
+            } catch( NotReadableException $e ) {
+                // right now do nothing
+                $this->logger->addCritical( 'Could not read picture source file for ID ' . $picture->getId() );
+            }
         }
+        return new ArrayResult( ['success' => true] );
     }
 
     private function extract( Picture $picture )
