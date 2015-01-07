@@ -12,7 +12,17 @@
 
     <img src="/thumbnail/{{ pictureId }}_1400.jpg">
 
-    <h2>EXIF</h2>
-    <div ng-repeat="exif in details.exif" >{{exif.name}}: {{exif.value}}</div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>EXIF Key</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tr ng-repeat="exif in details.exif">
+            <td>{{exif.name}}</td>
+            <td>{{exif.value}}</td>
+        </tr>
+    </table>
 
 </div>
