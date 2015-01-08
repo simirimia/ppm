@@ -1,9 +1,14 @@
 <div>
 
     <div>
-        <span ng-if="details.hasAlternatives">
+        <div class="alert alert-info" ng-if="details.hasAlternatives">
             <a ng-click="showAlternatives()" href="#">Alternatives available, show 'em</a>
-        </span>
+        </div>
+
+        <div class="alert alert-warning" ng-if="details.isAlternativeTo > 0">
+            This is an alternative. <a ng-click="showDetail(details.isAlternativeTo)">Main Picture</a>
+        </div>
+
         <h2>TAGS</h2>
         <div>
             <span class="label label-info" ng-repeat="tag in details.tags"><a ng-click="showThumbnailsForTag(tag)">{{tag}}</a></span>

@@ -11,7 +11,7 @@ namespace Simirimia\Ppm\QueryHandler;
 use Simirimia\Ppm\Query\ThumbnailsPerTag as ThumbnailPerTagCommand;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Entity\Picture;
-use Simirimia\Ppm\ArrayResult;
+use Simirimia\Ppm\Result\ArrayResult;
 
 class ThumbnailsPerTag
 {

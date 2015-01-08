@@ -9,6 +9,8 @@
 namespace Simirimia\Ppm\Entity;
 
 
+use Simirimia\Ppm\PictureCollection;
+
 class Picture {
 
     /**
@@ -60,6 +62,11 @@ class Picture {
      * @var bool
      */
     private $hasAlternatives = false;
+
+    /**
+     * @var PictureCollection
+     */
+    private $alternatives;
 
     /**
      * @param int $id
@@ -250,7 +257,21 @@ class Picture {
         return $this->hasAlternatives;
     }
 
+    /**
+     * @param PictureCollection $alternatives
+     */
+    public function setAlternatives( PictureCollection $alternatives )
+    {
+        $this->alternatives = $alternatives;
+    }
 
+    /**
+     * @return PictureCollection
+     */
+    public function getAlternatives()
+    {
+        return $this->alternatives;
+    }
 
 
 } 

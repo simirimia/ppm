@@ -30,7 +30,7 @@ ppmApp.config(['$routeProvider',
             }).
             when('/pictures/:pictureId/alternatives',{ //when('/alternatives/:pictureId',{
                 templateUrl: 'partials/picture-detail-alternatives.html',
-                controller: 'PictureDetailCtrl'
+                controller: 'PictureAlternativeController'
             }).
             // the default route
             otherwise({

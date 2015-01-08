@@ -10,7 +10,7 @@ namespace Simirimia\Ppm\QueryHandler;
 
 use Simirimia\Ppm\Query\PictureDetails as PictureDetailsCommand;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
-use Simirimia\Ppm\ArrayResult;
+use Simirimia\Ppm\Result\PictureResult;
 
 class PictureDetails
 {
@@ -36,25 +36,11 @@ class PictureDetails
     }
 
     /**
-     * @return ArrayResult
+     * @return PictureResult
      */
     public function process()
     {
         $picture = $this->repository->findById($this->command->getId());
-
-        $exif = $picture->getExif();
-
-        $data = [
-            'hasAlternatives' => $picture->getHasAlternatives(),
-            'tags' => $picture->getTags(),
-            'exif' => []
-        ];
-
-        foreach ($exif as $key => $value) {
-            $data['exif'][] = ['name' => $key, 'value' => $value];
-        }
-
-
-        return new ArrayResult($data);
+        return new PictureResult( $picture );
     }
 } 

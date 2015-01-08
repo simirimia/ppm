@@ -27,6 +27,10 @@ class QueryDispatcher extends Dispatcher
         $matches = [];
 
         // URLs starting with /rest/pictures
+        if ( preg_match( '#/rest/pictures/(\d*)/alternatives#', $request->getUrl(), $matches ) ) {
+            $query = new Query\Alternatives( $matches[1] );
+            return new QueryHandler\Alternatives( $query, new PictureRepository() );
+        }
 
         if ( preg_match( '#/rest/pictures/(\d*)/details#', $request->getUrl(), $matches ) ) {
             $query = new Query\PictureDetails( $matches[1] );
@@ -42,6 +46,7 @@ class QueryDispatcher extends Dispatcher
             $query = new Query\Original( $matches[1] );
             return new QueryHandler\Original( $query, new PictureRepository() );
         }
+
 
 
         // URLs starting with /rest/tags

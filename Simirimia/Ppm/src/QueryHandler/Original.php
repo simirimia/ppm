@@ -8,7 +8,7 @@
 
 namespace Simirimia\Ppm\QueryHandler;
 
-use Simirimia\Ppm\FilePathResult;
+use Simirimia\Ppm\Result\FilePathResult;
 use Simirimia\Ppm\Query\Original as OriginalCommand;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 

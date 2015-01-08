@@ -1,33 +1,64 @@
 <div>
 
+    <div class="alert alert-info" ng-show="showAlert">{{alertMessage}}</div>
+
     <h2>ALTERNATIVES VIEW for picture {{details.id}}</h2>
 
-    <div>
-        <h2>TAGS</h2>
+    <div class="mainPicture">
         <div>
+            <span class="label label-primary" ng-click="showDetail(pictureId)">{{pictureId}}</span>
             <span class="label label-info" ng-repeat="tag in details.tags"><a ng-click="showThumbnailsForTag(tag)">{{tag}}</a></span>
+        </div>
+
+        <div>
+            <img class="img-thumbnail" src="/thumbnail/{{ pictureId }}_1400.jpg">
+        </div>
+
+        <button class="btn btn-default" ng-click="exifIsCollapsed = !exifIsCollapsed">Toggle Exif Details</button>
+
+        <div collapse="exifIsCollapsed">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>EXIF Key</th>
+                    <th>Value</th>
+                </tr>
+                </thead>
+                <tr ng-repeat="exif in details.exif">
+                    <td>{{exif.name}}</td>
+                    <td>{{exif.value}}</td>
+                </tr>
+            </table>
         </div>
     </div>
 
-    <div>
-        <img class="img-thumbnail" src="/thumbnail/{{ pictureId }}_1400.jpg">
-    </div>
 
-    <button class="btn btn-default" ng-click="exifIsCollapsed = !exifIsCollapsed">Toggle Exif Details</button>
+    <div class="alternativePicture" ng-repeat="alternative in alternatives">
+        <div>
+            <span class="label label-primary" ng-click="showDetail(alternative.id)">{{alternative.id}}</span>
+            <span class="label label-info" ng-repeat="tag in alternative.tags"><a ng-click="showThumbnailsForTag(tag)">{{tag}}</a></span>
+        </div>
 
-    <div collapse="exifIsCollapsed">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>EXIF Key</th>
-                <th>Value</th>
-            </tr>
-            </thead>
-            <tr ng-repeat="exif in details.exif">
-                <td>{{exif.name}}</td>
-                <td>{{exif.value}}</td>
-            </tr>
-        </table>
+        <div>
+            <img class="img-thumbnail" src="/thumbnail/{{ alternative.id }}_1400.jpg">
+        </div>
+
+        <button class="btn btn-default" ng-click="exifIsCollapsed = !exifIsCollapsed">Toggle Exif Details</button>
+
+        <div collapse="exifIsCollapsed">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>EXIF Key</th>
+                    <th>Value</th>
+                </tr>
+                </thead>
+                <tr ng-repeat="exif in alternative.exif">
+                    <td>{{exif.name}}</td>
+                    <td>{{exif.value}}</td>
+                </tr>
+            </table>
+        </div>
     </div>
 
 </div>

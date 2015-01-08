@@ -10,8 +10,11 @@ namespace Simirimia\Ppm\Repository;
 
 use Simirimia\Ppm\Entity\Picture as PictureEntity;
 use \R;
+use Simirimia\Ppm\PictureCollection;
 
 class Picture {
+
+    private $identityMap = [];
 
     /**
      * @param PictureEntity $entity
@@ -36,9 +39,9 @@ class Picture {
         return $this->beanToEntity( $bean );
     }
 
-    public function findWithoutThumbnails()
+    public function findWithoutThumbnails( $limit )
     {
-        $data = R::find( 'picture', "thumb_small =''" );
+        $data = R::find( 'picture', "thumb_small ='' AND exif_complete != 'a:0:{}' LIMIT ?", [$limit] );
         $result = [];
 
         foreach( $data as $bean ) {
@@ -87,8 +90,9 @@ class Picture {
     {
         $limit = (int)$limit;
         $offset = (int)$offset;
-        $data = R::getAll( 'SELECT * FROM picture WHERE is_alternative_to = 0 LIMIT ' . $limit . ' OFFSET ' . $offset );
-        $data = R::convertToBeans( 'picture', $data );
+        //$data = R::getAll( 'SELECT * FROM picture WHERE is_alternative_to = 0 LIMIT ' . $limit . ' OFFSET ' . $offset );
+        //$data = R::convertToBeans( 'picture', $data );
+        $data = R::findAll( 'picture', 'is_alternative_to = 0 LIMIT ?  OFFSET ?', [$limit, $offset] );
         $result = [];
 
         foreach( $data as $bean ) {
@@ -126,12 +130,29 @@ class Picture {
         return $result;
     }
 
+    private function getAlternatives( $id ) {
+        $data = R::findAll( 'picture', 'is_alternative_to = ? ', [$id] );
+        $result = new PictureCollection();
+
+        foreach( $data as $bean ) {
+            $result->add( $this->beanToEntity( $bean ) );
+        }
+        return $result;
+    }
+
     /**
      * @param $bean
      * @return PictureEntity
      */
     private function beanToEntity( $bean )
     {
+
+        // first check if the corresponding entity is already loaded and stored in the identity map
+        if( isset( $this->identityMap[$bean->id] )
+        && $this->identityMap[$bean->id] instanceof PictureEntity ) {
+            return $this->identityMap[$bean->id];
+        }
+
         $entity = new PictureEntity();
         $entity->setId($bean->id);
         $entity->setPath($bean->path);
@@ -142,13 +163,18 @@ class Picture {
         $entity->setExif( @unserialize($bean->exif) );
         $entity->setHasAlternatives( $bean->hasAternatives );
 
+        $tags = R::tag( $bean );
+        $entity->setTags( $tags );
+
+        $this->identityMap[$entity->getId()] = $entity;
+
         if ( $bean->isAlternativeTo > 0 ) {
             $entity->setIsAlternativeTo( $this->findById( $bean->isAlternativeTo ) );
         }
 
-        $tags = R::tag( $bean );
-
-        $entity->setTags( $tags );
+        if ( $entity->getHasAlternatives() ) {
+            $entity->setAlternatives( $this->getAlternatives( $entity->getId() ) );
+        }
 
         return $entity;
     }

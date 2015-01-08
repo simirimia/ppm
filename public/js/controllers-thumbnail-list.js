@@ -4,7 +4,7 @@ var ppmThumbnailListControllers = angular.module('ppmThumbnailListControllers', 
 /**
  * Thumbnail view which shows thumbnails for all pictures
  */
-ppmControllers.controller('ThumbnailListCtrl', function ($scope, $http, $modal, $location) {
+ppmThumbnailListControllers.controller('ThumbnailListCtrl', function ($scope, $http, $modal, $location, $window) {
 
 
     $scope.loadThumbnails = function ($scope) {
@@ -22,14 +22,14 @@ ppmControllers.controller('ThumbnailListCtrl', function ($scope, $http, $modal, 
 
 
     // init calls
-    ppmControllers.ThumbnailListHelper_init($scope, $modal, $location, $http);
+    ppmThumbnailListControllers.ThumbnailListHelper_init($scope, $modal, $location, $http, $window);
     $scope.loadThumbnails($scope);
 });
 
 /**
  * Thumbnail view which shows thumbnails for all pictures with a given tag
  */
-ppmControllers.controller('ThumbnailsListByTagCtrl', function ($scope, $http, $modal, $routeParams, $location) {
+ppmThumbnailListControllers.controller('ThumbnailsListByTagCtrl', function ($scope, $http, $modal, $routeParams, $location, $window) {
 
     $scope.loadThumbnails = function ($scope) {
         $http.get('/rest/tags/' + $routeParams.tag + '/thumbnails/small?page=' + $scope.thumbnailsCurrentPage + '&pageSize=' + $scope.thumbnailsPageSize).success(function (data) {
@@ -46,7 +46,7 @@ ppmControllers.controller('ThumbnailsListByTagCtrl', function ($scope, $http, $m
     $scope.selectedTag = $routeParams.tag;
 
     // init calls
-    ppmControllers.ThumbnailListHelper_init($scope, $modal, $location, $http);
+    ppmThumbnailListControllers.ThumbnailListHelper_init($scope, $modal, $location, $http, $window);
 
 
     $scope.loadThumbnails($scope);
@@ -57,11 +57,13 @@ ppmControllers.controller('ThumbnailsListByTagCtrl', function ($scope, $http, $m
 /**
  * Base stuff done for all controller which produce a thumbnail list as output
  */
-ppmControllers.ThumbnailListHelper_init = function ($scope, $modal, $location, $http) {
+ppmThumbnailListControllers.ThumbnailListHelper_init = function ($scope, $modal, $location, $http, $window) {
 
     $scope.thumbnailsCurrentPage = 1;
     $scope.thumbnailsPageSize = 20;
     $scope.mainPicture = { id: 0, href: '' };
+    $scope.showTags = true;
+    $scope.showMarker = true;
 
     $scope.thumbnailsPageChanged = function () {
         console.log('New thumbnail page: ' + $scope.thumbnailsCurrentPage);
@@ -79,7 +81,8 @@ ppmControllers.ThumbnailListHelper_init = function ($scope, $modal, $location, $
 
     $scope.showDetail = function (pictureId) {
         console.log('Show detail view for pictureId:' + pictureId);
-        $location.path('/pictures/' + pictureId);
+        //$location.path('/pictures/' + pictureId);
+        $window.open('http://localhost/#/pictures/' + pictureId);
     };
 
     $scope.addTag = function ( pictureId, tag ) {
@@ -165,7 +168,7 @@ ppmControllers.ThumbnailListHelper_init = function ($scope, $modal, $location, $
 
 
 // controller for overlay with bigger preview within the thumbnail list view
-ppmControllers.controller('ThumbnailPreviewInstanceCtrl', function ($scope, $modalInstance, $window, pictureId, size) {
+ppmThumbnailListControllers.controller('ThumbnailPreviewInstanceCtrl', function ($scope, $modalInstance, $window, pictureId, size) {
     $scope.pictureId = pictureId;
     $scope.size = size;
 

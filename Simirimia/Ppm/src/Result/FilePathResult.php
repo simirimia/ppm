@@ -6,7 +6,7 @@
  * Time: 23:44
  */
 
-namespace Simirimia\Ppm;
+namespace Simirimia\Ppm\Result;
 
 
 class FilePathResult {

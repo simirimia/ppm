@@ -44,17 +44,18 @@ switch( $requestMethod ) {
 $result = $dispatcher->dispatch( \Simirimia\Ppm\Request::createFromSuperGlobals() );
 
 
-if ( $result instanceof \Simirimia\Ppm\ArrayResult ) {
-    $renderer = new \Simirimia\Ppm\ArrayResultRenderer( $result );
-} elseif( $result instanceof \Simirimia\Ppm\FilePathResult ) {
-    $renderer = new \Simirimia\Ppm\FilePathRenderer( $result );
-} else {
+if ( $result instanceof \Simirimia\Ppm\Result\ArrayResult ) {
+    echo \Simirimia\Ppm\ResultRenderer\ArrayResultRenderer::render( $result );
+} elseif( $result instanceof \Simirimia\Ppm\Result\FilePathResult ) {
+    echo \Simirimia\Ppm\ResultRenderer\FilePathRenderer::render( $result );
+} elseif( $result instanceof \Simirimia\Ppm\Result\PictureResult ) {
+    echo \Simirimia\Ppm\ResultRenderer\PictureResultRenderer::render( $result );
+} elseif( $result instanceof \Simirimia\Ppm\Result\PictureCollectionResult ) {
+    echo \Simirimia\Ppm\ResultRenderer\PictureCollectionResultRenderer::render( $result );
+} else{
     var_dump( $result );
     die( 'Unknown return type' );
 }
-
-
-$renderer->render();
 
 
 // ******

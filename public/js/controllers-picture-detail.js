@@ -4,21 +4,7 @@ var ppmPictureDetailControllers = angular.module('ppmPictureDetailControllers', 
 // controller for the picture detail view
 ppmPictureDetailControllers.controller('PictureDetailCtrl', function ($scope, $routeParams, $http, $location) {
 
-    $scope.pictureId = $routeParams.pictureId;
-
     $scope.newTag = "Enter new tag here";
-
-    $scope.exifIsCollapsed = true;
-
-    $scope.loadDetails = function (pictureId) {
-        $http.get('/rest/pictures/' + pictureId + '/details').success(function (data) {
-            $scope.details = data;
-        });
-    };
-
-    $scope.showThumbnailsForTag = function (tag) {
-        $location.path('pictures/tags/' + tag);
-    };
 
     $scope.addTag = function() {
         console.log( 'New tag is: ' + $scope.newTag );
@@ -37,6 +23,45 @@ ppmPictureDetailControllers.controller('PictureDetailCtrl', function ($scope, $r
         $location.path('/pictures/' + $scope.pictureId + '/alternatives');
     }
 
-    $scope.loadDetails($routeParams.pictureId);
+    ppmPictureDetailControllers.PictureDetailCtrlHelper_init( $scope, $routeParams, $http, $location );
+
 });
+
+ppmPictureDetailControllers.controller( 'PictureAlternativeController', function( $scope, $routeParams, $http, $location )
+{
+    $scope.showAlert = true;
+    $scope.alertMessage = "Loading Data ...";
+
+    ppmPictureDetailControllers.PictureDetailCtrlHelper_init( $scope, $routeParams, $http, $location );
+
+    $http.get( '/rest/pictures/' + $scope.pictureId + '/alternatives').success( function(data) {
+        $scope.alternatives = data;
+    } );
+
+    $scope.showAlert = false;
+});
+
+
+ppmPictureDetailControllers.PictureDetailCtrlHelper_init = function ($scope, $routeParams, $http, $location) {
+
+    $scope.pictureId = $routeParams.pictureId;
+
+    $scope.exifIsCollapsed = true;
+
+    $scope.loadDetails = function (pictureId) {
+        $http.get('/rest/pictures/' + pictureId + '/details').success(function (data) {
+            $scope.details = data;
+        });
+    };
+
+    $scope.showThumbnailsForTag = function (tag) {
+        $location.path('pictures/tags/' + tag);
+    };
+
+    $scope.showDetail = function (pictureId) {
+        $location.path('/pictures/' + pictureId);
+    };
+
+    $scope.loadDetails($routeParams.pictureId);
+};
 

@@ -6,7 +6,7 @@
  * Time: 23:41
  */
 
-namespace Simirimia\Ppm;
+namespace Simirimia\Ppm\Result;
 
 
 class ArrayResult
