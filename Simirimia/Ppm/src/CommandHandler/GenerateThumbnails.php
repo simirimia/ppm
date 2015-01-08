@@ -10,6 +10,7 @@ namespace Simirimia\Ppm\CommandHandler;
 
 use Intervention\Image\Constraint;
 use Intervention\Image\ImageManager;
+use Simirimia\Ppm\ArrayResult;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Command\GenerateThumbnails as GenerateThumbnailsCommand;
 use Simirimia\Ppm\Entity\Picture;
@@ -42,10 +43,16 @@ class GenerateThumbnails
 
     public function process()
     {
-        $pictures = $this->repository->findWithoutThumbnails();
+        $pictures = $this->repository->findWithoutThumbnails( 2000 );
+        $i=0;
         foreach ( $pictures as $picture ) {
+            $i++;
             $this->generateThumbnails( $picture );
+            if ( $i > 1000 ) {
+                return new ArrayResult( [ 'success' => 'intermediate' ] );
+            }
         }
+        return new ArrayResult( [ 'success' => true ] );
     }
 
     private function generateThumbnails( Picture $picture )
@@ -96,7 +103,8 @@ class GenerateThumbnails
                     break;
                 default:
                     $this->logger->addError( 'Invalid Orientation: ' . $picture->getExifOrientation() . ' for picture ID: ' . $picture->getId() . ' with name: ' . $picture->getPath() );
-                    throw new \Exception( 'Invalid Orientation: ' . $picture->getExifOrientation() . ' for picture ID: ' . $picture->getId() . ' with name: ' . $picture->getPath() );
+                    return;
+                    //throw new \Exception( 'Invalid Orientation: ' . $picture->getExifOrientation() . ' for picture ID: ' . $picture->getId() . ' with name: ' . $picture->getPath() );
 
             }
 
