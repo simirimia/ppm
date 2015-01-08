@@ -8,6 +8,8 @@ ppmPictureDetailControllers.controller('PictureDetailCtrl', function ($scope, $r
 
     $scope.newTag = "Enter new tag here";
 
+    $scope.exifIsCollapsed = true;
+
     $scope.loadDetails = function (pictureId) {
         $http.get('/rest/pictures/' + pictureId + '/details').success(function (data) {
             $scope.details = data;

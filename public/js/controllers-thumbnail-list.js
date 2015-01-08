@@ -37,7 +37,7 @@ ppmControllers.controller('ThumbnailsListByTagCtrl', function ($scope, $http, $m
         });
     };
 
-    $scope.appendMoreThumbnails = function ($scope) {
+    $scope.appendMoreThumbnails = function () {
         $http.get('/rest/tags/' + $routeParams.tag + '/thumbnails/small?page=' + $scope.thumbnailsCurrentPage + '&pageSize=' + $scope.thumbnailsPageSize).success(function (data) {
             jQuery.extend( $scope.thumbnails, data );
         });
@@ -157,9 +157,6 @@ ppmControllers.ThumbnailListHelper_init = function ($scope, $modal, $location, $
     };
 
     $scope.myPagingFunction = function() {
-        console.log( 'pagination function called' );
-        // $scope.thumbnailsPageSize += 20;
-        // $scope.loadThumbnails( $scope );
         $scope.thumbnailsCurrentPage++;
         $scope.appendMoreThumbnails();
     }

@@ -11,19 +11,25 @@
         <input name="'newTag" ng-model="newTag" ng-keypress="newTagKeyPressed()" /> <button ng-click="addTag()">Add Tag</button>
     </div>
 
-    <img src="/thumbnail/{{ pictureId }}_1400.jpg">
+    <div>
+        <img class="img-thumbnail" src="/thumbnail/{{ pictureId }}_1400.jpg">
+    </div>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>EXIF Key</th>
-                <th>Value</th>
+    <button class="btn btn-default" ng-click="exifIsCollapsed = !exifIsCollapsed">Toggle Exif Details</button>
+
+    <div collapse="exifIsCollapsed">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>EXIF Key</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="exif in details.exif">
+                <td>{{exif.name}}</td>
+                <td>{{exif.value}}</td>
             </tr>
-        </thead>
-        <tr ng-repeat="exif in details.exif">
-            <td>{{exif.name}}</td>
-            <td>{{exif.value}}</td>
-        </tr>
-    </table>
+        </table>
+    </div>
 
 </div>
