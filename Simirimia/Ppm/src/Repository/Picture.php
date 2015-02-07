@@ -186,7 +186,7 @@ class Picture {
      */
     private function entityToBean( PictureEntity $entity )
     {
-        if ( empty($entity->getId()) ) {
+        if ( $entity->getId() == 0 ) {
             $bean = R::dispense( 'picture' );
         } else {
             $bean = R::load( 'picture', $entity->getId() );
