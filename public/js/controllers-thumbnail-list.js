@@ -6,6 +6,7 @@ var ppmThumbnailListControllers = angular.module('ppmThumbnailListControllers', 
  */
 ppmThumbnailListControllers.controller('ThumbnailListCtrl', function ($scope, $http, $modal, $location, $window) {
 
+    $scope.additionalPicturesAvailable = true;
 
     $scope.loadThumbnails = function ($scope) {
         $http.get('/rest/pictures/thumbnails/small?page=' + $scope.thumbnailsCurrentPage + '&pageSize=' + $scope.thumbnailsPageSize).success(function (data) {
@@ -15,7 +16,13 @@ ppmThumbnailListControllers.controller('ThumbnailListCtrl', function ($scope, $h
 
     $scope.appendMoreThumbnails = function() {
         $http.get('/rest/pictures/thumbnails/small?page=' + $scope.thumbnailsCurrentPage + '&pageSize=' + $scope.thumbnailsPageSize).success(function (data) {
-            jQuery.extend( $scope.thumbnails, data );
+
+            if ( jQuery.isEmptyObject( data ) ) {
+                $scope.additionalPicturesAvailable = false;
+            } else {
+                jQuery.extend( $scope.thumbnails, data );
+                $scope.additionalPicturesAvailable = true;
+            }
 
         });
     }
@@ -31,6 +38,8 @@ ppmThumbnailListControllers.controller('ThumbnailListCtrl', function ($scope, $h
  */
 ppmThumbnailListControllers.controller('ThumbnailsListByTagCtrl', function ($scope, $http, $modal, $routeParams, $location, $window) {
 
+    $scope.additionalPicturesAvailable = true;
+
     $scope.loadThumbnails = function ($scope) {
         $http.get('/rest/tags/' + $routeParams.tag + '/thumbnails/small?page=' + $scope.thumbnailsCurrentPage + '&pageSize=' + $scope.thumbnailsPageSize).success(function (data) {
             $scope.thumbnails = data;
@@ -39,7 +48,13 @@ ppmThumbnailListControllers.controller('ThumbnailsListByTagCtrl', function ($sco
 
     $scope.appendMoreThumbnails = function () {
         $http.get('/rest/tags/' + $routeParams.tag + '/thumbnails/small?page=' + $scope.thumbnailsCurrentPage + '&pageSize=' + $scope.thumbnailsPageSize).success(function (data) {
-            jQuery.extend( $scope.thumbnails, data );
+
+            if ( jQuery.isEmptyObject( data ) ) {
+                $scope.additionalPicturesAvailable = false;
+            } else {
+                jQuery.extend( $scope.thumbnails, data );
+                $scope.additionalPicturesAvailable = true;
+            }
         });
     };
 

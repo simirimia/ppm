@@ -61,8 +61,10 @@
 
         </div>
 
-        <div infinite-scroll="myPagingFunction()" infinite-scroll-distance="0">
-            Loading more stuff ....
+        <div ng-if="additionalPicturesAvailable == true">
+            <div infinite-scroll="myPagingFunction()" infinite-scroll-distance="0">
+                Loading more stuff ....
+            </div>
         </div>
 
     </div>
