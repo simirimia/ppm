@@ -5,7 +5,8 @@ var ppmApp = angular.module('ppmApp', [
     'infinite-scroll',
     'ppmControllers',
     'ppmThumbnailListControllers',
-    'ppmPictureDetailControllers'
+    'ppmPictureDetailControllers',
+    'ppmTagControllers'
 ]);
 
 
@@ -32,6 +33,13 @@ ppmApp.config(['$routeProvider',
                 templateUrl: 'partials/picture-detail-alternatives.html',
                 controller: 'PictureAlternativeController'
             }).
+
+            // tag specific routes
+            when('/tags', {
+               templateUrl: 'partials/tag-list.html',
+                controller: 'TagController'
+            }).
+
             // the default route
             otherwise({
                 //redirectTo: '/pictures'

@@ -9,6 +9,7 @@
 namespace Simirimia\Ppm;
 
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
+use Simirimia\Ppm\Repository\Tag as TagRepository;
 
 class QueryDispatcher extends Dispatcher
 {
@@ -21,6 +22,9 @@ class QueryDispatcher extends Dispatcher
             case '/rest/pictures/thumbnails/small':
                 $query = new Query\AllThumbnails( 'small', $request->getPageSize(), $request->getPageSize()*($request->getPage()-1) );
                 return new QueryHandler\AllThumbnails( $query, new PictureRepository() );
+            case '/rest/tags':
+                $query = new Query\Tags();
+                return new QueryHandler\Tags( $query, new TagRepository() );
         }
 
         // dynamic URLs
