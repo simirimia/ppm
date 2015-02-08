@@ -8,13 +8,13 @@
 
 namespace Simirimia\Ppm\CommandHandler;
 
+use Simirimia\Ppm\Dispatchable;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
-use Simirimia\Ppm\Entity\Picture;
 use Simirimia\Ppm\Command\AddAlternative as AddAlternativeCommand;
 use Monolog\Logger;
-use Simirimia\Ppm\ArrayResult;
+use Simirimia\Ppm\Result\ArrayResult;
 
-class AddAlternative
+class AddAlternative implements Dispatchable
 {
 
     /**
@@ -41,7 +41,7 @@ class AddAlternative
 
     public function process()
     {
-        $this->logger->addInfo( 'Adding an alternative. Main Picure is: ' . $this->command->getMainPictureId() . ' and the new alternative is: ' . $this->command->getAlternativePictureId() );
+        $this->logger->addInfo( 'Adding an alternative. Main Picture is: ' . $this->command->getMainPictureId() . ' and the new alternative is: ' . $this->command->getAlternativePictureId() );
 
         $mainPicture = $this->repository->findById($this->command->getMainPictureId());
         $alternativePicture = $this->repository->findById( $this->command->getAlternativePictureId() );

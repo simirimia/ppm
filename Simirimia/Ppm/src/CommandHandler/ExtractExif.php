@@ -12,12 +12,13 @@ use Intervention\Image\Exception\NotReadableException;
 use Intervention\Image\ImageManager;
 
 use Simirimia\Ppm\Command\ExtractExif as ExctractExifCommand;
+use Simirimia\Ppm\Dispatchable;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Entity\Picture;
 use Monolog\Logger;
-use Simirimia\Ppm\ArrayResult;
+use Simirimia\Ppm\Result\ArrayResult;
 
-class ExtractExif {
+class ExtractExif implements Dispatchable {
 
     /**
      * @var \Simirimia\Ppm\Command\ExtractExif

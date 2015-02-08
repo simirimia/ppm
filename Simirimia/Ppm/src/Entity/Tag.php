@@ -24,6 +24,11 @@ class Tag
     private $title = '';
 
     /**
+     * @var int
+     */
+    private $count = 0;
+
+    /**
      * @param int $id
      */
     public function setId($id)
@@ -53,6 +58,22 @@ class Tag
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * @param int $count
+     */
+    public function setCount($count)
+    {
+        $this->count = $count;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCount()
+    {
+        return $this->count;
     }
 
 

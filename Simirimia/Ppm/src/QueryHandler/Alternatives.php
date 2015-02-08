@@ -8,11 +8,12 @@
 
 namespace Simirimia\Ppm\QueryHandler;
 
+use Simirimia\Ppm\Dispatchable;
 use Simirimia\Ppm\Result\PictureCollectionResult;
 use Simirimia\Ppm\Query\Alternatives as AlternativesCommand;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 
-class Alternatives
+class Alternatives implements Dispatchable
 {
 
     /**

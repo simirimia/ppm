@@ -40,9 +40,17 @@ class CommandDispatcher extends Dispatcher
 
         if ( preg_match( '#/rest/pictures/(\d*)/tags$#', $request->getUrl(), $matches ) ) {
             if ( $request->getMethod() == Request::POST ) {
+                $chain = new DispatchableChain();
+
                 $command = new Command\AddTag( (int)$matches[1], (string)$request->getBody() );
                 $handler = new CommandHandler\AddTag( $command, new PictureRepository(), $this->getLogger() );
-                return $handler;
+                $chain->add( $handler );
+
+                $command = new Command\UpdateTagCount( (string)$request->getBody() );
+                $handler = new CommandHandler\UpdateTagCount( $command, new DatabaseCommand\Tag() );
+                $chain->add( $handler );
+
+                return $chain;
             }
         }
 

@@ -30,6 +30,10 @@ abstract class Dispatcher
             return [ 'error' => 'No handler found' ];
         }
 
+        if ( !($handler instanceof Dispatchable) ) {
+            return [ 'error' => 'handler is not a dispatchable' ];
+        }
+
         return $handler->process();
     }
 

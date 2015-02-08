@@ -8,12 +8,13 @@
 
 namespace Simirimia\Ppm\QueryHandler;
 
+use Simirimia\Ppm\Dispatchable;
 use Simirimia\Ppm\Result\ArrayResult;
 use Simirimia\Ppm\Query\Tags as TagsCommand;
 use Simirimia\Ppm\Repository\Tag as TagRepository;
 use Simirimia\Ppm\Entity\Tag;
 
-class Tags
+class Tags implements Dispatchable
 {
     /**
      * @var \Simirimia\Ppm\Query\AllThumbnails
@@ -39,7 +40,8 @@ class Tags
         /** @var Tag $tag */
         foreach( $collection as $tag ) {
             $data[$tag->getId()] = [
-                'tag' => $tag->getTitle()
+                'tag' => $tag->getTitle(),
+                'count' => $tag->getCount()
             ];
         }
 

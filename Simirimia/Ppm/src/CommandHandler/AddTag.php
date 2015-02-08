@@ -8,13 +8,14 @@
 
 namespace Simirimia\Ppm\CommandHandler;
 
+use Simirimia\Ppm\Dispatchable;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Entity\Picture;
 use Simirimia\Ppm\Command\AddTag as AddTagCommand;
 use Monolog\Logger;
-use Simirimia\Ppm\ArrayResult;
+use Simirimia\Ppm\Result\ArrayResult;
 
-class AddTag
+class AddTag implements Dispatchable
 {
 
     /**
@@ -48,7 +49,6 @@ class AddTag
         $this->repository->save($picture);
         return new ArrayResult([
             'status' => 'success',
-            'tags' => $picture->getTags()
         ]);
     }
 

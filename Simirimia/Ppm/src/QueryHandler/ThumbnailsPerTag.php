@@ -8,12 +8,13 @@
 
 namespace Simirimia\Ppm\QueryHandler;
 
+use Simirimia\Ppm\Dispatchable;
 use Simirimia\Ppm\Query\ThumbnailsPerTag as ThumbnailPerTagCommand;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Entity\Picture;
 use Simirimia\Ppm\Result\ArrayResult;
 
-class ThumbnailsPerTag
+class ThumbnailsPerTag implements Dispatchable
 {
     /**
      * @var \Simirimia\Ppm\Query\ThumbnailsPerTag

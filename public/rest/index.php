@@ -44,19 +44,34 @@ switch( $requestMethod ) {
 $result = $dispatcher->dispatch( \Simirimia\Ppm\Request::createFromSuperGlobals() );
 
 
-if ( $result instanceof \Simirimia\Ppm\Result\ArrayResult ) {
-    echo \Simirimia\Ppm\ResultRenderer\ArrayResultRenderer::render( $result );
-} elseif( $result instanceof \Simirimia\Ppm\Result\FilePathResult ) {
-    echo \Simirimia\Ppm\ResultRenderer\FilePathRenderer::render( $result );
-} elseif( $result instanceof \Simirimia\Ppm\Result\PictureResult ) {
-    echo \Simirimia\Ppm\ResultRenderer\PictureResultRenderer::render( $result );
-} elseif( $result instanceof \Simirimia\Ppm\Result\PictureCollectionResult ) {
-    echo \Simirimia\Ppm\ResultRenderer\PictureCollectionResultRenderer::render( $result );
-} else{
-    var_dump( $result );
-    die( 'Unknown return type' );
-}
+renderResult( $result );
 
+
+function renderResult( $result )
+{
+    if ( $result instanceof \Simirimia\Ppm\Result\ArrayResult ) {
+        echo \Simirimia\Ppm\ResultRenderer\ArrayResultRenderer::render( $result );
+    } elseif( $result instanceof \Simirimia\Ppm\Result\FilePathResult ) {
+        echo \Simirimia\Ppm\ResultRenderer\FilePathRenderer::render( $result );
+    } elseif( $result instanceof \Simirimia\Ppm\Result\PictureResult ) {
+        echo \Simirimia\Ppm\ResultRenderer\PictureResultRenderer::render( $result );
+    } elseif( $result instanceof \Simirimia\Ppm\Result\PictureCollectionResult ) {
+        echo \Simirimia\Ppm\ResultRenderer\PictureCollectionResultRenderer::render( $result );
+    } elseif( $result instanceof \Simirimia\Ppm\Result\CompoundResult ) {
+        $results = $result->getResults();
+        $total = '[';
+        foreach( $results as $current ) {
+            ob_start();
+            renderResult( $current );
+            $total .= ob_get_clean() . ', ';
+        }
+        $total .= ' {} ] ';
+        echo $total;
+    } else{
+        echo " *** UNKNOWN RESULT TYPE *** ";
+        var_dump( $result );
+    }
+}
 
 // ******
 

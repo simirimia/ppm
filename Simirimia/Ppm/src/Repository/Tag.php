@@ -19,7 +19,7 @@ class Tag
      */
     public function findAll()
     {
-        $data = R::getAll( 'SELECT * FROM tag' );
+        $data = R::getAll( 'SELECT * FROM tag t ORDER BY t.counter' );
         $collection = new TagCollection();
 
         foreach( $data as $current ) {
@@ -33,6 +33,7 @@ class Tag
         $entity = new TagEntity();
         $entity->setId( $data['id'] );
         $entity->setTitle( $data['title'] );
+        $entity->setCount( $data['counter'] );
         return $entity;
     }
 } 

@@ -32,22 +32,27 @@ class QueryDispatcher extends Dispatcher
 
         // URLs starting with /rest/pictures
         if ( preg_match( '#/rest/pictures/(\d*)/alternatives#', $request->getUrl(), $matches ) ) {
-            $query = new Query\Alternatives( $matches[1] );
+            $query = new Query\Alternatives( (int)$matches[1] );
             return new QueryHandler\Alternatives( $query, new PictureRepository() );
         }
 
         if ( preg_match( '#/rest/pictures/(\d*)/details#', $request->getUrl(), $matches ) ) {
-            $query = new Query\PictureDetails( $matches[1] );
+            $query = new Query\PictureDetails( (int)$matches[1] );
             return new QueryHandler\PictureDetails( $query, new PictureRepository() );
         }
 
         if ( preg_match( '#/rest/pictures/(\d*)/exif#', $request->getUrl(), $matches ) ) {
-            $query = new Query\Exif( $matches[1] );
+            $query = new Query\Exif( (int)$matches[1] );
             return new QueryHandler\Exif( $query, new PictureRepository() );
         }
 
+        if ( preg_match( '#/rest/pictures/(\d*)/tags#', $request->getUrl(), $matches ) ) {
+            $query = new Query\TagsForPicture( (int)$matches[1] );
+            return new QueryHandler\TagsForPicture( $query, new PictureRepository() );
+        }
+
         if ( preg_match( '#/rest/pictures/(\d*)/original#', $request->getUrl(), $matches ) ) {
-            $query = new Query\Original( $matches[1] );
+            $query = new Query\Original( (int)$matches[1] );
             return new QueryHandler\Original( $query, new PictureRepository() );
         }
 

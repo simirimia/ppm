@@ -10,7 +10,9 @@ ppmPictureDetailControllers.controller('PictureDetailCtrl', function ($scope, $r
         console.log( 'New tag is: ' + $scope.newTag );
         $http.post( '/rest/pictures/' + $scope.pictureId + '/tags', $scope.newTag).success( function(data) {
             console.log( 'Tag update returned: ' + data );
-            $scope.details.tags = data.tags;
+            $http.get('/rest/pictures/' + $scope.pictureId + '/tags').success( function(data) {
+                $scope.details.tags = data.tags;
+            } )
         } );
     }
 
