@@ -44,12 +44,12 @@ class GenerateThumbnails implements Dispatchable
 
     public function process()
     {
-        $pictures = $this->repository->findWithoutThumbnails( 501 );
+        $pictures = $this->repository->findWithoutThumbnails( 151 );
         $i=0;
         foreach ( $pictures as $picture ) {
             $i++;
             $this->generateThumbnails( $picture );
-            if ( $i > 500 ) {
+            if ( $i > 150 ) {
                 return new ArrayResult( [ 'success' => 'intermediate' ] );
             }
         }
