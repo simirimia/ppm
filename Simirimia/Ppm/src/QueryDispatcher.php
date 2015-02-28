@@ -56,6 +56,10 @@ class QueryDispatcher extends Dispatcher
             return new QueryHandler\Original( $query, new PictureRepository() );
         }
 
+        if ( preg_match( '#/rest/pictures/(\d*)/orientation#', $request->getUrl(), $matches ) ) {
+            $query = new Query\OrientationInfo( (int)$matches[1] );
+            return new QueryHandler\OrientationInfo( $query, new PictureRepository() );
+        }
 
 
         // URLs starting with /rest/tags

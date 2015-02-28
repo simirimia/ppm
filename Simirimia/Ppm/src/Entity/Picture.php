@@ -10,6 +10,7 @@ namespace Simirimia\Ppm\Entity;
 
 
 use Simirimia\Ppm\PictureCollection;
+use Simirimia\Ppm\Exif\Orientation as ExifOrientation;
 
 class Picture {
 
@@ -219,6 +220,15 @@ class Picture {
 
     // Exif access shortcuts
 
+    public function getExifOrientationObject()
+    {
+        return ExifOrientation::fromExifArray( $this->exif );
+    }
+
+    /**
+     * @deprecated
+     * @return int|null
+     */
     public function getExifOrientation()
     {
         return isset($this->exif['Orientation']) ? $this->exif['Orientation'] : null;
