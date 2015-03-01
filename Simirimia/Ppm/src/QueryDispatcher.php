@@ -10,6 +10,8 @@ namespace Simirimia\Ppm;
 
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Repository\Tag as TagRepository;
+use Simirimia\Core\Request;
+use Simirimia\Core\Dispatcher;
 
 class QueryDispatcher extends Dispatcher
 {

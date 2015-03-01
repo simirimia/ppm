@@ -8,8 +8,8 @@
 
 namespace Simirimia\Ppm\QueryHandler;
 
-use Simirimia\Ppm\Dispatchable;
-use Simirimia\Ppm\Result\ArrayResult;
+use Simirimia\Core\Dispatchable;
+use Simirimia\Core\Result\ArrayResult;
 use Simirimia\Ppm\Query\Tags as TagsCommand;
 use Simirimia\Ppm\Repository\Tag as TagRepository;
 use Simirimia\Ppm\Entity\Tag;

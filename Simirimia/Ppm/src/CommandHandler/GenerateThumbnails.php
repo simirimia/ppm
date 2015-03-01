@@ -10,8 +10,8 @@ namespace Simirimia\Ppm\CommandHandler;
 
 use Intervention\Image\Constraint;
 use Intervention\Image\ImageManager;
-use Simirimia\Ppm\Dispatchable;
-use Simirimia\Ppm\Result\ArrayResult;
+use Simirimia\Core\Dispatchable;
+use Simirimia\Core\Result\ArrayResult;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Command\GenerateThumbnails as GenerateThumbnailsCommand;
 use Simirimia\Ppm\Entity\Picture;

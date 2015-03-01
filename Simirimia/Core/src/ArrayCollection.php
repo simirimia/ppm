@@ -6,7 +6,7 @@
  * Time: 22:19
  */
 
-namespace Simirimia\Ppm;
+namespace Simirimia\Core;
 
 
 use Traversable;
@@ -15,7 +15,6 @@ use Simirimia\Ppm\Entity\Picture;
 
 
 class ArrayCollection implements \Countable, \ArrayAccess, \IteratorAggregate, Collection
-
 {
     /**
      * @var string

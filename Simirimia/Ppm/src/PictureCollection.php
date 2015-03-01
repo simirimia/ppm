@@ -8,6 +8,7 @@
 
 namespace Simirimia\Ppm;
 
+use Simirimia\Core\ArrayCollection;
 
 class PictureCollection extends ArrayCollection
 {

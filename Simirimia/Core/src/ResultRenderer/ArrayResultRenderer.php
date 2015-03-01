@@ -6,9 +6,9 @@
  * Time: 23:45
  */
 
-namespace Simirimia\Ppm\ResultRenderer;
+namespace Simirimia\Core\ResultRenderer;
 
-use Simirimia\Ppm\Result\ArrayResult;
+use Simirimia\Core\Result\ArrayResult;
 
 class ArrayResultRenderer
 {

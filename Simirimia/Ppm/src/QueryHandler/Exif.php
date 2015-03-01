@@ -8,10 +8,10 @@
 
 namespace Simirimia\Ppm\QueryHandler;
 
-use Simirimia\Ppm\Dispatchable;
+use Simirimia\Core\Dispatchable;
 use Simirimia\Ppm\Query\Exif as ExifCommand;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
-use Simirimia\Ppm\Result\ArrayResult;
+use Simirimia\Core\Result\ArrayResult;
 
 class Exif implements Dispatchable
 {

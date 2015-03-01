@@ -8,8 +8,8 @@
 
 namespace Simirimia\Ppm\QueryHandler;
 
-use Simirimia\Ppm\Dispatchable;
-use Simirimia\Ppm\Result\ArrayResult;
+use Simirimia\Core\Dispatchable;
+use Simirimia\Core\Result\ArrayResult;
 use Simirimia\Ppm\Query\AllThumbnails as AllThumbnailsCommand;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Entity\Picture;

@@ -6,7 +6,7 @@
  * Time: 18:07
  */
 
-namespace Simirimia\Ppm;
+namespace Simirimia\Core;
 
 
 interface Dispatchable

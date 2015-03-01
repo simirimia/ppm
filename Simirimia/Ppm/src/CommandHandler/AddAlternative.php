@@ -8,11 +8,11 @@
 
 namespace Simirimia\Ppm\CommandHandler;
 
-use Simirimia\Ppm\Dispatchable;
+use Simirimia\Core\Dispatchable;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Command\AddAlternative as AddAlternativeCommand;
 use Monolog\Logger;
-use Simirimia\Ppm\Result\ArrayResult;
+use Simirimia\Core\Result\ArrayResult;
 
 class AddAlternative implements Dispatchable
 {

@@ -6,7 +6,7 @@
  * Time: 20:56
  */
 
-namespace Simirimia\Ppm;
+namespace Simirimia\Core;
 
 use Monolog\Logger;
 

@@ -6,7 +6,7 @@
  * Time: 23:02
  */
 
-namespace Simirimia\Ppm;
+namespace Simirimia\Core;
 
 
 class Request

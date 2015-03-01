@@ -8,12 +8,12 @@
 
 namespace Simirimia\Ppm\CommandHandler;
 
-use Simirimia\Ppm\Dispatchable;
+use Simirimia\Core\Dispatchable;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Entity\Picture;
 use Simirimia\Ppm\Command\RemoveTag as RemoveTagCommand;
 use Monolog\Logger;
-use Simirimia\Ppm\Result\ArrayResult;
+use Simirimia\Core\Result\ArrayResult;
 
 class RemoveTag implements Dispatchable
 {

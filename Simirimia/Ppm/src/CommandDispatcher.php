@@ -10,6 +10,9 @@ namespace Simirimia\Ppm;
 
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Repository\Picture;
+use Simirimia\Core\Request;
+use Simirimia\Core\Dispatcher;
+use Simirimia\Core\DispatchableChain;
 
 class CommandDispatcher extends Dispatcher
 {

@@ -6,7 +6,7 @@
  * Time: 18:22
  */
 
-namespace Simirimia\Ppm\Result;
+namespace Simirimia\Core\Result;
 
 
 class CompoundResult

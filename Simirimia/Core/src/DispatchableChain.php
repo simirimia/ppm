@@ -6,10 +6,10 @@
  * Time: 18:16
  */
 
-namespace Simirimia\Ppm;
+namespace Simirimia\Core;
 
 
-use Simirimia\Ppm\Result\CompoundResult;
+use Simirimia\Core\Result\CompoundResult;
 
 class DispatchableChain implements Dispatchable
 {

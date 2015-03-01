@@ -10,8 +10,8 @@ namespace Simirimia\Ppm\CommandHandler;
 
 use Simirimia\Ppm\Command\UpdateTagCount as UpdateTagCountCommand;
 use Simirimia\Ppm\DatabaseCommand\Tag as TagDatabaseCommands;
-use Simirimia\Ppm\Dispatchable;
-use Simirimia\Ppm\Result\ArrayResult;
+use Simirimia\Core\Dispatchable;
+use Simirimia\Core\Result\ArrayResult;
 
 class UpdateTagCount implements Dispatchable
 {

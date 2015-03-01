@@ -6,10 +6,10 @@
  * Time: 23:48
  */
 
-namespace Simirimia\Ppm\ResultRenderer;
+namespace Simirimia\Core\ResultRenderer;
 
 
-use Simirimia\Ppm\Result\FilePathResult;
+use Simirimia\Core\Result\FilePathResult;
 
 class FilePathRenderer
 {

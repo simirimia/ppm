@@ -9,11 +9,11 @@
 namespace Simirimia\Ppm\QueryHandler;
 
 
-use Simirimia\Ppm\Dispatchable;
+use Simirimia\Core\Dispatchable;
 use Simirimia\Ppm\Query\TagsForPicture as TagsForPictureQuery;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Entity\Picture as PictureEntity;
-use Simirimia\Ppm\Result\ArrayResult;
+use Simirimia\Core\Result\ArrayResult;
 
 class TagsForPicture implements Dispatchable
 {

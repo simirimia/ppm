@@ -5,7 +5,7 @@
  * Date: 08.02.15
  * Time: 16:02
  */
-namespace Simirimia\Ppm;
+namespace Simirimia\Core;
 
 use Simirimia\Ppm\Entity\Picture;
 use Traversable;
