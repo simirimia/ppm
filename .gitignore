@@ -7,4 +7,5 @@ thumbnails
 log
 angular-seed
 public/bower_components
+config/config_local.ini.php
 

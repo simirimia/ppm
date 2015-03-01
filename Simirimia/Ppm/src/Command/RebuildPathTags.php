@@ -8,7 +8,7 @@
 
 namespace Simirimia\Ppm\Command;
 
-use Simirimia\Ppm\Config;
+use Simirimia\Ppm\PpmConfig;
 
 class RebuildPathTags {
 
@@ -17,7 +17,7 @@ class RebuildPathTags {
      */
     private $basePath;
 
-    public function __construct( Config $config ) {
+    public function __construct( PpmConfig $config ) {
         $this->basePath = $config->getSourcePicturePath();
     }
 

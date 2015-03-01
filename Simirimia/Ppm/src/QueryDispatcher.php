@@ -74,4 +74,12 @@ class QueryDispatcher extends Dispatcher
 
         return null;
     }
+
+    /**
+     * @return PpmConfig
+     */
+    protected function getConfig()
+    {
+        return parent::getConfig();
+    }
 } 

@@ -17,7 +17,12 @@ abstract class Dispatcher
      */
     private $logger;
 
-    public function __construct( Logger $logger )
+    /**
+     * @var Config
+     */
+    private $config;
+
+    public function __construct( Logger $logger, Config $config )
     {
         $this->logger = $logger;
     }
@@ -43,6 +48,14 @@ abstract class Dispatcher
     protected function getLogger()
     {
         return $this->logger;
+    }
+
+    /**
+     * @return Config
+     */
+    protected function getConfig()
+    {
+        return $this->config;
     }
 
     protected abstract function resolveUrl( Request $request );

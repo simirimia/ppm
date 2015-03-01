@@ -2,7 +2,7 @@
 
 namespace Simirimia\Ppm\Command;
 
-use Simirimia\Ppm\Config;
+use Simirimia\Ppm\PpmConfig;
 
 class ScanFolder {
 
@@ -11,7 +11,7 @@ class ScanFolder {
      */
     private $path;
 
-    public function __construct( Config $config )
+    public function __construct( PpmConfig $config )
     {
         $this->path = $config->getSourcePicturePath();
     }

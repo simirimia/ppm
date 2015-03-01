@@ -22,11 +22,11 @@ class CommandDispatcher extends Dispatcher
         switch( $request->getUrl() )
         {
             case '/rest/pictures/thumbnails/create':
-                $command = new Command\GenerateThumbnails( new Config() );
+                $command = new Command\GenerateThumbnails( $this->getConfig() );
                 $handler = new CommandHandler\GenerateThumbnails( $command, new PictureRepository(), $this->getLogger() );
                 return $handler;
             case '/rest/pictures/scan':
-                $command = new Command\ScanFolder( new Config() );
+                $command = new Command\ScanFolder( $this->getConfig() );
                 $handler = new CommandHandler\ScanFolder( $command, new PictureRepository(), $this->getLogger() );
                 return $handler;
             case '/rest/pictures/extract-exif':
@@ -34,7 +34,7 @@ class CommandDispatcher extends Dispatcher
                 $handler = new CommandHandler\ExtractExif( $command, new PictureRepository(), $this->getLogger() );
                 return $handler;
             case '/rest/pictures/rebuild-path-tags':
-                $command = new Command\RebuildPathTags( new Config );
+                $command = new Command\RebuildPathTags( $this->getConfig() );
                 $handler = new CommandHandler\RebuildPathTags( $command, new PictureRepository(), $this->getLogger() );
                 return $handler;
         }
@@ -75,5 +75,13 @@ class CommandDispatcher extends Dispatcher
         }
 
         return null;
+    }
+
+    /**
+     * @return PpmConfig
+     */
+    protected function getConfig()
+    {
+        return parent::getConfig();
     }
 } 

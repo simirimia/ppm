@@ -8,7 +8,7 @@
 
 namespace Simirimia\Ppm\Command;
 
-use Simirimia\Ppm\Config;
+use Simirimia\Ppm\PpmConfig;
 
 class GenerateThumbnails {
 
@@ -17,7 +17,7 @@ class GenerateThumbnails {
      */
     private $thumbnailPath;
 
-    public function __construct( Config $config )
+    public function __construct( PpmConfig $config )
     {
         $this->thumbnailPath = $config->getThumbnailPath();
     }
