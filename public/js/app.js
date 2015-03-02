@@ -6,7 +6,8 @@ var ppmApp = angular.module('ppmApp', [
     'ppmControllers',
     'ppmThumbnailListControllers',
     'ppmPictureDetailControllers',
-    'ppmTagControllers'
+    'ppmTagControllers',
+    'ppmUserControllers'
 ]);
 
 
@@ -36,8 +37,14 @@ ppmApp.config(['$routeProvider',
 
             // tag specific routes
             when('/tags', {
-               templateUrl: 'partials/tag-list.html',
+                templateUrl: 'partials/tag-list.html',
                 controller: 'TagController'
+            }).
+
+            // user management
+            when('/login', {
+                templateUrl : 'partials/login.html',
+                controller: 'UserController'
             }).
 
             // the default route
@@ -47,3 +54,25 @@ ppmApp.config(['$routeProvider',
                 controller: 'WelcomeController'
             });
     }]);
+
+ppmApp.factory( 'UserService', function () {
+
+    var currentUser = {
+        isLoggedIn: false,
+        userName: 'anonymous',
+        role: 'anon'
+    };
+
+    return {
+        login: function () {
+
+        },
+        logout: function() {
+
+        },
+        getCurrentUser: function() {
+            return currentUser;
+        }
+    };
+
+} );
