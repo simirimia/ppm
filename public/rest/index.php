@@ -2,15 +2,6 @@
 
 
 require __DIR__ . '/../../vendor/autoload.php';
-require __DIR__ . '/../../vendor/aura/autoload/src/Loader.php';
-
-$loader = new \Aura\Autoload\Loader();
-$loader->addPrefix( 'Simirimia\Ppm', __DIR__ . '/../../Simirimia/Ppm/src' );
-$loader->addPrefix( 'Simirimia\User', __DIR__ . '/../../Simirimia/User/src' );
-$loader->addPrefix( 'Simirimia\Core', __DIR__ . '/../../Simirimia/Core/src' );
-$loader->addPrefix( 'Psr\Http\Message', __DIR__ . '/../../vendor/psr/http-message/src' );
-$loader->addPrefix( 'Intervention\Image', __DIR__ . '/../../vendor/intervention/image/src' );
-$loader->register();
 
 $config = \Simirimia\Ppm\Config::fromIniFilesInFolder( __DIR__ . '/../../config/' );
 
