@@ -9,7 +9,7 @@
 namespace Simirimia\Ppm\Repository;
 
 use Simirimia\Ppm\Entity\Picture as PictureEntity;
-use \R;
+use RedBeanPHP\R;
 use Simirimia\Ppm\PictureCollection;
 
 class Picture {

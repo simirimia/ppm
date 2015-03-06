@@ -8,7 +8,7 @@
 
 namespace Simirimia\Ppm\Repository;
 
-use \R;
+use RedBeanPHP\R;
 use Simirimia\Ppm\TagCollection;
 use Simirimia\Ppm\Entity\Tag as TagEntity;
 
