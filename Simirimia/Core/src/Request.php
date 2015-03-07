@@ -44,28 +44,26 @@ class Request
         } elseif ($_SERVER['argv'][2]) {
             $url = $_SERVER['argv'][2];
         } else {
-            //$url = "/rest/pictures/thumbnails/create";
-            //$url = "/rest/pictures/thumbnails/small";
-            //$url = '/rest/pictures/scan';
-            //$url = '/rest/picture/extract-exif';
-            $url = '';
+            $url = '/';
         }
 
-        if (isset($_SERVER['REQUEST_METHOD'])) {
-            $method = $_SERVER['REQUEST_METHOD'];
-        } elseif( isset($_SERVER['argv'][1]) ) {
-            $method = $_SERVER['argv'][1];
+        if (false === isset($_SERVER['REQUEST_METHOD'])) {
+            if (isset($_SERVER['argv'][1])) {
+                $method = $_SERVER['argv'][1];
+            } else {
+                $method = 'POST';
+            }
         } else {
-            $method = 'POST';
+            $method = $_SERVER['REQUEST_METHOD'];
         }
 
-        $url = explode( '?', $url );
-        $url = array_shift( $url );
+        $url = explode('?', $url);
+        $url = array_shift($url);
 
-        return new Request( $url, $_GET, file_get_contents('php://input'), $method );
+        return new Request($url, $_GET, file_get_contents('php://input'), $method);
     }
 
-    public function __construct( $url, array $queryParams, $body, $requestMethod )
+    public function __construct($url, array $queryParams, $body, $requestMethod)
     {
         $this->url = (string)$url;
         $this->body = $body;
@@ -115,8 +113,4 @@ class Request
     {
         return $this->method;
     }
-
-
-
-
-} 
+}

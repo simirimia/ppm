@@ -9,6 +9,7 @@
 namespace Simirimia\Core;
 
 use Monolog\Logger;
+use Simirimia\Core\Result\ArrayResult;
 
 abstract class Dispatcher
 {
@@ -32,11 +33,11 @@ abstract class Dispatcher
         $handler = $this->resolveUrl( $request );
 
         if ( $handler === null ) {
-            return [ 'error' => 'No handler found' ];
+            return new ArrayResult( [ 'error' => 'No handler found' ] );
         }
 
         if ( !($handler instanceof Dispatchable) ) {
-            return [ 'error' => 'handler is not a dispatchable' ];
+            return new ArrayResult( [ 'error' => 'handler is not a dispatchable' ] );
         }
 
         return $handler->process();

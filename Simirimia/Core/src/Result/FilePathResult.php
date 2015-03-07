@@ -9,7 +9,8 @@
 namespace Simirimia\Core\Result;
 
 
-class FilePathResult {
+class FilePathResult implements Result
+{
 
     /**
      * @var string

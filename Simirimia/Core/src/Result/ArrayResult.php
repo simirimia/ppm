@@ -9,7 +9,7 @@
 namespace Simirimia\Core\Result;
 
 
-class ArrayResult
+class ArrayResult implements Result
 {
     /**
      * @var array

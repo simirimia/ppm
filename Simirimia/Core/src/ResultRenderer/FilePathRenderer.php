@@ -11,10 +11,18 @@ namespace Simirimia\Core\ResultRenderer;
 
 use Simirimia\Core\Result\FilePathResult;
 
-class FilePathRenderer
+class FilePathRenderer implements ResultRenderer
 {
-    public static function render( FilePathResult $result )
+    /**
+     * @param FilePathResult $result
+     * @return string
+     */
+    public static function render( $result )
     {
+        if ( !( $result instanceof FilePathResult ) ) {
+            throw new \InvalidArgumentException( '$result needs to be of type FilePathResult' );
+        }
+
         if ( file_exists( $result->getPath() ) ) {
             header(  'Content-type: ' . $result->getMimeType() );
             $handle = fopen( $result->getPath(), 'r' );

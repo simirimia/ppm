@@ -9,7 +9,7 @@
 namespace Simirimia\Core\Result;
 
 
-class CompoundResult
+class CompoundResult implements Result
 {
     /**
      * @var array

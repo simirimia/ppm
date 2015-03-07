@@ -8,9 +8,10 @@
 
 namespace Simirimia\Ppm\Result;
 
+use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\PictureCollection;
 
-class PictureCollectionResult
+class PictureCollectionResult implements Result
 {
     /**
      * @var PictureCollection

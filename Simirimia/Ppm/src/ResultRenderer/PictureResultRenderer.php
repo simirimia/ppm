@@ -17,8 +17,12 @@ class PictureResultRenderer
      * @param PictureResult $result
      * @return string
      */
-    public static function render( PictureResult $result )
+    public static function render( $result )
     {
+        if ( !( $result instanceof PictureResult ) ) {
+            throw new \InvalidArgumentException( '$result needs to be of type PictureResult' );
+        }
+
         return self::renderPicture( $result->getData() );
     }
 

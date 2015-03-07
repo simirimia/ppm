@@ -8,8 +8,12 @@
 
 namespace Simirimia\Core;
 
+use Simirimia\Core\Result\Result;
 
 interface Dispatchable
 {
+    /**
+     * @return Result
+     */
     public function process();
 } 
