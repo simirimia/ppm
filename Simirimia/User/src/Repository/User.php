@@ -42,16 +42,6 @@ class User
         return $this->beanToEntity( $bean );
     }
 
-    public function findByEmailAndPassword( Email $email, Password $password )
-    {
-        $bean = R::findOne( 'user', 'email = ? AND password_hash = ? ',
-            [ $email->getEmail(), $password->getPasswordHash() ] );
-        if ( empty( $bean ) ) {
-            return null;
-        }
-        return $this->beanToEntity( $bean );
-    }
-
     /**
      * @param UserEntity $entity
      */

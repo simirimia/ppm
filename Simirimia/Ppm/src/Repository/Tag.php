@@ -19,7 +19,7 @@ class Tag
      */
     public function findAll()
     {
-        $data = R::getAll( 'SELECT * FROM tag t ORDER BY t.counter' );
+        $data = R::getAll( 'SELECT * FROM tag t ORDER BY t.counter DESC ' );
         $collection = new TagCollection();
 
         foreach( $data as $current ) {

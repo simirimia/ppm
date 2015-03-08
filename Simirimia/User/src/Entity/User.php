@@ -35,14 +35,6 @@ class User
      */
     private $passwordHash;
     /**
-     * @var string
-     */
-    private $nounce;
-    /**
-     * @var DateTimeInterface
-     */
-    private $nounceValidTo;
-    /**
      * @var array
      */
     private $rights = [];
@@ -128,36 +120,9 @@ class User
         $this->passwordHash = $passwordHash;
     }
 
-    /**
-     * @return string
-     */
-    public function getNounce()
+    public function verifyPassword( Password $password )
     {
-        return $this->nounce;
-    }
-
-    /**
-     * @param string $nounce
-     */
-    public function setNounce($nounce)
-    {
-        $this->nounce = $nounce;
-    }
-
-    /**
-     * @return DateTimeInterface
-     */
-    public function getNounceValidTo()
-    {
-        return $this->nounceValidTo;
-    }
-
-    /**
-     * @param DateTimeInterface $nounceValidTo
-     */
-    public function setNounceValidTo($nounceValidTo)
-    {
-        $this->nounceValidTo = $nounceValidTo;
+        return password_verify( $password->getPassword(), $this->passwordHash );
     }
 
     /**
@@ -175,6 +140,5 @@ class User
     {
         $this->rights = $rights;
     }
-
 
 }

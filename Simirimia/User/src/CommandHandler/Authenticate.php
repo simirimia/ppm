@@ -37,12 +37,14 @@ class Authenticate implements Dispatchable
      */
     public function process()
     {
-        $user = $this->repository->findByEmailAndPassword( $this->command->getEmail(), $this->command->getPassword() );
-        if ( ! ($user instanceof User) ) {
+        $user = $this->repository->findByEmail( $this->command->getEmail() );
+        if (   ! ($user instanceof User)
+            || ! $user->verifyPassword( $this->command->getPassword() ) ) {
             $result = new ArrayResult( [ 'success' => false ] );
             $result->setResultCode( Result::FORBIDDEN );
             return $result;
         }
+
         $result = new ArrayResult( [ 'success' => true ] );
         $result->setResultCode( Result::OK );
         return $result;

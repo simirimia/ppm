@@ -4,6 +4,13 @@ use RedBeanPHP\R;
 
 require __DIR__ . '/../../vendor/autoload.php';
 set_error_handler('ppmErrorHandler');
+
+if ( !isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW']) ) {
+    header('WWW-Authenticate: Basic realm="P Picture Manager"');
+    http_response_code( 401 );
+    die('401');
+}
+
 ob_start();
 
 $config = \Simirimia\Ppm\Config::fromIniFilesInFolder( __DIR__ . '/../../config/' );
@@ -13,6 +20,21 @@ R::setup( $config->getDatabaseDsn(), $config->getDatabaseUser(), $config->getDat
 $logger = new \Monolog\Logger( 'ppm' );
 $logger->pushHandler( new Monolog\Handler\StreamHandler( __DIR__ . '/../../log/ppm.log' ) );
 $logger->addInfo( 'Logging started' );
+
+
+$authCommand = new \Simirimia\User\CommandHandler\Authenticate(
+    new \Simirimia\User\Command\Authenticate(
+            \Simirimia\User\Types\Email::fromString($_SERVER['PHP_AUTH_USER']),
+            \Simirimia\User\Types\Password::fromString($_SERVER['PHP_AUTH_PW'])
+        ),
+    new \Simirimia\User\Repository\User()
+);
+if ( $authCommand->process()->getResultCode() != \Simirimia\Core\Result\Result::OK ) {
+    http_response_code( 403 );
+    die('403');
+}
+
+
 
 $request = \Simirimia\Core\Request::createFromSuperGlobals();
 $response = \Simirimia\Core\Response::fromRequest( $request );
