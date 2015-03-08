@@ -8,8 +8,10 @@
 
 namespace Simirimia\User\Repository;
 
-use \R;
-use Simirimia\User as UserEntity;
+use RedBeanPHP\R;
+use Simirimia\User\Entity\User as UserEntity;
+use Simirimia\User\Types\Email;
+use Simirimia\User\Types\Password;
 
 class User
 {
@@ -31,9 +33,19 @@ class User
      * @param $email
      * @return null|UserEntity
      */
-    public function findByEmail( $email )
+    public function findByEmail( Email $email )
     {
-        $bean = R::findOne( 'user', 'email = ?', [ $email ] );
+        $bean = R::findOne( 'user', 'email = ?', [ $email->getEmail() ] );
+        if ( empty( $bean ) ) {
+            return null;
+        }
+        return $this->beanToEntity( $bean );
+    }
+
+    public function findByEmailAndPassword( Email $email, Password $password )
+    {
+        $bean = R::findOne( 'user', 'email = ? AND password_hash = ? ',
+            [ $email->getEmail(), $password->getPasswordHash() ] );
         if ( empty( $bean ) ) {
             return null;
         }
@@ -56,7 +68,7 @@ class User
     {
         $entity = new UserEntity();
         $entity->setId( $bean->id );
-        $entity->setEmail( $bean->email );
+        $entity->setEmail( Email::fromString( $bean->email ) );
         $entity->setFirstName( $bean->firstName );
         $entity->setLastName( $bean->lastName );
         $entity->setPasswordHash( $bean->passwordHash );
@@ -78,7 +90,7 @@ class User
             $bean = R::load( 'user', $entity->getId() );
         }
 
-        $bean->email = $entity->getEmail();
+        $bean->email = $entity->getEmail()->getEmail();
         $bean->firstName = $entity->getFirstName();
         $bean->lastName = $entity->getLastName();
         $bean->passwordHash = $entity->getPasswordHash();

@@ -9,6 +9,7 @@
 namespace Simirimia\Ppm\QueryHandler;
 
 use Simirimia\Core\Dispatchable;
+use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\Query\PictureDetails as PictureDetailsCommand;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Result\PictureResult;
@@ -42,6 +43,8 @@ class PictureDetails implements Dispatchable
     public function process()
     {
         $picture = $this->repository->findById($this->command->getId());
-        return new PictureResult( $picture );
+        $result = new PictureResult( $picture );
+        $result->setResultCode( Result::OK );
+        return $result;
     }
 } 

@@ -12,6 +12,7 @@ use Intervention\Image\Constraint;
 use Intervention\Image\ImageManager;
 use Simirimia\Core\Dispatchable;
 use Simirimia\Core\Result\ArrayResult;
+use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Command\GenerateThumbnails as GenerateThumbnailsCommand;
 use Simirimia\Ppm\Entity\Picture;
@@ -53,7 +54,9 @@ class GenerateThumbnails implements Dispatchable
                 return new ArrayResult( [ 'success' => 'intermediate' ] );
             }
         }
-        return new ArrayResult( [ 'success' => true ] );
+        $result = new ArrayResult( [ 'success' => true ] );
+        $result->setResultCode( Result::OK );
+        return $result;
     }
 
     private function generateThumbnails( Picture $picture )

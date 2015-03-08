@@ -15,6 +15,7 @@ $logger->pushHandler( new Monolog\Handler\StreamHandler( __DIR__ . '/../../log/p
 $logger->addInfo( 'Logging started' );
 
 $request = \Simirimia\Core\Request::createFromSuperGlobals();
+$response = \Simirimia\Core\Response::fromRequest( $request );
 
 switch( $request->getMethod() ) {
     case 'GET':
@@ -32,20 +33,19 @@ switch( $request->getMethod() ) {
 $responseBody = '';
 try {
     $result = $dispatcher->dispatch( $request );
-    $responseBody =  \Simirimia\Core\ResultRenderer\Renderer::render( $result );
+    \Simirimia\Core\ResultRenderer\Renderer::render( $result, $response );
     R::close();
 } catch ( Exception $e ) {
-    http_response_code( 500 );
-    $responseBody = json_encode( [
+    $response->setResultCode( \Simirimia\Core\Result\Result::BACKEND_ERROR );
+    $response->setBody( json_encode( [
         'success' => false,
         'message' => 'Exception during execution of type: ' . get_class( $e ),
         'trace' => $e->getTraceAsString(),
         'additional' => ob_get_clean()
-    ] );
+    ] ) );
 }
 ob_clean();
-echo $responseBody;
-
+$response->send();
 
 function ppmErrorHandler($errno, $errstr, $errfile, $errline) {
     if ( E_RECOVERABLE_ERROR===$errno ) {

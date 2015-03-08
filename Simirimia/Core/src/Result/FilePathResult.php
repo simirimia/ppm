@@ -11,6 +11,7 @@ namespace Simirimia\Core\Result;
 
 class FilePathResult implements Result
 {
+    use ResultCode;
 
     /**
      * @var string

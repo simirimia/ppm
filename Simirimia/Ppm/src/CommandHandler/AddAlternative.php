@@ -9,6 +9,7 @@
 namespace Simirimia\Ppm\CommandHandler;
 
 use Simirimia\Core\Dispatchable;
+use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Command\AddAlternative as AddAlternativeCommand;
 use Monolog\Logger;
@@ -50,9 +51,11 @@ class AddAlternative implements Dispatchable
         $this->repository->save($alternativePicture);
         $this->repository->save($mainPicture);
 
-        return new ArrayResult([
+        $result = new ArrayResult([
             'status' => 'success'
         ]);
+        $result->setResultCode( Result::OK );
+        return $result;
     }
 
 

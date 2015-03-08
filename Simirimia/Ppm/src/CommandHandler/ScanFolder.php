@@ -9,6 +9,7 @@
 namespace Simirimia\Ppm\CommandHandler;
 
 use Simirimia\Core\Dispatchable;
+use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Entity\Picture;
 use Simirimia\Ppm\Command\ScanFolder as ScanFolderCommand;
@@ -43,9 +44,11 @@ class ScanFolder implements Dispatchable {
     {
         $this->scan( $this->command->getPath() . '/*' );
 
-        return new ArrayResult( [
+        $result = new ArrayResult( [
             'result' => 'success'
         ] );
+        $result->setResultCode( Result::OK );
+        return $result;
     }
 
     private function scan( $dir )

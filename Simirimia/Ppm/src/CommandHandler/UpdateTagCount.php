@@ -8,6 +8,7 @@
 
 namespace Simirimia\Ppm\CommandHandler;
 
+use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\Command\UpdateTagCount as UpdateTagCountCommand;
 use Simirimia\Ppm\DatabaseCommand\Tag as TagDatabaseCommands;
 use Simirimia\Core\Dispatchable;
@@ -35,8 +36,10 @@ class UpdateTagCount implements Dispatchable
     {
         $this->database->updateTagCountFor(  $this->command->getTag());
 
-        return new ArrayResult([
+        $result = new ArrayResult([
             'status' => 'success'
         ]);
+        $result->setResultCode( Result::OK );
+        return $result;
     }
 } 

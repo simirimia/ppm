@@ -11,6 +11,8 @@ namespace Simirimia\Core\Result;
 
 class ArrayResult implements Result
 {
+    use ResultCode;
+
     /**
      * @var array
      */

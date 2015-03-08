@@ -1,0 +1,10 @@
+<div>
+    <form novalidate class="simple-form">
+        <label for="email">E-Mail</label>
+        <input type="email" name="email" id="email" required ng-model="user.email" />
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required ng-model="user.password" />
+
+        <button ng-click="authenticate(user)">Login</button>
+    </form>
+</div>

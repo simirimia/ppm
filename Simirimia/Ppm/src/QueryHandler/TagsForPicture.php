@@ -10,6 +10,7 @@ namespace Simirimia\Ppm\QueryHandler;
 
 
 use Simirimia\Core\Dispatchable;
+use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\Query\TagsForPicture as TagsForPictureQuery;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Entity\Picture as PictureEntity;
@@ -41,8 +42,10 @@ class TagsForPicture implements Dispatchable
     {
         /** @var PictureEntity $picture */
         $picture = $this->repository->findById( $this->query->getPictureId() );
-        return new ArrayResult( [
+        $result = new ArrayResult( [
             'tags' => $picture->getTags()
         ] );
+        $result->setResultCode( Result::OK );
+        return $result;
     }
 } 

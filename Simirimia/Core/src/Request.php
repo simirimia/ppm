@@ -8,8 +8,9 @@
 
 namespace Simirimia\Core;
 
+use \LogicException;
 
-class Request
+abstract class Request
 {
     const GET = 'GET';
     const POST = 'POST';
@@ -37,8 +38,19 @@ class Request
      */
     private $method;
 
+    /**
+     * @return Request
+     */
     public static function createFromSuperGlobals()
     {
+        if ( isset($_SERVER['argv']) ) {
+            $class = '\Simirimia\Core\ConsoleRequest';
+        } elseif( isset( $_SERVER['REQUEST_URI'] ) ) {
+            $class = '\Simirimia\Core\HttpRequest';
+        } else {
+            throw new LogicException( 'Cannot find appropriate request class' );
+        }
+
         if (isset($_SERVER['REQUEST_URI'])) {
             $url = $_SERVER['REQUEST_URI'];
         } elseif ($_SERVER['argv'][2]) {
@@ -60,7 +72,7 @@ class Request
         $url = explode('?', $url);
         $url = array_shift($url);
 
-        return new Request($url, $_GET, file_get_contents('php://input'), $method);
+        return new $class($url, $_GET, file_get_contents('php://input'), $method);
     }
 
     public function __construct($url, array $queryParams, $body, $requestMethod)

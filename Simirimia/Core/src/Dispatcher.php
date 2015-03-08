@@ -26,8 +26,13 @@ abstract class Dispatcher
     public function __construct( Logger $logger, Config $config )
     {
         $this->logger = $logger;
+        $this->config = $config;
     }
 
+    /**
+     * @param Request $request
+     * @return Result\Result
+     */
     public function dispatch( Request $request )
     {
         $handler = $this->resolveUrl( $request );

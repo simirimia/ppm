@@ -8,8 +8,10 @@
 
 namespace Simirimia\User\Command;
 
-use Types\Email;
-use Types\Password;
+use Simirimia\User\Types\Email;
+use Simirimia\User\Types\Password;
+
+use InvalidArgumentException;
 
 class CreateUser
 {
@@ -35,15 +37,15 @@ class CreateUser
      * @param Password $password
      * @param $firstName
      * @param $lastName
-     * @throws \InvalidArguementException
+     * @throws InvalidArgumentException
      */
     public function __construct( Email $email, Password $password, $firstName, $lastName )
     {
         if ( !is_string($firstName) ) {
-            throw new \InvalidArguementException( 'First name needs to be a string' );
+            throw new InvalidArgumentException( 'First name needs to be a string' );
         }
         if ( !is_string($lastName) ) {
-            throw new \InvalidArguementException( 'Last name needs to be a string' );
+            throw new InvalidArgumentException( 'Last name needs to be a string' );
         }
 
         $this->email = $email;

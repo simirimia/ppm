@@ -6,8 +6,7 @@
  * Time: 08:02
  */
 
-namespace Types;
-
+namespace Simirimia\User\Types;
 
 class Email
 {
@@ -23,7 +22,7 @@ class Email
      */
     public static function fromString( $emailString )
     {
-        if ( self::validateString( $emailString ) ) {
+        if ( ! self::validateString( $emailString ) ) {
             throw new \InvalidArgumentException( 'E-Mail ' . $emailString . ' is not a valid e-mail' );
         }
         return new Email( $emailString );

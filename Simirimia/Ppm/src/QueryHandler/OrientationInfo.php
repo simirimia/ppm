@@ -10,6 +10,7 @@ namespace Simirimia\Ppm\QueryHandler;
 
 
 use Simirimia\Core\Dispatchable;
+use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\Query\OrientationInfo as OrientationInfoQuery;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Entity\Picture;
@@ -39,12 +40,14 @@ class OrientationInfo implements Dispatchable
 
         $orientation = $picture->getExifOrientationObject();
 
-        return new ArrayResult( [
+        $result = new ArrayResult( [
             'orientation' => $orientation->getOrientation(),
             'make' => $orientation->getMake(),
             'model' => $orientation->getModel(),
             'degreesToRotate' => $orientation->getDegreeesToRotate()
         ] );
+        $result->setResultCode( Result::OK );
+        return $result;
     }
 
 

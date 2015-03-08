@@ -9,10 +9,13 @@
 namespace Simirimia\Ppm;
 
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
-use Simirimia\Ppm\Repository\Picture;
+
 use Simirimia\Core\Request;
 use Simirimia\Core\Dispatcher;
 use Simirimia\Core\DispatchableChain;
+
+use Simirimia\User\CommandDispatcher as UserCommandDispatcher;
+
 
 class CommandDispatcher extends Dispatcher
 {
@@ -74,7 +77,8 @@ class CommandDispatcher extends Dispatcher
             }
         }
 
-        return null;
+        $userDispatcher = new UserCommandDispatcher( $this->getLogger(), $this->getConfig() );
+        return $userDispatcher->resolveUrl( $request );
     }
 
     /**

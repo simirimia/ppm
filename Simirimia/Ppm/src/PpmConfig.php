@@ -8,8 +8,9 @@
 namespace Simirimia\Ppm;
 
 use Simirimia\Core\Config;
+use Simirimia\Core\DatabaseConfig;
 
-interface PpmConfig extends Config
+interface PpmConfig extends Config, DatabaseConfig
 {
     public function getThumbnailPath();
 
@@ -17,9 +18,4 @@ interface PpmConfig extends Config
 
     public function getLogFilePath();
 
-    public function getDatabaseUser();
-
-    public function getDatabasePassword();
-
-    public function getDatabaseDsn();
 }

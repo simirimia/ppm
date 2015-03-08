@@ -11,6 +11,7 @@ namespace Simirimia\Ppm\CommandHandler;
 use Intervention\Image\Exception\NotReadableException;
 use Intervention\Image\ImageManager;
 
+use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\Command\ExtractExif as ExctractExifCommand;
 use Simirimia\Core\Dispatchable;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
@@ -53,7 +54,9 @@ class ExtractExif implements Dispatchable {
                 $this->logger->addCritical( 'Could not read picture source file for ID ' . $picture->getId() );
             }
         }
-        return new ArrayResult( ['success' => true] );
+        $result = new ArrayResult( ['success' => true] );
+        $result->setResultCode( Result::OK );
+        return $result;
     }
 
     private function extract( Picture $picture )

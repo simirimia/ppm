@@ -9,6 +9,7 @@
 namespace Simirimia\Ppm\QueryHandler;
 
 use Simirimia\Core\Dispatchable;
+use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\Query\ThumbnailsPerTag as ThumbnailPerTagCommand;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Entity\Picture;
@@ -56,6 +57,8 @@ class ThumbnailsPerTag implements Dispatchable
             $data[$picture->getId()] = $thumbnail;
         }
 
-        return new ArrayResult( $data );
+        $result = new ArrayResult( $data );
+        $result->setResultCode( Result::OK );
+        return $result;
     }
 } 

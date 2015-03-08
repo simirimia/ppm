@@ -9,6 +9,7 @@
 namespace Simirimia\Ppm\CommandHandler;
 
 use Simirimia\Core\Dispatchable;
+use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Entity\Picture;
 use Simirimia\Ppm\Command\RemoveTag as RemoveTagCommand;
@@ -47,10 +48,12 @@ class RemoveTag implements Dispatchable
         $picture = $this->repository->findById($this->command->getId());
         $picture->removeTag($this->command->getTag());
         $this->repository->save($picture);
-        return new ArrayResult([
+        $result = new ArrayResult([
             'status' => 'success',
             'tags' => $picture->getTags()
         ]);
+        $result->setResultCode( Result::OK );
+        return $result;
     }
 
 

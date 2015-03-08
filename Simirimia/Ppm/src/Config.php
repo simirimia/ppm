@@ -8,7 +8,8 @@
 
 namespace Simirimia\Ppm;
 
-use \InvalidArguementException;
+use \InvalidArgumentException;
+use \Exception;
 
 class Config implements PpmConfig
 {
@@ -32,11 +33,11 @@ class Config implements PpmConfig
         }
 
         if ( !file_exists( $folderPath . '/config_global.ini.php' ) || !is_readable( $folderPath . '/config_global.ini.php' ) ) {
-            throw new \Exception( 'global config file not readable' );
+            throw new Exception( 'global config file not readable' );
         }
 
         if ( !file_exists( $folderPath . '/config_local.ini.php' ) || !is_readable( $folderPath . '/config_local.ini.php' ) ) {
-            throw new \Exception( 'local config file not readable' );
+            throw new Exception( 'local config file not readable' );
         }
 
         $config = parse_ini_file( $folderPath . '/config_global.ini.php' );

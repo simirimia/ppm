@@ -9,6 +9,8 @@
 namespace Simirimia\User\Entity;
 
 use \DateTimeInterface;
+use Simirimia\User\Types\Email;
+use Simirimia\User\Types\Password;
 
 class User
 {
@@ -25,7 +27,7 @@ class User
      */
     private $lastName;
     /**
-     * @var string
+     * @var Email
      */
     private $email;
     /**
@@ -95,7 +97,7 @@ class User
     }
 
     /**
-     * @return string
+     * @return Email
      */
     public function getEmail()
     {
@@ -103,9 +105,9 @@ class User
     }
 
     /**
-     * @param string $email
+     * @param Email $email
      */
-    public function setEmail($email)
+    public function setEmail( Email $email)
     {
         $this->email = $email;
     }

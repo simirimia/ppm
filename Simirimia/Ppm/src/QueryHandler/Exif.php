@@ -9,6 +9,7 @@
 namespace Simirimia\Ppm\QueryHandler;
 
 use Simirimia\Core\Dispatchable;
+use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\Query\Exif as ExifCommand;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Core\Result\ArrayResult;
@@ -51,6 +52,8 @@ class Exif implements Dispatchable
             $data[] = [ 'name' => $key, 'value' => $value ];
         }
 
-        return new ArrayResult( $data );
+        $result = new ArrayResult( $data );
+        $result->setResultCode( Result::OK );
+        return $result;
     }
 } 

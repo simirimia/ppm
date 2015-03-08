@@ -9,6 +9,7 @@
 namespace Simirimia\Ppm\CommandHandler;
 
 use Simirimia\Core\Dispatchable;
+use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Entity\Picture;
 use Simirimia\Ppm\Command\RebuildPathTags as RebuildPathTagsCommand;
@@ -59,7 +60,9 @@ class RebuildPathTags implements Dispatchable
             //if ( $i>1000 ) return;
         }
 
-        return new ArrayResult( [ 'success' => true ] );
+        $result = new ArrayResult( [ 'success' => true ] );
+        $result->setResultCode( Result::OK );
+        return $result;
     }
 
 

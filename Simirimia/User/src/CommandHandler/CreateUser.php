@@ -9,6 +9,7 @@
 namespace Simirimia\User\CommandHandler;
 
 use Simirimia\Core\Dispatchable;
+use Simirimia\Core\Result\Result;
 use Simirimia\User\Command\CreateUser as CreateUserCommand;
 use Simirimia\User\Repository\User as UserRepository;
 use Simirimia\User\Entity\User;
@@ -40,7 +41,9 @@ class CreateUser implements Dispatchable
         $user->setPasswordHash( $this->command->getPassword()->getPasswordHash() );
 
         $this->repository->save( $user );
-        return new ArrayResult( [ 'success' => true ] );
+        $result = new ArrayResult( [ 'success' => true ] );
+        $result->setResultCode( Result::OK );
+        return $result;
     }
 
 }

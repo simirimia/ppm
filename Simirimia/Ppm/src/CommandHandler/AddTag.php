@@ -9,6 +9,7 @@
 namespace Simirimia\Ppm\CommandHandler;
 
 use Simirimia\Core\Dispatchable;
+use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 use Simirimia\Ppm\Entity\Picture;
 use Simirimia\Ppm\Command\AddTag as AddTagCommand;
@@ -47,9 +48,11 @@ class AddTag implements Dispatchable
         $picture = $this->repository->findById($this->command->getId());
         $picture->addTag($this->command->getTag());
         $this->repository->save($picture);
-        return new ArrayResult([
+        $result =  new ArrayResult([
             'status' => 'success',
         ]);
+        $result->setResultCode( Result::OK );
+        return $result;
     }
 
 

@@ -6,7 +6,7 @@
  * Time: 08:02
  */
 
-namespace Types;
+namespace Simirimia\User\Types;
 
 
 class Password
@@ -23,7 +23,7 @@ class Password
      */
     public static function fromString( $passwordString )
     {
-        if ( self::validateString( $passwordString ) ) {
+        if ( ! self::validateString( $passwordString ) ) {
             throw new \InvalidArgumentException( 'Password is not valid' );
         }
         return new Password( $passwordString );
@@ -58,6 +58,6 @@ class Password
      */
     public function getPasswordHash()
     {
-        return password_hash( $this->password );
+        return password_hash( $this->password, PASSWORD_DEFAULT );
     }
 }

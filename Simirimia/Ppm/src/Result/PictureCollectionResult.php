@@ -10,9 +10,12 @@ namespace Simirimia\Ppm\Result;
 
 use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\PictureCollection;
+use Simirimia\Core\Result\ResultCode;
 
 class PictureCollectionResult implements Result
 {
+    use ResultCode;
+
     /**
      * @var PictureCollection
      */

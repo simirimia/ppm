@@ -10,6 +10,7 @@ namespace Simirimia\Ppm\QueryHandler;
 
 use Simirimia\Core\Dispatchable;
 use Simirimia\Core\Result\ArrayResult;
+use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\Query\Tags as TagsCommand;
 use Simirimia\Ppm\Repository\Tag as TagRepository;
 use Simirimia\Ppm\Entity\Tag;
@@ -45,6 +46,8 @@ class Tags implements Dispatchable
             ];
         }
 
-        return new ArrayResult( $data );
+        $result = new ArrayResult( $data );
+        $result->setResultCode( Result::OK );
+        return $result;
     }
 } 
