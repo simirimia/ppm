@@ -3,6 +3,8 @@
 use RedBeanPHP\R;
 
 require __DIR__ . '/../../vendor/autoload.php';
+set_error_handler('ppmErrorHandler');
+ob_start();
 
 $config = \Simirimia\Ppm\Config::fromIniFilesInFolder( __DIR__ . '/../../config/' );
 
@@ -27,11 +29,27 @@ switch( $request->getMethod() ) {
         die();
 }
 
+$responseBody = '';
+try {
+    $result = $dispatcher->dispatch( $request );
+    $responseBody =  \Simirimia\Core\ResultRenderer\Renderer::render( $result );
+    R::close();
+} catch ( Exception $e ) {
+    http_response_code( 500 );
+    $responseBody = json_encode( [
+        'success' => false,
+        'message' => 'Exception during execution of type: ' . get_class( $e ),
+        'trace' => $e->getTraceAsString(),
+        'additional' => ob_get_clean()
+    ] );
+}
+ob_clean();
+echo $responseBody;
 
-$result = $dispatcher->dispatch( $request );
 
-
-echo \Simirimia\Core\ResultRenderer\Renderer::render( $result );
-
-
-R::close();
+function ppmErrorHandler($errno, $errstr, $errfile, $errline) {
+    if ( E_RECOVERABLE_ERROR===$errno ) {
+        throw new ErrorException($errstr, $errno, 0, $errfile, $errline);
+    }
+    return false;
+}
