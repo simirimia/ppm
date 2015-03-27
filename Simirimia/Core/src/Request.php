@@ -41,7 +41,7 @@ abstract class Request
     /**
      * @return Request
      */
-    public static function createFromSuperGlobals()
+    public static function fromSuperGlobals()
     {
         if ( isset($_SERVER['argv']) ) {
             $class = '\Simirimia\Core\ConsoleRequest';

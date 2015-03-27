@@ -92,7 +92,7 @@ class Picture {
         $offset = (int)$offset;
         //$data = R::getAll( 'SELECT * FROM picture WHERE is_alternative_to = 0 LIMIT ' . $limit . ' OFFSET ' . $offset );
         //$data = R::convertToBeans( 'picture', $data );
-        $data = R::findAll( 'picture', 'is_alternative_to = 0 LIMIT ?  OFFSET ?', [$limit, $offset] );
+        $data = R::findAll( 'picture', 'is_alternative_to = 0 ORDER By id DESC LIMIT ?  OFFSET ?', [$limit, $offset] );
         $result = [];
 
         foreach( $data as $bean ) {

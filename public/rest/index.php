@@ -36,7 +36,7 @@ if ( $authCommand->process()->getResultCode() != \Simirimia\Core\Result\Result::
 
 
 
-$request = \Simirimia\Core\Request::createFromSuperGlobals();
+$request = \Simirimia\Core\Request::fromSuperGlobals();
 $response = \Simirimia\Core\Response::fromRequest( $request );
 
 switch( $request->getMethod() ) {

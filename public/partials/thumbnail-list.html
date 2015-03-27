@@ -21,11 +21,12 @@
                 <span ng-click="resetMainPicture()">(Reset)</span>
                 <img ng-src="{{mainPicture.href}}" ng-if="mainPicture.id != 0" />
                 <hr />
-                <input type="checkbox" ng-model="showMarker">Show Marker
+                <input type="checkbox" ng-model="showMarker" id="showMarker"><label for="showMarker">Show Marker</label>
                 <hr />
-                <input type="checkbox" ng-model="showTags">Show Tags
+                <input type="checkbox" ng-model="showTags" id="showTags"><label for="showTags">Show Tags</label>
                 <hr />
-                <input type="checkbox" ng-model="showAlternativeHandlingStuff">Show alternative handling stuff
+                <input type="checkbox" ng-model="showAlternativeHandlingStuff" id="showAlternativeHandlingStuff">
+                <label for="showAlternativeHandlingStuff">Show alternative handling stuff</label>
                 <hr />
             </div>
 
