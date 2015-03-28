@@ -24,9 +24,11 @@ class FilePathRenderer implements ResultRenderer
         }
 
         if ( file_exists( $result->getPath() ) ) {
+            // todo: renderer needs possibility to define mime type
             header(  'Content-type: ' . $result->getMimeType() );
-            $handle = fopen( $result->getPath(), 'r' );
-            fpassthru( $handle );
+            return file_get_contents( $result->getPath() );
+            //$handle = fopen( $result->getPath(), 'r' );
+            //fpassthru( $handle );
         } else {
             return 'File does not exist: ' . $result->getPath();
         }
