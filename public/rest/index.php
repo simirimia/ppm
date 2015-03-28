@@ -62,6 +62,8 @@ try {
     $response->setBody( json_encode( [
         'success' => false,
         'message' => 'Exception during execution of type: ' . get_class( $e ),
+        'file' => $e->getFile(),
+        'line' => $e->getLine(),
         'trace' => $e->getTraceAsString(),
         'additional' => ob_get_clean()
     ] ) );

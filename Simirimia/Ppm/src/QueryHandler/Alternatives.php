@@ -10,6 +10,7 @@ namespace Simirimia\Ppm\QueryHandler;
 
 use Simirimia\Core\Dispatchable;
 use Simirimia\Core\Result\Result;
+use Simirimia\Ppm\PictureCollection;
 use Simirimia\Ppm\Result\PictureCollectionResult;
 use Simirimia\Ppm\Query\Alternatives as AlternativesCommand;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
@@ -44,7 +45,11 @@ class Alternatives implements Dispatchable
     {
         $picture = $this->repository->findById( $this->command->getId() );
 
-        $result = new PictureCollectionResult( $picture->getAlternatives() );
+        if ( $picture->getHasAlternatives() ) {
+            $result = new PictureCollectionResult( $picture->getAlternatives() );
+        } else {
+            $result = new PictureCollectionResult( new PictureCollection() );
+        }
         $result->setResultCode( Result::OK );
         return $result;
     }
