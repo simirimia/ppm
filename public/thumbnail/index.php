@@ -35,12 +35,14 @@ $uri = explode( '/', $_SERVER['REQUEST_URI'] );
 $path = array_pop( $uri );
 
 if ( preg_match( '#\.\.#', $path ) ) {
+    http_response_code( 404 );
     die( 'Nope' );
 }
 
 $file = $config->getThumbnailPath() . '/' . $path;
 
 if( false === file_exists( $file ) ) {
+    http_response_code( 404 );
     die('404');
 }
 
