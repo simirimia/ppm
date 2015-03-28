@@ -44,6 +44,14 @@ class CommandDispatcher extends Dispatcher
 
         // URLs including some parameters
 
+        if ( preg_match( '#/rest/pictures/(\d*)/alternatives$#', $request->getUrl(), $matches ) ) {
+            if ( $request->getMethod() == Request::POST ) {
+                $command = new Command\AddAlternative( (int)$matches[1], (int)$request->getBody() );
+                $handler = new CommandHandler\AddAlternative( $command, new PictureRepository(), $this->getLogger() );
+                return $handler;
+            }
+        }
+
         if ( preg_match( '#/rest/pictures/(\d*)/tags$#', $request->getUrl(), $matches ) ) {
             if ( $request->getMethod() == Request::POST ) {
                 $chain = new DispatchableChain();
@@ -60,15 +68,6 @@ class CommandDispatcher extends Dispatcher
             }
         }
 
-        if ( preg_match( '#/rest/pictures/(\d*)/alternatives$#', $request->getUrl(), $matches ) ) {
-            if ( $request->getMethod() == Request::POST ) {
-                $command = new Command\AddAlternative( (int)$matches[1], (int)$request->getBody() );
-                $handler = new CommandHandler\AddAlternative( $command, new PictureRepository(), $this->getLogger() );
-                return $handler;
-            }
-        }
-
-
         if ( preg_match( '#/rest/pictures/(\d*)/tags/(.*)#', $request->getUrl(), $matches ) ) {
             if ( $request->getMethod() == Request::DELETE ) {
                 $command = new Command\RemoveTag( (int)$matches[1], (string)$matches[2] );
@@ -76,6 +75,20 @@ class CommandDispatcher extends Dispatcher
                 return $handler;
             }
         }
+
+        if ( preg_match( '#/rest/pictures/(\d*)/thumbnails$#', $request->getUrl(), $matches ) ) {
+            if ( $request->getMethod() == Request::DELETE ) {
+                $command = new Command\DeleteThumbnails( (int)$matches[1], $this->getConfig()->getThumbnailPath() );
+                $handler = new CommandHandler\DeleteThumbnails( $command, new PictureRepository() );
+                return $handler;
+            }
+            if ( $request->getMethod() == Request::POST ) {
+                $command = new Command\CreateThumbnails( (int)$matches[1], $this->getConfig()->getThumbnailPath() );
+                $handler = new CommandHandler\CreateThumbnails( $command, new PictureRepository() );
+                return $handler;
+            }
+        }
+
 
         $userDispatcher = new UserCommandDispatcher( $this->getLogger(), $this->getConfig() );
         return $userDispatcher->resolveUrl( $request );

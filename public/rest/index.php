@@ -3,7 +3,15 @@
 use RedBeanPHP\R;
 
 require __DIR__ . '/../../vendor/autoload.php';
-set_error_handler('ppmErrorHandler');
+set_error_handler(function ($errno, $errstr, $errfile, $errline ,array $errcontex) {
+    throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+});
+register_shutdown_function( function() {
+    $error = error_get_last();
+    if ( $error !== null ) {
+        http_response_code( 500 );
+    }
+} );
 
 if ( !isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW']) ) {
     header('WWW-Authenticate: Basic realm="P Picture Manager"');
@@ -70,10 +78,3 @@ try {
 }
 ob_clean();
 $response->send();
-
-function ppmErrorHandler($errno, $errstr, $errfile, $errline) {
-    if ( E_RECOVERABLE_ERROR===$errno ) {
-        throw new ErrorException($errstr, $errno, 0, $errfile, $errline);
-    }
-    return false;
-}

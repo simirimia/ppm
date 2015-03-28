@@ -80,6 +80,14 @@ ppmThumbnailListControllers.ThumbnailListHelper_init = function ($scope, $modal,
     $scope.showTags = true;
     $scope.showMarker = true;
 
+    $scope.alertMessage = 'Some default text';
+    $scope.alertTypeClass = 'alert-info';
+    $scope.showAlert = false;
+
+    $scope.disableAlert = function () {
+        $scope.showAlert = false;
+    }
+
     $scope.thumbnailsPageChanged = function () {
         console.log('New thumbnail page: ' + $scope.thumbnailsCurrentPage);
         $scope.loadThumbnails($scope);
@@ -126,9 +134,42 @@ ppmThumbnailListControllers.ThumbnailListHelper_init = function ($scope, $modal,
         return returnValue;
     };
 
+    $scope.deleteThumbnails = function( pictureId ) {
+        console.log( 'deleting thumbnails for picture ' + pictureId );
+        $http.delete( '/rest/pictures/' + pictureId + '/thumbnails').success( function(data) {
+            console.log( 'thumbnail success deletion returned: ', data );
+            $scope.alertTypeClass = 'alert-success';
+            $scope.showAlert = true;
+            $scope.alertMessage = 'Thumbnails are deleted - reload page necessary :-(';
+            $scope.thumbnails[pictureId].href = null;
+        }).error( function(data) {
+            console.log( 'thumbnail error deletion returned: ', data );
+            $scope.alertTypeClass = 'alert-danger';
+            $scope.showAlert = true;
+            $scope.alertMessage = data.message;
+        } )
+    };
+
+    $scope.createThumbnails = function( pictureId ) {
+        console.log( 'creating thumbnails for picture ' + pictureId );
+        $http.post( '/rest/pictures/' + pictureId + '/thumbnails', null).success( function(data) {
+            console.log( 'thumbnail success creation returned: ', data );
+            $scope.alertTypeClass = 'alert-success';
+            $scope.showAlert = true;
+            $scope.alertMessage = 'Thumbnails are created - reload page necessary :-(';
+            $scope.thumbnails[pictureId].href = null;
+        }).error( function(data) {
+            console.log( 'thumbnail error creation returned: ', data );
+            $scope.alertTypeClass = 'alert-danger';
+            $scope.showAlert = true;
+            $scope.alertMessage = data.message;
+        } )
+    };
+
     $scope.onDragComplete=function(data,evt){
         console.log("drag success, data:", data);
-    }
+    };
+
     $scope.onDropComplete=function( pictureId ,evt ){
         console.log("drop success, source data", pictureId);
         if ( $scope.mainPicture.id == 0 ) {
@@ -142,11 +183,12 @@ ppmThumbnailListControllers.ThumbnailListHelper_init = function ($scope, $modal,
                 }
             );
         }
-    }
+    };
+
     $scope.resetMainPicture = function() {
         console.log('reset main picture. Was:', $scope.mainPicture);
         $scope.mainPicture = { id: 0, href: '' };
-    }
+    };
 
     $scope.previewSize = 800;
     $scope.showThumbnailModal = function (pictureId) {
@@ -177,7 +219,7 @@ ppmThumbnailListControllers.ThumbnailListHelper_init = function ($scope, $modal,
     $scope.myPagingFunction = function() {
         $scope.thumbnailsCurrentPage++;
         $scope.appendMoreThumbnails();
-    }
+    };
 
 };
 

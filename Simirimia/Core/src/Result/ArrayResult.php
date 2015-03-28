@@ -18,9 +18,16 @@ class ArrayResult implements Result
      */
     private $data;
 
-    public function __construct( array $data )
+    public function __construct( array $data, $resultCode = null )
     {
         $this->data = $data;
+        if ( null !== $resultCode ) {
+            if ( is_int( $resultCode ) ) {
+                $this->setResultCode( $resultCode );
+            } else {
+                throw new \InvalidArgumentException( '$resultCode needs to be integer or omitted' );
+            }
+        }
     }
 
     /**

@@ -9,5 +9,5 @@ namespace Simirimia\Ppm\Exif;
 
 interface OrientationInfoProvider
 {
-    public function getDegreesToRotate($orientation);
+    public function getDegreesToRotate( Orientation $orientation );
 }

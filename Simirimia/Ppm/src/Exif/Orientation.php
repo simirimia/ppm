@@ -26,6 +26,11 @@ class Orientation
      */
     private $model;
 
+    /**
+     * @var int
+     */
+    private $degreesToRotate = null;
+
     public static function fromExifArray( array $exif )
     {
         $make = '';
@@ -34,7 +39,8 @@ class Orientation
         if ( isset($exif['Orientation']) ) {
             $orientation = (int)$exif['Orientation'];
         } else {
-            throw new \InvalidArgumentException( 'Orientation key in array is mandatory' );
+            //throw new \InvalidArgumentException( 'Orientation key in array is mandatory' );
+            $orientation = 0;
         }
 
         if ( isset($exif['Make']) ) {
@@ -54,11 +60,15 @@ class Orientation
         $this->model = (string)$model;
     }
 
-    public function getDegreeesToRotate()
+    public function getDegreesToRotate()
     {
-        // go one here
-        // OrientationFactory needed --> then get degrees !
-        return 999;
+        if ( $this->degreesToRotate === null ) {
+            //todo: inject factory
+            $factory = new OrientationInfoFactory();
+            $provider = $factory->create( $this->getMake(), $this->getModel() );
+            $this->degreesToRotate = $provider->getDegreesToRotate( $this );
+        }
+        return $this->degreesToRotate;
     }
 
     /**

@@ -40,3 +40,10 @@ footer {
 .drag-over {
     background-color: red;
 }
+
+.ppm-alert-fixed {
+    position: fixed;
+    top: 100px;
+    right: 100px;
+    z-index: 999;
+}

@@ -53,7 +53,7 @@ abstract class Response
     public function setResultCode($resultCode)
     {
         if ( !is_int( $resultCode ) ) {
-            throw new InvalidArgumentException( '$resultCode must be a string' );
+            throw new InvalidArgumentException( '$resultCode must be int' );
         }
         $this->resultCode = $resultCode;
     }

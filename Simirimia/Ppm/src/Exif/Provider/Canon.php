@@ -10,12 +10,14 @@ namespace Simirimia\Ppm\Exif\Provider;
 
 use Simirimia\Ppm\Exif\OrientationInfoProvider;
 
+use Simirimia\Ppm\Exif\Orientation;
+
 class Canon implements OrientationInfoProvider
 {
-    public function getDegreesToRotate($orientation)
+    public function getDegreesToRotate( Orientation $orientation )
     {
 
-        switch( $orientation ) {
+        switch( $orientation->getOrientation() ) {
             case 0:
                 break;
             case 1:

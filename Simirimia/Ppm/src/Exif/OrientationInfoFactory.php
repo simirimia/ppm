@@ -12,8 +12,8 @@ namespace Simirimia\Ppm\Exif;
 class OrientationInfoFactory
 {
     private static $classMap = [
-        'Canon - Canon PowerShot SX130 IS' => 'Provider\CanonPowerShot',
-        'Canon' => 'Provider\Canon'
+        'Canon - Canon PowerShot SX130 IS' => '\Simirimia\Ppm\Exif\Provider\CanonPowerShot',
+        'Canon' => '\Simirimia\Ppm\Exif\Provider\Canon'
     ];
 
     /**
