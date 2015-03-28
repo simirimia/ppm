@@ -55,7 +55,7 @@ switch( $request->getMethod() ) {
 $responseBody = '';
 try {
     $result = $dispatcher->dispatch( $request );
-    \Simirimia\Core\ResultRenderer\Renderer::render( $result, $response );
+    \Simirimia\Ppm\ResultRenderer\Renderer::render( $result, $response );
     R::close();
 } catch ( Exception $e ) {
     $response->setResultCode( \Simirimia\Core\Result\Result::BACKEND_ERROR );
