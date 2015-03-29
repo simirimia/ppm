@@ -15,7 +15,6 @@ class CanonPowerShot implements OrientationInfoProvider
 {
     public function getDegreesToRotate( Orientation $orientation )
     {
-
         switch( $orientation->getOrientation() ) {
             case 0:
                 break;
@@ -26,10 +25,8 @@ class CanonPowerShot implements OrientationInfoProvider
                 break;
             case 8:
                 break;
-            default:
-                return -1;
-
         }
 
+        return 0;
     }
 } 

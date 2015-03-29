@@ -69,7 +69,8 @@ try {
     $response->setResultCode( \Simirimia\Core\Result\Result::BACKEND_ERROR );
     $response->setBody( json_encode( [
         'success' => false,
-        'message' => 'Exception during execution of type: ' . get_class( $e ),
+        'message' => $e->getMessage(),
+        'errortype' => 'Exception during execution of type: ' . get_class( $e ),
         'file' => $e->getFile(),
         'line' => $e->getLine(),
         'trace' => $e->getTraceAsString(),

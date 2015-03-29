@@ -84,6 +84,9 @@ ppmThumbnailListControllers.ThumbnailListHelper_init = function ($scope, $modal,
     $scope.alertTypeClass = 'alert-info';
     $scope.showAlert = false;
 
+    $scope.showEditPictureStuff = true;
+    $scope.showAlternativeHandlingStuff = true;
+
     $scope.disableAlert = function () {
         $scope.showAlert = false;
     }
@@ -164,6 +167,28 @@ ppmThumbnailListControllers.ThumbnailListHelper_init = function ($scope, $modal,
             $scope.showAlert = true;
             $scope.alertMessage = data.message;
         } )
+    };
+
+    $scope.rotateThumbnails = function( pictureId, rotationType ) {
+        console.log( 'rotating thumbs for picture ' + pictureId + ' in direction: ' + rotationType );
+        $http.post( '/rest/pictures/' + pictureId + '/thumbnails/rotate', rotationType).success( function(data) {
+            console.log('thumb rotate success', data);
+            $scope.alertTypeClass = 'alert-success';
+            $scope.showAlert = true;
+            $scope.alertMessage = 'Thumbnails are rotated - reload page necessary :-(';
+        }).error( function(data) {
+            console.log( 'thumb rotate error', data );
+            $scope.alertTypeClass = 'alert-danger';
+            $scope.showAlert = true;
+            $scope.alertMessage = data.message;
+        } )
+    };
+
+    $scope.rotatateThumbnailsClockwise = function( pictureId ) {
+        $scope.rotateThumbnails( pictureId, 'clockwise' );
+    };
+    $scope.rotatateThumbnailsCounterClockwise = function( pictureId ) {
+        $scope.rotateThumbnails( pictureId, 'counterclockwise' );
     };
 
     $scope.onDragComplete=function(data,evt){

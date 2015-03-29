@@ -8,6 +8,7 @@
 
 namespace Simirimia\Ppm;
 
+use Simirimia\Ppm\CommandHandler\RotateThumbnails;
 use Simirimia\Ppm\Repository\Picture as PictureRepository;
 
 use Simirimia\Core\Request;
@@ -69,9 +70,9 @@ class CommandDispatcher extends Dispatcher
         }
 
         if ( preg_match( '#/rest/pictures/(\d*)/tags/(.*)#', $request->getUrl(), $matches ) ) {
-            if ( $request->getMethod() == Request::DELETE ) {
-                $command = new Command\RemoveTag( (int)$matches[1], (string)$matches[2] );
-                $handler = new CommandHandler\RemoveTag( $command, new PictureRepository(), $this->getLogger() );
+            if ($request->getMethod() == Request::DELETE) {
+                $command = new Command\RemoveTag((int)$matches[1], (string)$matches[2]);
+                $handler = new CommandHandler\RemoveTag($command, new PictureRepository(), $this->getLogger());
                 return $handler;
             }
         }
@@ -89,6 +90,21 @@ class CommandDispatcher extends Dispatcher
             }
         }
 
+        if ( preg_match( '#/rest/pictures/(\d*)/thumbnails/rotate$#', $request->getUrl(), $matches ) ) {
+            if ( $request->getMethod() == Request::POST ) {
+                $rotateType = $request->getBody();
+                if ( $rotateType == 'clockwise' ) {
+                    $command = new Command\RotateThumbnailsClockwise( (int)$matches[1], $this->getConfig()->getThumbnailPath() );
+                } elseif( $rotateType == 'counterclockwise' ) {
+                    $command = new Command\RotateThumbnailsCounterClockwise( (int)$matches[1], $this->getConfig()->getThumbnailPath() );
+                } elseif( (int)$rotateType > 0 && (int)$rotateType < 360 ) {
+                    $command = new Command\RotateThumbnails( (int)$matches[1], $this->getConfig()->getThumbnailPath(), (int)$rotateType );
+                } else {
+                    throw new \InvalidArgumentException( 'body must contain clockwise, counterclockwise or an integer 0 < $int < 360' );
+                }
+                return new RotateThumbnails( $command, new PictureRepository() );
+            }
+        }
 
         $userDispatcher = new UserCommandDispatcher( $this->getLogger(), $this->getConfig() );
         return $userDispatcher->resolveUrl( $request );

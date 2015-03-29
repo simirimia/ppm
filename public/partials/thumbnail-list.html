@@ -50,16 +50,20 @@
                     <img ng-src="{{thumbnail.href}}" />
                 </a>
 
-                <span  ng-drag="true" ng-drag-data="{{thumbnail.id}}" ng-drag-succuess="onDragComplete($data,$event)" ng-if="showAlternativeHandlingStuff">Drag me!</span>
+                <div ng-if="showAlternativeHandlingStuff">
+                    <span  ng-drag="true" ng-drag-data="{{thumbnail.id}}" ng-drag-succuess="onDragComplete($data,$event)">Drag me!</span>
+                </div>
 
-                <span ng-if="showMarker">
+                <div ng-if="showMarker">
                     <span ng-if="!hasTag('ppm.print.mark', thumbnail.tags)" class="glyphicon glyphicon-print" ng-click="addTag(thumbnail.id, 'ppm.print.mark')">&nbsp;</span>
                     <span ng-if="hasTag('ppm.print.mark', thumbnail.tags)" class="glyphicon glyphicon-print ppm-glyphicon-state-active" ng-click="removeTag(thumbnail.id, 'ppm.print.mark')">&nbsp;</span>
-                </span>
+                </div>
 
                 <div ng-if="showEditPictureStuff">
                     <button ng-click="deleteThumbnails(thumbnail.id)">Delete thumbnails</button>
                     <button ng-click="createThumbnails(thumbnail.id)">Create thumbnails</button>
+                    <button ng-click="rotatateThumbnailsClockwise(thumbnail.id)">Clockwise</button>
+                    <button ng-click="rotatateThumbnailsCounterClockwise(thumbnail.id)">Counter Clockwise</button>
                 </div>
 
                 <div ng-if="showTags">
