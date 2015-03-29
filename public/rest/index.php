@@ -70,7 +70,7 @@ try {
     $response->setBody( json_encode( [
         'success' => false,
         'message' => $e->getMessage(),
-        'errortype' => 'Exception during execution of type: ' . get_class( $e ),
+        'errorType' => 'Exception during execution of type: ' . get_class( $e ),
         'file' => $e->getFile(),
         'line' => $e->getLine(),
         'trace' => $e->getTraceAsString(),

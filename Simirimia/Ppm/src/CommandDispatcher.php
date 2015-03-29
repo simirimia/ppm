@@ -26,11 +26,11 @@ class CommandDispatcher extends Dispatcher
         switch( $request->getUrl() )
         {
             case '/rest/pictures/thumbnails/create':
-                $command = new Command\GenerateThumbnails( $this->getConfig() );
+                $command = new Command\GenerateThumbnails( $this->getConfig()->getThumbnailPath() );
                 $handler = new CommandHandler\GenerateThumbnails( $command, new PictureRepository(), $this->getLogger() );
                 return $handler;
             case '/rest/pictures/scan':
-                $command = new Command\ScanFolder( $this->getConfig() );
+                $command = new Command\ScanFolder( $this->getConfig()->getSourcePicturePath() );
                 $handler = new CommandHandler\ScanFolder( $command, new PictureRepository(), $this->getLogger() );
                 return $handler;
             case '/rest/pictures/extract-exif':
@@ -38,7 +38,7 @@ class CommandDispatcher extends Dispatcher
                 $handler = new CommandHandler\ExtractExif( $command, new PictureRepository(), $this->getLogger() );
                 return $handler;
             case '/rest/pictures/rebuild-path-tags':
-                $command = new Command\RebuildPathTags( $this->getConfig() );
+                $command = new Command\RebuildPathTags( $this->getConfig()->getSourcePicturePath() );
                 $handler = new CommandHandler\RebuildPathTags( $command, new PictureRepository(), $this->getLogger() );
                 return $handler;
         }

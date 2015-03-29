@@ -2,8 +2,6 @@
 
 namespace Simirimia\Ppm\Command;
 
-use Simirimia\Ppm\PpmConfig;
-
 class ScanFolder {
 
     /**
@@ -11,9 +9,12 @@ class ScanFolder {
      */
     private $path;
 
-    public function __construct( PpmConfig $config )
+    public function __construct( $pictureSourcePath )
     {
-        $this->path = $config->getSourcePicturePath();
+        if ( !is_string( $pictureSourcePath) ) {
+            throw new \InvalidArgumentException( '$pictureSourcePath needs to be string' );
+        }
+        $this->path = $pictureSourcePath;
     }
 
     /**

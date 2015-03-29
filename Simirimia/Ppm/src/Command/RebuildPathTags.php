@@ -8,8 +8,6 @@
 
 namespace Simirimia\Ppm\Command;
 
-use Simirimia\Ppm\PpmConfig;
-
 class RebuildPathTags {
 
     /**
@@ -17,8 +15,11 @@ class RebuildPathTags {
      */
     private $basePath;
 
-    public function __construct( PpmConfig $config ) {
-        $this->basePath = $config->getSourcePicturePath();
+    public function __construct( $pictureSourcePath ) {
+        if ( !is_string($pictureSourcePath) ) {
+            throw new \InvalidArgumentException( '$pictureSourcePath needs to be string' );
+        }
+        $this->basePath = $pictureSourcePath;
     }
 
     /**
