@@ -23,6 +23,6 @@
     "ngInfiniteScroll": "*",
     "ngDraggable": "*",
     "angular-spinner": "*",
-    "ngLoadingSpinner": "*",
+    "ngLoadingSpinner": "*"
   }
 }
