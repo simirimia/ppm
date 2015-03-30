@@ -13,6 +13,6 @@ class RotateThumbnailsCounterClockwise extends RotateThumbnails
 {
     public function __construct( $id, $thumbnailPath )
     {
-        parent::__construct( $id, $thumbnailPath, 270 );
+        parent::__construct( $id, $thumbnailPath, 90 );
     }
 }

@@ -21,9 +21,9 @@
     "bootstrap": "*",
     "angular-bootstrap" : "*",
     "ngInfiniteScroll": "*",
-    "ngDraggable": "*",
     "angular-spinner": "*",
     "angular-loading-spinner": "*",
-    "angular-file-upload" : "*"
+    "angular-file-upload" : "*",
+    "angular-sf-dragndrop" : "*"
   }
 }

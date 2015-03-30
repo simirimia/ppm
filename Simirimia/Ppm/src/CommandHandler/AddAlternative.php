@@ -44,6 +44,10 @@ class AddAlternative implements Dispatchable
     {
         $this->logger->addInfo( 'Adding an alternative. Main Picture is: ' . $this->command->getMainPictureId() . ' and the new alternative is: ' . $this->command->getAlternativePictureId() );
 
+        if ( $this->command->getAlternativePictureId() == $this->command->getMainPictureId() ) {
+            throw new \InvalidArgumentException( 'Alternative and main picture must not be the same' );
+        }
+
         $mainPicture = $this->repository->findById($this->command->getMainPictureId());
         $alternativePicture = $this->repository->findById( $this->command->getAlternativePictureId() );
         $alternativePicture->setIsAlternativeTo( $mainPicture );

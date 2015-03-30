@@ -177,11 +177,13 @@ ppmThumbnailListControllers.ThumbnailListHelper_init = function ( $scope, $locat
 
     $scope.rotateThumbnails = function ( pictureId, rotationType ) {
         console.log( 'rotating thumbs for picture ' + pictureId + ' in direction: ' + rotationType );
+        var id = pictureId;
         $http.post( '/rest/pictures/' + pictureId + '/thumbnails/rotate', rotationType ).success( function ( data ) {
             console.log( 'thumb rotate success', data );
+            $scope.thumbnails[id].href = $scope.thumbnails[id].href + '?' + Math.random();
             $scope.alertTypeClass = 'alert-success';
             $scope.showAlert = true;
-            $scope.alertMessage = 'Thumbnails are rotated - reload page necessary :-(';
+            $scope.alertMessage = 'Thumbnails are rotated';
         } ).error( function ( data ) {
             console.log( 'thumb rotate error', data );
             $scope.alertTypeClass = 'alert-danger';
@@ -197,28 +199,26 @@ ppmThumbnailListControllers.ThumbnailListHelper_init = function ( $scope, $locat
         $scope.rotateThumbnails( pictureId, 'counterclockwise' );
     };
 
-    $scope.onDragComplete = function ( data, evt ) {
-        console.log( "drag success, data:", data );
-    };
+    $scope.dndSession = sfDragNDropService.session;
 
-    $scope.onDropComplete = function ( pictureId, evt ) {
-        console.log( "drop success, source data", pictureId );
-        if ( $scope.mainPicture.id == 0 ) {
-            console.log( 'setting new main picture' );
-            $scope.mainPicture = $scope.thumbnails[pictureId];
-        } else {
-            console.log( 'Marking as Alternative' );
-            $http.post( 'rest/pictures/' + $scope.mainPicture.id + '/alternatives', pictureId ).success(
-                function ( data ) {
-                    console.log( 'Adding alternative returnded: ', data );
-                }
-            );
-        }
-    };
-
-    $scope.resetMainPicture = function() {
-        console.log('reset main picture. Was:', $scope.mainPicture);
-        $scope.mainPicture = { id: 0, href: '' };
+    $scope.onThumbnailDrop = function ( pictureId, targettedItem, returnValue ) {
+        console.log( 'item', pictureId );
+        console.log( 'targetedItem', targettedItem );
+        var id = pictureId;
+        $http.post( 'rest/pictures/' + targettedItem.id + '/alternatives', pictureId ).success(
+            function ( data ) {
+                console.log( 'Adding alternative returned: ', data );
+                $scope.alertTypeClass = 'alert-success';
+                $scope.showAlert = true;
+                $scope.alertMessage = 'Marked als alternative successful';
+                $scope.thumbnails[id] = { href : 'nope', id: 0, tags: [] };
+            }
+        ).error( function(data) {
+                console.log( 'Adding alternative returned: ', data );
+                $scope.alertTypeClass = 'alert-danger';
+                $scope.showAlert = true;
+                $scope.alertMessage = 'Error: ' + data.message;
+            } );
     };
 
     $scope.myPagingFunction = function () {

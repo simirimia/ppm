@@ -12,13 +12,6 @@
                 <h3 class="panel-title">Toolbox</h3>
             </div>
             <div class="panel-body">
-                Main Picture, ID: {{mainPicture.id}}
-                <div ng-drop="true" ng-drop-success="onDropComplete($data,$event)">
-                    DROP HERE
-                </div>
-                <span ng-click="resetMainPicture()">(Reset)</span>
-                <img ng-src="{{mainPicture.href}}" ng-if="mainPicture.id != 0"/>
-                <hr/>
                 <input type="checkbox" ng-model="showMarker" id="showMarker"><label for="showMarker">Show Marker</label>
                 <hr/>
                 <input type="checkbox" ng-model="showTags" id="showTags"><label for="showTags">Show Tags</label>
@@ -44,16 +37,16 @@
         <div style="width: 79%; float: left">
 
 
-            <div ng-repeat="thumbnail in thumbnails" class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <div ng-repeat="thumbnail in thumbnails" class="col-lg-3 col-md-4 col-xs-6 thumb" ng-if="thumbnail.id > 0">
 
-                <a class="img-thumbnail" href="#" ng-click="showThumbnailModal(thumbnail.id)">
+                <a class="img-thumbnail" href="#" sf-drag="thumbnail.id" sf-drag-type="thumbnail"
+                   sf-drop="thumbnail" sf-drop-type="thumbnail" sf-on-drop="onThumbnailDrop($item, $target, $returnValue)"
+                   ng-class="{
+      'dragged': (dndSession.item == thumbnail),
+      'targetted': (dndSession.target == thumbnail)
+    }">
                     <img ng-src="{{thumbnail.href}}"/>
                 </a>
-
-                <div ng-if="showAlternativeHandlingStuff">
-                    <span ng-drag="true" ng-drag-data="{{thumbnail.id}}"
-                          ng-drag-succuess="onDragComplete($data,$event)">Drag me!</span>
-                </div>
 
                 <div ng-if="showMarker">
                     <span ng-if="!hasTag('ppm.print.mark', thumbnail.tags)" class="glyphicon glyphicon-print"
