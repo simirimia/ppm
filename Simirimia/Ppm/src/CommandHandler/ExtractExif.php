@@ -45,23 +45,29 @@ class ExtractExif implements Dispatchable {
 
     public function process()
     {
+        $failed = [];
         $pictures = $this->repository->findWithoutExif();
+        /** @var Picture $picture */
         foreach ( $pictures as $picture ) {
             try {
                 $this->extract( $picture );
+                $this->logger->addInfo( 'Exif successful for ID ' . $picture->getId() . ' with name: ' . $picture->getPath() );
             } catch( NotReadableException $e ) {
                 // right now do nothing
-                $this->logger->addCritical( 'Could not read picture source file for ID ' . $picture->getId() );
+                $this->logger->addCritical( 'Could not read picture source file for ID ' . $picture->getId() . ' with name: ' . $picture->getPath() );
+            } catch ( \Exception $e ) {
+                $failed[] = $picture->getPath();
+                $this->logger->addCritical( 'Exception happened for ID ' . $picture->getId() . ' with name: ' . $picture->getPath() );
             }
         }
-        $result = new ArrayResult( ['success' => true] );
+        $result = new ArrayResult( ['success' => true, 'failedPictures' => $failed] );
         $result->setResultCode( Result::OK );
         return $result;
     }
 
     private function extract( Picture $picture )
     {
-        $this->logger->addDebug( 'Extracting EXIF for picure ID: ' . $picture->getId() . ' with name: ' . $picture->getPath() );
+        $this->logger->addDebug( 'Extracting EXIF for picture ID: ' . $picture->getId() . ' with name: ' . $picture->getPath() );
 
         $imageManager = new ImageManager();
         $image = $imageManager->make( $picture->getPath() );

@@ -3,11 +3,13 @@ var ppmApp = angular.module('ppmApp', [
     'ngRoute',
     'ngDraggable',
     'infinite-scroll',
+    'ngLoadingSpinner',
     'ppmControllers',
     'ppmThumbnailListControllers',
     'ppmPictureDetailControllers',
     'ppmTagControllers',
-    'ppmUserControllers'
+    'ppmUserControllers',
+    'ppmAdminControllers'
 ]);
 
 
@@ -39,6 +41,12 @@ ppmApp.config(['$routeProvider',
             when('/tags', {
                 templateUrl: 'partials/tag-list.html',
                 controller: 'TagController'
+            }).
+
+            // admin / management routes
+            when('/admin', {
+                templateUrl : 'partials/admin.html',
+                controller : 'AdminController'
             }).
 
             // user management

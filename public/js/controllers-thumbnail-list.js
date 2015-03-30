@@ -89,7 +89,7 @@ ppmThumbnailListControllers.ThumbnailListHelper_init = function ($scope, $modal,
 
     $scope.disableAlert = function () {
         $scope.showAlert = false;
-    }
+    };
 
     $scope.thumbnailsPageChanged = function () {
         console.log('New thumbnail page: ' + $scope.thumbnailsCurrentPage);

@@ -42,6 +42,10 @@ class ScanFolder implements Dispatchable {
 
     public function process()
     {
+        if ( !is_readable($this->command->getPath()) ) {
+            throw new \InvalidArgumentException( 'Path is not readable: ' . $this->command->getPath() );
+        }
+
         $this->scan( $this->command->getPath() . '/*' );
 
         $result = new ArrayResult( [

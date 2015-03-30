@@ -1,0 +1,17 @@
+<div ng-if="showAlert" class="alert {{alertTypeClass}} ppm-alert-fixed">
+    {{alertMessage}}
+    <button ng-click="disableAlert()">Close</button>
+</div>
+
+<span us-spinner="{radius:30, width:8, length: 16}"></span>
+
+<h1>Admin / Management area</h1>
+<label for="folderToScan">Enter existing server side folder to scan for new pictures</label>
+<input type="text" name="folderToScan" id="folderToScan" ng-model="folderToScan">
+<button ng-click="scanFolder()">Scan Folder and extract Exif</button>
+<hr/>
+<label>Extract Exif data for all pictures not done yet</label>
+<button ng-click="extractExif()">Extract Exif</button>
+<hr/>
+<label>Create thumbnails data for all pictures without Thumbs</label>
+<button ng-click="createThumbnails()">Create Thumbnails</button>
