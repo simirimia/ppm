@@ -216,6 +216,11 @@ ppmThumbnailListControllers.ThumbnailListHelper_init = function ( $scope, $locat
         }
     };
 
+    $scope.resetMainPicture = function() {
+        console.log('reset main picture. Was:', $scope.mainPicture);
+        $scope.mainPicture = { id: 0, href: '' };
+    };
+
     $scope.myPagingFunction = function () {
         $scope.thumbnailsCurrentPage++;
         $scope.appendMoreThumbnails();

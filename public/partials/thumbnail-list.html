@@ -64,19 +64,29 @@
                 </div>
 
                 <div ng-if="showEditPictureStuff">
-                    <button ng-click="deleteThumbnails(thumbnail.id)">Delete thumbnails</button>
-                    <button ng-click="createThumbnails(thumbnail.id)">Create thumbnails</button>
-                    <button ng-click="rotatateThumbnailsClockwise(thumbnail.id)">Clockwise</button>
-                    <button ng-click="rotatateThumbnailsCounterClockwise(thumbnail.id)">Counter Clockwise</button>
+                    <button class="btn btn-xs btn-default" ng-click="deleteThumbnails(thumbnail.id)">Delete thumbnails
+                    </button>
+                    <button class="btn btn-xs btn-default" ng-click="createThumbnails(thumbnail.id)">Create thumbnails
+                    </button>
+                    <button class="btn btn-xs btn-default" ng-click="rotatateThumbnailsClockwise(thumbnail.id)">
+                        Clockwise
+                    </button>
+                    <button class="btn btn-xs btn-default" ng-click="rotatateThumbnailsCounterClockwise(thumbnail.id)">
+                        Counter Clockwise
+                    </button>
                 </div>
 
                 <div ng-if="showTags">
                     <span class="label label-primary" ng-click="showDetail(thumbnail.id)">{{thumbnail.id}}</span>
-                    <span class="label label-info" ng-repeat="tag in thumbnail.tags">
-                        <span ng-click="showThumbnailsForTag(tag)">{{tag}}</span>
+
+                    <span ng-repeat="tag in thumbnail.tags">
+                        <span class="label label-info" ng-click="showThumbnailsForTag(tag)">{{tag}}</span>
                     </span>
-                    <input name="newTag" ng-model="thumbnail.newTag" type="text">
-                    <button ng-click="addTag(thumbnail.id)">Add</button>
+
+                    <div>
+                        <input name="newTag" ng-model="thumbnail.newTag" type="text">
+                        <button name="newTag{thumbnail.id}" ng-click="addTag(thumbnail.id)">Add</button>
+                    </div>
                 </div>
             </div>
 
@@ -90,25 +100,6 @@
         </div>
 
     </div>
-
-
-    <hr>
-
-
-    <!-- partials -->
-
-    <script type="text/ng-template" id="thumbnailPreview.html">
-        <div>
-            <span class="glyphicon glyphicon-plus" ng-click="showLarge()">&nbsp;</span>
-            <span class="glyphicon glyphicon-minus" ng-click="showSmall()">&nbsp;</span>
-            <span class="glyphicon glyphicon-cloud-download" ng-click="showOriginal()">&nbsp;</span>
-            <button type="button" class="close" ng-click="close()">X</button>
-        </div>
-        <div class="modal-image-wrapper">
-            <img src="/thumbnail/{{ pictureId }}_{{size}}.jpg">
-        </div>
-    </script>
-
 
 </div>
 <!-- /.container -->
