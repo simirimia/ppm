@@ -17,16 +17,14 @@ use Simirimia\Core\Response;
 
 class Renderer extends CoreResultRenderer
 {
-    public static function render( Result $result, Response $response )
+    public static function render( Result $result )
     {
         if( $result instanceof PictureResult ) {
-            $response->appendToBody( PictureResultRenderer::render( $result ) );
-            $response->setResultCode( $result->getResultCode() );
+            return PictureResultRenderer::render( $result );
         } elseif( $result instanceof PictureCollectionResult ) {
-            $response->appendToBody( PictureCollectionResultRenderer::render( $result ) );
-            $response->setResultCode( $result->getResultCode() );
+            return PictureCollectionResultRenderer::render( $result );
         } else {
-            parent::render( $result, $response );
+            return parent::render( $result );
         }
     }
 }

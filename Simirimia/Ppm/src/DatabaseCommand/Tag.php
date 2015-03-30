@@ -8,7 +8,7 @@
 
 namespace Simirimia\Ppm\DatabaseCommand;
 
-use \R;
+use RedBeanPHP\R;
 
 class Tag
 {

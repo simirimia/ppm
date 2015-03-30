@@ -48,11 +48,10 @@ class AddTag implements Dispatchable
         $picture = $this->repository->findById($this->command->getId());
         $picture->addTag($this->command->getTag());
         $this->repository->save($picture);
-        $result =  new ArrayResult([
+        return new ArrayResult([
             'status' => 'success',
-        ]);
-        $result->setResultCode( Result::OK );
-        return $result;
+        ],
+            Result::OK);
     }
 
 

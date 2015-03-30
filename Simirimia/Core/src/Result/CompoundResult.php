@@ -27,4 +27,18 @@ class CompoundResult implements Result
     {
         return $this->results;
     }
+
+    public function getResultCode()
+    {
+        $code = -1;
+        /** @var Result $result */
+        foreach( $this->results as $result ) {
+            if ( $result->getResultCode() > $code ) {
+                $code = $result->getResultCode();
+            }
+        }
+        return $code;
+    }
+
+
 } 
