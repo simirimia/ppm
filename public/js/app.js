@@ -1,5 +1,6 @@
 var ppmApp = angular.module('ppmApp', [
     'ngRoute',
+    'ui.bootstrap',
     'ngDraggable',
     'infinite-scroll',
     'ngLoadingSpinner',
