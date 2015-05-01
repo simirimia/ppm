@@ -39,6 +39,9 @@ if ( preg_match( '#\.\.#', $path ) ) {
     die( 'Nope' );
 }
 
+// remove all params
+$path = array_shift(explode( '?', $path ));
+
 $file = $config->getThumbnailPath() . '/' . $path;
 
 if( false === file_exists( $file ) ) {
