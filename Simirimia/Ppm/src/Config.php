@@ -13,6 +13,7 @@ use \Exception;
 
 class Config implements PpmConfig
 {
+    private $isSetupMode;
     private $db_dsn;
     private $db_user;
     private $db_password;
@@ -40,8 +41,10 @@ class Config implements PpmConfig
             throw new Exception( 'local config file not readable' );
         }
 
+
         $config = parse_ini_file( $folderPath . '/config_global.ini.php' );
         $config = array_merge( $config, parse_ini_file( $folderPath . '/config_local.ini.php' ) );
+        $config['isSetupMode'] = file_exists( $folderPath . '/setup_in_progress___remove_me' );
 
         return new Config( $config );
     }
@@ -84,4 +87,11 @@ class Config implements PpmConfig
     {
         return $this->db_dsn;
     }
+
+    public function isSetupMode()
+    {
+        return $this->isSetupMode;
+    }
+
+
 } 

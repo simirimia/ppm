@@ -11,5 +11,9 @@ namespace Simirimia\Core;
 
 class ConsoleResponse extends Response
 {
+    public function send()
+    {
+        echo $this->getBody();
+    }
 
 }

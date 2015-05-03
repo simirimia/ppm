@@ -7,10 +7,10 @@
  */
 namespace Simirimia\Ppm;
 
-use Simirimia\Core\Config;
+use Simirimia\Core\Config as CoreConfig;
 use Simirimia\Core\DatabaseConfig;
 
-interface PpmConfig extends Config, DatabaseConfig
+interface PpmConfig extends CoreConfig, DatabaseConfig
 {
     public function getThumbnailPath();
 

@@ -58,6 +58,8 @@ abstract class Request
         } else {
             $url = '/';
         }
+        $url = explode('?', $url);
+        $url = array_shift($url);
 
         if (false === isset($_SERVER['REQUEST_METHOD'])) {
             if (isset($_SERVER['argv'][1])) {
@@ -69,10 +71,8 @@ abstract class Request
             $method = $_SERVER['REQUEST_METHOD'];
         }
 
-        $url = explode('?', $url);
-        $url = array_shift($url);
-
-        return new $class($url, $_GET, file_get_contents('php://input'), $method);
+        $body = isset($_SERVER['argv'][3]) ? $_SERVER['argv'][3] : file_get_contents('php://input');
+        return new $class($url, $_GET, $body, $method);
     }
 
     public function __construct($url, array $queryParams, $body, $requestMethod)

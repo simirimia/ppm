@@ -10,5 +10,5 @@ namespace Simirimia\Core;
 
 interface Config
 {
-
+    public function isSetupMode();
 }
