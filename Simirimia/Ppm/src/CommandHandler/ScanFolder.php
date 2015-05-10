@@ -73,7 +73,7 @@ class ScanFolder implements Dispatchable {
         $dirPath = explode( '/', $dir );
         $pathTags = array_diff( $dirPath, $basePath, ['*'] );
 
-        foreach( glob( $dir . '*.JPG' ) as $path ) {
+        foreach( glob( $dir . '*.[jJ][pP][gG]' ) as $path ) {
 
             if ( null === $this->repository->findByPath($path) ) {
                 $this->logger->addDebug( 'Adding picture: ' . $path );

@@ -3,11 +3,13 @@ composer.lock
 .commandlinetools
 .name
 .idea
+.vagrant
 thumbnails
 log
 angular-seed
 public/bower_components
 config/config_local.ini.php
-
+config/ppm-example-user-created
+media
 public/info.php
 
