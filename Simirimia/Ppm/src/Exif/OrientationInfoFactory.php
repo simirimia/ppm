@@ -11,7 +11,7 @@ namespace Simirimia\Ppm\Exif;
 
 class OrientationInfoFactory
 {
-    private static $classMap = [
+    private $classMap = [
         'Canon - Canon PowerShot SX130 IS' => '\Simirimia\Ppm\Exif\Provider\CanonPowerShot',
         'Canon' => '\Simirimia\Ppm\Exif\Provider\Canon'
     ];
@@ -24,12 +24,12 @@ class OrientationInfoFactory
     public function create( $make, $model )
     {
         $class = null;
-        if ( isset( self::$classMap[$make . ' - ' . $model] ) ) {
-            $class = self::$classMap[$make . ' - ' . $model];
-        } elseif( self::$classMap[$make] ) {
-            $class = self::$classMap[$make];
+        if ( isset( $this->classMap[$make . ' - ' . $model] ) ) {
+            $class = $this->classMap[$make . ' - ' . $model];
+        } elseif( isset( $this->classMap[$make] )) {
+            $class = $this->classMap[$make];
         } else {
-            $class = 'OrientationInfoDefault';
+            $class = '\Simirimia\Ppm\Exif\Provider\OrientationInfoDefault';
         }
 
         return new $class();
