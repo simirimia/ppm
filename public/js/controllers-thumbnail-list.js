@@ -107,7 +107,7 @@ ppmThumbnailListControllers.ThumbnailListHelper_init = function ( $scope, $locat
     $scope.showDetail = function ( pictureId ) {
         console.log( 'Show detail view for pictureId:' + pictureId );
         //$location.path('/pictures/' + pictureId);
-        $window.open( 'http://localhost/#/pictures/' + pictureId );
+        $window.open( '/#/pictures/' + pictureId );
     };
 
     $scope.addTag = function ( pictureId ) {
