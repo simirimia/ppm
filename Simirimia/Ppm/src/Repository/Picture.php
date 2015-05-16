@@ -90,8 +90,6 @@ class Picture {
     {
         $limit = (int)$limit;
         $offset = (int)$offset;
-        //$data = R::getAll( 'SELECT * FROM picture WHERE is_alternative_to = 0 LIMIT ' . $limit . ' OFFSET ' . $offset );
-        //$data = R::convertToBeans( 'picture', $data );
         $data = R::findAll( 'picture', 'is_alternative_to = 0 ORDER By id DESC LIMIT ?  OFFSET ?', [$limit, $offset] );
         $result = [];
 
@@ -154,14 +152,15 @@ class Picture {
         }
 
         $entity = new PictureEntity();
-        $entity->setId($bean->id);
-        $entity->setPath($bean->path);
+        $entity->setId( (int)$bean->id) ;
+        $entity->setPath( $bean->path );
         $entity->setThumbSmall( $bean->thumbSmall );
         $entity->setThumbMedium( $bean->thumbMedium );
         $entity->setThumbLarge( $bean->thumbLarge );
         $entity->setExifComplete( @unserialize( $bean->exifComplete ) );
         $entity->setExif( @unserialize($bean->exif) );
-        $entity->setHasAlternatives( $bean->hasAternatives );
+        $entity->setHasAlternatives( (bool)$bean->hasAternatives );
+        $entity->setIsInGallery( (bool)$bean->isInGallery );
 
         $tags = R::tag( $bean );
         $entity->setTags( $tags );
@@ -213,6 +212,7 @@ class Picture {
         }
 
         $bean->hasAternatives = $entity->getHasAlternatives();
+        $bean->isInGallery = $entity->isInGallery();
 
 
 

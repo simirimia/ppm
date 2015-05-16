@@ -47,6 +47,7 @@ class PictureResultRenderer
             'id' => $picture->getId(),
             'hasAlternatives' => $picture->getHasAlternatives(),
             'isAlternativeTo' => ($picture->getIsAlternativeTo() instanceof Picture) ? $picture->getIsAlternativeTo()->getId() : 0,
+            'isInGallery' => $picture->isInGallery(),
             'tags' => $picture->getTags(),
             'exif' => []
         ];

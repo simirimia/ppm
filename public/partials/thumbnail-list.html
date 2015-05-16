@@ -54,6 +54,12 @@
                     <span ng-if="hasTag('ppm.print.mark', thumbnail.tags)"
                           class="glyphicon glyphicon-print ppm-glyphicon-state-active"
                           ng-click="removeTag(thumbnail.id, 'ppm.print.mark')">&nbsp;</span>
+                    <span ng-if="!thumbnail.isInGallery"
+                          class="glyphicon glyphicon-film"
+                          ng-click="addToGallery(thumbnail.id)">&nbsp;</span>
+                    <span ng-if="thumbnail.isInGallery"
+                          class="glyphicon glyphicon-film ppm-glyphicon-state-active"
+                          ng-click="removeFromGallery(thumbnail.id)">&nbsp;</span>
                 </div>
 
                 <div ng-if="showEditPictureStuff">

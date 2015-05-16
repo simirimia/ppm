@@ -70,6 +70,11 @@ class Picture {
     private $alternatives;
 
     /**
+     * @var bool
+     */
+    private $isInGallery = false;
+
+    /**
      * @param int $id
      */
     public function setId($id)
@@ -282,6 +287,23 @@ class Picture {
     {
         return $this->alternatives;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isInGallery()
+    {
+        return $this->isInGallery;
+    }
+
+    /**
+     * @param boolean $isInGallery
+     */
+    public function setIsInGallery( $isInGallery )
+    {
+        $this->isInGallery = $isInGallery;
+    }
+
 
 
 } 
