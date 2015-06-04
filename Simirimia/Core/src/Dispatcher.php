@@ -10,9 +10,15 @@ namespace Simirimia\Core;
 
 use Intervention\Image\Exception\InvalidArgumentException;
 use Monolog\Logger;
+use RedBeanPHP\RedException;
 use Simirimia\Core\Result\ArrayResult;
 use Simirimia\Core\Result\Result;
+
+use Simirimia\Ppm\PpmConfigUser;
 use Simirimia\Ppm\Repository\RedbeanPictureRepository;
+use RedBeanPHP\R;
+
+use Simirimia\Ppm\Repository\ElasticsearchPictureRepository;
 
 abstract class Dispatcher
 {
@@ -22,7 +28,7 @@ abstract class Dispatcher
     private $logger;
 
     /**
-     * @var Config
+     * @var PpmConfigUser
      */
     private $config;
 
@@ -71,10 +77,18 @@ abstract class Dispatcher
         return $this->config;
     }
 
-    protected function getRepository()
+    protected function getPictureRepository()
     {
         switch( $this->config->getRepositoryType() ) {
             case 'redbean':
+
+                try {
+                    R::setup( $this->config->getPictureDatabaseDsn(), $this->config->getPictureDatabaseUser(),
+                        $this->config->getPictureDatabasePassword(), false, 'picture' );
+                } catch( RedException $e ) {
+                    R::selectDatabase( 'picture' );
+                }
+
                 return new RedbeanPictureRepository();
             case 'elasticsearch':
                 return new ElasticsearchPictureRepository();

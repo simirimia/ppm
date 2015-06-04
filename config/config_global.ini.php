@@ -6,9 +6,13 @@
 repository_type     = redbean
 
 ; database configuration
-db_dsn              = "mysql:host=<DBHOST>;dbname=<DBNAME>"
-db_user             = <USER>
-db_password         = <PASSWORD>
+picture_db_dsn              = "mysql:host=<DBHOST>;dbname=<DBNAME>"
+picture_db_user             = <USER>
+picture_db_password         = <PASSWORD>
+
+user_db_dsn              = "mysql:host=<DBHOST>;dbname=<DBNAME>"
+user_db_user             = <USER>
+user_db_password         = <PASSWORD>
 
 ; storage folders
 ; webserver user needs write permission here

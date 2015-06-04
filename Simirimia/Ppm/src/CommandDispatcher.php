@@ -26,7 +26,7 @@ class CommandDispatcher extends Dispatcher
                     $command = new Command\GenerateThumbnails( $this->getConfig()->getThumbnailPath() );
                     $handler = new CommandHandler\GenerateThumbnails(
                         $command,
-                        $this->getRepository(),
+                        $this->getPictureRepository(),
                         $this->getLogger()
                     );
 
@@ -40,7 +40,7 @@ class CommandDispatcher extends Dispatcher
                         $path = $this->getConfig()->getSourcePicturePath();
                     }
                     $command = new Command\ScanFolder( $path );
-                    $handler = new CommandHandler\ScanFolder( $command, $this->getRepository(), $this->getLogger() );
+                    $handler = new CommandHandler\ScanFolder( $command, $this->getPictureRepository(), $this->getLogger() );
 
                     return $handler;
                 }
@@ -53,7 +53,7 @@ class CommandDispatcher extends Dispatcher
                     }
                     $command = new Command\RebuildPathTags( $path );
                     $handler = new CommandHandler\RebuildPathTags(
-                        $command, $this->getRepository(), $this->getLogger()
+                        $command, $this->getPictureRepository(), $this->getLogger()
                     );
 
                     return $handler;
@@ -62,7 +62,7 @@ class CommandDispatcher extends Dispatcher
             case '/rest/pictures/extract-exif':
                 if ( $request->getMethod() == Request::POST ) {
                     $command = new Command\ExtractExif();
-                    $handler = new CommandHandler\ExtractExif( $command, $this->getRepository(), $this->getLogger() );
+                    $handler = new CommandHandler\ExtractExif( $command, $this->getPictureRepository(), $this->getLogger() );
 
                     return $handler;
                 }
@@ -74,7 +74,7 @@ class CommandDispatcher extends Dispatcher
         if ( preg_match( '#/rest/pictures/(\d*)/alternatives$#', $request->getUrl(), $matches ) ) {
             if ( $request->getMethod() == Request::POST ) {
                 $command = new Command\AddAlternative( (int)$matches[1], (int)$request->getBody() );
-                $handler = new CommandHandler\AddAlternative( $command, $this->getRepository(), $this->getLogger() );
+                $handler = new CommandHandler\AddAlternative( $command, $this->getPictureRepository(), $this->getLogger() );
 
                 return $handler;
             }
@@ -85,7 +85,7 @@ class CommandDispatcher extends Dispatcher
                 $chain = new DispatchableChain();
 
                 $command = new Command\AddTag( (int)$matches[1], (string)$request->getBody() );
-                $handler = new CommandHandler\AddTag( $command, $this->getRepository(), $this->getLogger() );
+                $handler = new CommandHandler\AddTag( $command, $this->getPictureRepository(), $this->getLogger() );
                 $chain->add( $handler );
 
                 $command = new Command\UpdateTagCount( (string)$request->getBody() );
@@ -99,7 +99,7 @@ class CommandDispatcher extends Dispatcher
         if ( preg_match( '#/rest/pictures/(\d*)/tags/(.*)#', $request->getUrl(), $matches ) ) {
             if ( $request->getMethod() == Request::DELETE ) {
                 $command = new Command\RemoveTag( (int)$matches[1], (string)$matches[2] );
-                $handler = new CommandHandler\RemoveTag( $command, $this->getRepository(), $this->getLogger() );
+                $handler = new CommandHandler\RemoveTag( $command, $this->getPictureRepository(), $this->getLogger() );
 
                 return $handler;
             }
@@ -108,13 +108,13 @@ class CommandDispatcher extends Dispatcher
         if ( preg_match( '#/rest/pictures/(\d*)/thumbnails$#', $request->getUrl(), $matches ) ) {
             if ( $request->getMethod() == Request::DELETE ) {
                 $command = new Command\DeleteThumbnails( (int)$matches[1], $this->getConfig()->getThumbnailPath() );
-                $handler = new CommandHandler\DeleteThumbnails( $command, $this->getRepository() );
+                $handler = new CommandHandler\DeleteThumbnails( $command, $this->getPictureRepository() );
 
                 return $handler;
             }
             if ( $request->getMethod() == Request::POST ) {
                 $command = new Command\CreateThumbnails( (int)$matches[1], $this->getConfig()->getThumbnailPath() );
-                $handler = new CommandHandler\CreateThumbnails( $command, $this->getRepository() );
+                $handler = new CommandHandler\CreateThumbnails( $command, $this->getPictureRepository() );
 
                 return $handler;
             }
@@ -145,7 +145,7 @@ class CommandDispatcher extends Dispatcher
                     );
                 }
 
-                return new RotateThumbnails( $command, $this->getRepository() );
+                return new RotateThumbnails( $command, $this->getPictureRepository() );
             }
         }
 
@@ -155,7 +155,7 @@ class CommandDispatcher extends Dispatcher
     }
 
     /**
-     * @return PpmConfig
+     * @return PpmConfigUser
      */
     protected function getConfig()
     {

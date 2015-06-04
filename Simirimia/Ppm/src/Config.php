@@ -11,12 +11,15 @@ namespace Simirimia\Ppm;
 use \InvalidArgumentException;
 use \Exception;
 
-class Config implements PpmConfig
+class Config implements PpmConfigUser
 {
     private $isSetupMode;
-    private $db_dsn;
-    private $db_user;
-    private $db_password;
+    private $user_db_dsn;
+    private $user_db_user;
+    private $user_db_password;
+    private $picture_db_dsn;
+    private $picture_db_user;
+    private $picture_db_password;
     private $thumbnail_path;
     private $log_path;
     private $picture_source_path;
@@ -79,19 +82,34 @@ class Config implements PpmConfig
         return $this->log_path;
     }
 
-    public function getDatabaseUser()
+    public function getUserDatabaseUser()
     {
-        return $this->db_user;
+        return $this->user_db_user;
     }
 
-    public function getDatabasePassword()
+    public function getUserDatabasePassword()
     {
-        return $this->db_password;
+        return $this->user_db_password;
     }
 
-    public function getDatabaseDsn()
+    public function getUserDatabaseDsn()
     {
-        return $this->db_dsn;
+        return $this->user_db_dsn;
+    }
+
+    public function getPictureDatabaseUser()
+    {
+        return $this->picture_db_user;
+    }
+
+    public function getPictureDatabasePassword()
+    {
+        return $this->picture_db_password;
+    }
+
+    public function getPictureDatabaseDsn()
+    {
+        return $this->picture_db_dsn;
     }
 
     public function isSetupMode()

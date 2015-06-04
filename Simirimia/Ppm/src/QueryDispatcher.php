@@ -22,7 +22,7 @@ class QueryDispatcher extends Dispatcher
         {
             case '/rest/pictures/thumbnails/small':
                 $query = new Query\AllThumbnails( 'small', $request->getPageSize(), $request->getPageSize()*($request->getPage()-1) );
-                return new QueryHandler\AllThumbnails( $query, $this->getRepository() );
+                return new QueryHandler\AllThumbnails( $query, $this->getPictureRepository() );
             case '/rest/tags':
                 $query = new Query\Tags();
                 return new QueryHandler\Tags( $query, new TagRepository() );
@@ -34,32 +34,32 @@ class QueryDispatcher extends Dispatcher
         // URLs starting with /rest/pictures
         if ( preg_match( '#/rest/pictures/(\d*)/alternatives#', $request->getUrl(), $matches ) ) {
             $query = new Query\Alternatives( (int)$matches[1] );
-            return new QueryHandler\Alternatives( $query, $this->getRepository() );
+            return new QueryHandler\Alternatives( $query, $this->getPictureRepository() );
         }
 
         if ( preg_match( '#/rest/pictures/(\d*)/details#', $request->getUrl(), $matches ) ) {
             $query = new Query\PictureDetails( (int)$matches[1] );
-            return new QueryHandler\PictureDetails( $query, $this->getRepository() );
+            return new QueryHandler\PictureDetails( $query, $this->getPictureRepository() );
         }
 
         if ( preg_match( '#/rest/pictures/(\d*)/exif#', $request->getUrl(), $matches ) ) {
             $query = new Query\Exif( (int)$matches[1] );
-            return new QueryHandler\Exif( $query, $this->getRepository() );
+            return new QueryHandler\Exif( $query, $this->getPictureRepository() );
         }
 
         if ( preg_match( '#/rest/pictures/(\d*)/tags#', $request->getUrl(), $matches ) ) {
             $query = new Query\TagsForPicture( (int)$matches[1] );
-            return new QueryHandler\TagsForPicture( $query, $this->getRepository() );
+            return new QueryHandler\TagsForPicture( $query, $this->getPictureRepository() );
         }
 
         if ( preg_match( '#/rest/pictures/(\d*)/original#', $request->getUrl(), $matches ) ) {
             $query = new Query\Original( (int)$matches[1] );
-            return new QueryHandler\Original( $query, $this->getRepository() );
+            return new QueryHandler\Original( $query, $this->getPictureRepository() );
         }
 
         if ( preg_match( '#/rest/pictures/(\d*)/orientation#', $request->getUrl(), $matches ) ) {
             $query = new Query\OrientationInfo( (int)$matches[1] );
-            return new QueryHandler\OrientationInfo( $query, $this->getRepository() );
+            return new QueryHandler\OrientationInfo( $query, $this->getPictureRepository() );
         }
 
 
@@ -67,7 +67,7 @@ class QueryDispatcher extends Dispatcher
 
         if ( preg_match(  '#/rest/tags/(.*)/thumbnails/small#', $request->getUrl(), $matches ) ) {
             $query = new Query\ThumbnailsPerTag( 'small', urldecode($matches[1]), $request->getPageSize(), $request->getPageSize()*($request->getPage()-1) );
-            return new QueryHandler\ThumbnailsPerTag( $query, $this->getRepository() );
+            return new QueryHandler\ThumbnailsPerTag( $query, $this->getPictureRepository() );
         }
 
 
@@ -75,7 +75,7 @@ class QueryDispatcher extends Dispatcher
     }
 
     /**
-     * @return PpmConfig
+     * @return PpmConfigUser
      */
     protected function getConfig()
     {

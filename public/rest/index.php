@@ -1,7 +1,5 @@
 <?php
 
-use RedBeanPHP\R;
-
 require __DIR__ . '/../../vendor/autoload.php';
 set_error_handler(function ($errno, $errstr, $errfile, $errline ,array $errcontex) {
     throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
@@ -25,14 +23,17 @@ if ( ! $config->isSetupMode() ) {
     }
 }
 
-
-R::setup( $config->getDatabaseDsn(), $config->getDatabaseUser(), $config->getDatabasePassword() );
-
 $logger = new \Monolog\Logger( 'ppm' );
 $logger->pushHandler( new Monolog\Handler\StreamHandler( __DIR__ . '/../../log/ppm.log' ) );
 $logger->addInfo( 'Logging started' );
 
 if ( ! $config->isSetupMode() ) {
+    try {
+        \RedBeanPHP\R::setup( $config->getUserDatabaseDsn(), $config->getUserDatabaseUser(),
+            $config->getUserDatabasePassword(), false ,'user' );
+    } catch( \RedBeanPHP\RedException $e ) {
+        \RedBeanPHP\R::selectDatabase( 'user' );
+    }
     $authCommand = new \Simirimia\User\CommandHandler\Authenticate(
         new \Simirimia\User\Command\Authenticate(
             \Simirimia\User\Types\Email::fromString($_SERVER['PHP_AUTH_USER']),
@@ -68,7 +69,7 @@ try {
     $result = $dispatcher->dispatch( $request );
     $response->appendToBody( \Simirimia\Ppm\ResultRenderer\Renderer::render( $result ) );
     $response->setResultCode( $result->getResultCode() );
-    R::close();
+    \RedBeanPHP\R::close();
 } catch ( Exception $e ) {
     $response->setResultCode( \Simirimia\Core\Result\Result::BACKEND_ERROR );
     $response->setBody( json_encode( [

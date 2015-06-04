@@ -11,12 +11,13 @@ if ( !isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW']) ) {
 
 $config = \Simirimia\Ppm\Config::fromIniFilesInFolder( __DIR__ . '/../../config/' );
 
-R::setup( $config->getDatabaseDsn(), $config->getDatabaseUser(), $config->getDatabasePassword() );
-
 $logger = new \Monolog\Logger( 'ppm' );
 $logger->pushHandler( new Monolog\Handler\StreamHandler( __DIR__ . '/../../log/ppm.log' ) );
 $logger->addInfo( 'Logging started' );
 
+R::setup( $config->getUserDatabaseDsn(), $config->getUserDatabaseUser(),
+    $config->getUserDatabasePassword(), false, 'user' );
+R::selectDatabase( 'user' );
 $authCommand = new \Simirimia\User\CommandHandler\Authenticate(
     new \Simirimia\User\Command\Authenticate(
         \Simirimia\User\Types\Email::fromString($_SERVER['PHP_AUTH_USER']),
@@ -38,6 +39,11 @@ if ( preg_match( '#\.\.#', $path ) ) {
     http_response_code( 404 );
     die( 'Nope' );
 }
+
+
+R::setup( $config->getPictureDatabaseDsn(), $config->getPictureDatabaseUser(),
+    $config->getPictureDatabasePassword(), false, 'picture' );
+R::selectDatabase( 'picture' );
 
 // remove all params
 $path = array_shift(explode( '?', $path ));
