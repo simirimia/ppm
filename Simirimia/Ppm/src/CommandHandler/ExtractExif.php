@@ -14,7 +14,7 @@ use Intervention\Image\ImageManager;
 use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\Command\ExtractExif as ExctractExifCommand;
 use Simirimia\Core\Dispatchable;
-use Simirimia\Ppm\Repository\Picture as PictureRepository;
+use Simirimia\Ppm\Repository\PictureRepository as PictureRepository;
 use Simirimia\Ppm\Entity\Picture;
 use Monolog\Logger;
 use Simirimia\Core\Result\ArrayResult;
@@ -27,7 +27,7 @@ class ExtractExif implements Dispatchable {
     private $command;
 
     /**
-     * @var \Simirimia\Ppm\Repository\Picture
+     * @var \Simirimia\Ppm\Repository\PictureRepository
      */
     private $repository;
 

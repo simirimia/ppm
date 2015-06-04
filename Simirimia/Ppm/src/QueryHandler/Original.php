@@ -12,7 +12,7 @@ use Simirimia\Core\Dispatchable;
 use Simirimia\Core\Result\FilePathResult;
 use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\Query\Original as OriginalCommand;
-use Simirimia\Ppm\Repository\Picture as PictureRepository;
+use Simirimia\Ppm\Repository\PictureRepository as PictureRepository;
 
 class Original implements Dispatchable
 {
@@ -23,7 +23,7 @@ class Original implements Dispatchable
     private $command;
 
     /**
-     * @var \Simirimia\Ppm\Repository\Picture
+     * @var \Simirimia\Ppm\Repository\PictureRepository
      */
     private $repository;
 

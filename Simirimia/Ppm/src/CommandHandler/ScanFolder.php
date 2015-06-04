@@ -10,7 +10,7 @@ namespace Simirimia\Ppm\CommandHandler;
 
 use Simirimia\Core\Dispatchable;
 use Simirimia\Core\Result\Result;
-use Simirimia\Ppm\Repository\Picture as PictureRepository;
+use Simirimia\Ppm\Repository\PictureRepository as PictureRepository;
 use Simirimia\Ppm\Entity\Picture;
 use Simirimia\Ppm\Command\ScanFolder as ScanFolderCommand;
 use Monolog\Logger;

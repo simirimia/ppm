@@ -8,9 +8,11 @@
 
 namespace Simirimia\Core;
 
+use Intervention\Image\Exception\InvalidArgumentException;
 use Monolog\Logger;
 use Simirimia\Core\Result\ArrayResult;
 use Simirimia\Core\Result\Result;
+use Simirimia\Ppm\Repository\RedbeanPictureRepository;
 
 abstract class Dispatcher
 {
@@ -67,6 +69,17 @@ abstract class Dispatcher
     protected function getConfig()
     {
         return $this->config;
+    }
+
+    protected function getRepository()
+    {
+        switch( $this->config->getRepositoryType() ) {
+            case 'redbean':
+                return new RedbeanPictureRepository();
+            case 'elasticsearch':
+                return new ElasticsearchPictureRepository();
+        }
+        throw new InvalidArgumentException( 'Unknown repository type: ' . $this->config->getRepositoryType() );
     }
 
     protected abstract function resolveUrl( Request $request );

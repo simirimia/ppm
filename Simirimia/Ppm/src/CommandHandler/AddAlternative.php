@@ -10,7 +10,7 @@ namespace Simirimia\Ppm\CommandHandler;
 
 use Simirimia\Core\Dispatchable;
 use Simirimia\Core\Result\Result;
-use Simirimia\Ppm\Repository\Picture as PictureRepository;
+use Simirimia\Ppm\Repository\PictureRepository as PictureRepository;
 use Simirimia\Ppm\Command\AddAlternative as AddAlternativeCommand;
 use Monolog\Logger;
 use Simirimia\Core\Result\ArrayResult;

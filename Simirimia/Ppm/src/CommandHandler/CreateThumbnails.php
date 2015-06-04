@@ -12,7 +12,7 @@ use Simirimia\Core\Dispatchable;
 use Simirimia\Core\Result\ArrayResult;
 use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\Command\CreateThumbnails as CreateThumbnailsCommand;
-use Simirimia\Ppm\Repository\Picture as PictureRepository;
+use Simirimia\Ppm\Repository\PictureRepository as PictureRepository;
 use Simirimia\Ppm\Entity\Picture;
 use Intervention\Image\Constraint;
 use Intervention\Image\ImageManager;

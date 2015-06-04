@@ -12,7 +12,8 @@ use Simirimia\Ppm\Entity\Picture as PictureEntity;
 use RedBeanPHP\R;
 use Simirimia\Ppm\PictureCollection;
 
-class Picture {
+class RedbeanPictureRepository implements PictureRepository
+{
 
     private $identityMap = [];
 

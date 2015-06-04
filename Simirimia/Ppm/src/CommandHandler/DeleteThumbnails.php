@@ -12,7 +12,7 @@ use Simirimia\Core\Dispatchable;
 use Simirimia\Core\Result\ArrayResult;
 use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\Command\DeleteThumbnails as DeleteThumbnailsCommand;
-use Simirimia\Ppm\Repository\Picture as PictureRepository;
+use Simirimia\Ppm\Repository\PictureRepository as PictureRepository;
 use Simirimia\Ppm\Entity\Picture;
 
 class DeleteThumbnails implements Dispatchable

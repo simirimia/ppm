@@ -2,6 +2,9 @@
 ;die()
 ;?>
 
+; repository type
+repository_type     = redbean
+
 ; database configuration
 db_dsn              = "mysql:host=<DBHOST>;dbname=<DBNAME>"
 db_user             = <USER>

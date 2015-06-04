@@ -11,7 +11,7 @@ namespace Simirimia\Ppm\QueryHandler;
 use Simirimia\Core\Dispatchable;
 use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\Query\PictureDetails as PictureDetailsCommand;
-use Simirimia\Ppm\Repository\Picture as PictureRepository;
+use Simirimia\Ppm\Repository\PictureRepository as PictureRepository;
 use Simirimia\Ppm\Result\PictureResult;
 
 class PictureDetails implements Dispatchable
@@ -23,7 +23,7 @@ class PictureDetails implements Dispatchable
     private $command;
 
     /**
-     * @var \Simirimia\Ppm\Repository\Picture
+     * @var \Simirimia\Ppm\Repository\PictureRepository
      */
     private $repository;
 

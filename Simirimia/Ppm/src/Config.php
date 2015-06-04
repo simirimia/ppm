@@ -20,6 +20,7 @@ class Config implements PpmConfig
     private $thumbnail_path;
     private $log_path;
     private $picture_source_path;
+    private $repository_type;
 
     /**
      * @param $folderPath
@@ -56,6 +57,11 @@ class Config implements PpmConfig
                 $this->{$entry} = (string)$value;
             }
         }
+    }
+
+    public function getRepositoryType()
+    {
+        return $this->repository_type;
     }
 
     public function getThumbnailPath()

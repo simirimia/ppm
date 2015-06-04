@@ -16,7 +16,7 @@ use Simirimia\Core\Result\ArrayResult;
 use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\Command\GenerateThumbnails as GenerateThumbnailsCommand;
 use Simirimia\Ppm\Entity\Picture;
-use Simirimia\Ppm\Repository\Picture as PictureRepository;
+use Simirimia\Ppm\Repository\PictureRepository as PictureRepository;
 
 class GenerateThumbnails implements Dispatchable
 {

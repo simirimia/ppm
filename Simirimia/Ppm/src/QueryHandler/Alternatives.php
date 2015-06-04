@@ -13,7 +13,7 @@ use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\PictureCollection;
 use Simirimia\Ppm\Result\PictureCollectionResult;
 use Simirimia\Ppm\Query\Alternatives as AlternativesCommand;
-use Simirimia\Ppm\Repository\Picture as PictureRepository;
+use Simirimia\Ppm\Repository\PictureRepository as PictureRepository;
 
 class Alternatives implements Dispatchable
 {
@@ -24,7 +24,7 @@ class Alternatives implements Dispatchable
     private $command;
 
     /**
-     * @var \Simirimia\Ppm\Repository\Picture
+     * @var \Simirimia\Ppm\Repository\PictureRepository
      */
     private $repository;
 

@@ -12,7 +12,7 @@ namespace Simirimia\Ppm\QueryHandler;
 use Simirimia\Core\Dispatchable;
 use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\Query\OrientationInfo as OrientationInfoQuery;
-use Simirimia\Ppm\Repository\Picture as PictureRepository;
+use Simirimia\Ppm\Repository\PictureRepository as PictureRepository;
 use Simirimia\Ppm\Entity\Picture;
 use Simirimia\Core\Result\ArrayResult;
 
@@ -24,7 +24,7 @@ class OrientationInfo implements Dispatchable
     private $query;
 
     /**
-     * @var \Simirimia\Ppm\Repository\Picture
+     * @var \Simirimia\Ppm\Repository\PictureRepository
      */
     private $repository;
 

@@ -12,7 +12,7 @@ use Simirimia\Core\Dispatchable;
 use Simirimia\Core\Result\ArrayResult;
 use Simirimia\Core\Result\Result;
 use Simirimia\Ppm\Query\AllThumbnails as AllThumbnailsCommand;
-use Simirimia\Ppm\Repository\Picture as PictureRepository;
+use Simirimia\Ppm\Repository\PictureRepository as PictureRepository;
 use Simirimia\Ppm\Entity\Picture;
 
 class AllThumbnails implements Dispatchable
@@ -23,7 +23,7 @@ class AllThumbnails implements Dispatchable
     private $command;
 
     /**
-     * @var \Simirimia\Ppm\Repository\Picture
+     * @var \Simirimia\Ppm\Repository\PictureRepository
      */
     private $repository;
 
