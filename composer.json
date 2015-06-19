@@ -1,20 +1,20 @@
 {
 
     "require": {
-        "monolog/monolog": "1.2.*",
+        "monolog/monolog": "~1",
         "psr/http-message": "1.0.x-dev",
-        "intervention/image": "2.0.*",
-        "simirimia/redbean": "dev-master"
+        "intervention/image": "~2",
+        "simirimia/redbean": "dev-master@dev",
+        "simirimia/core": "dev-master@dev"
     },
 
     "autoload": {
         "psr-4": {
-          "Simirimia\\Core\\" : "Simirimia/Core/src",
           "Simirimia\\User\\" : "Simirimia/User/src",
           "Simirimia\\Ppm\\" : "Simirimia/Ppm/src"
         }
     },
 
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 
 }

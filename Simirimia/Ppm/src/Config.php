@@ -8,90 +8,37 @@
 
 namespace Simirimia\Ppm;
 
-use \InvalidArgumentException;
-use \Exception;
+use Simirimia\Core\IniFileConfigDb;
 
-class Config implements PpmConfig
+class Config extends IniFileConfigDb implements PpmConfig
 {
-    private $isSetupMode;
-    private $db_dsn;
-    private $db_user;
-    private $db_password;
-    private $thumbnail_path;
-    private $log_path;
-    private $picture_source_path;
+    /**
+     * @var string
+     */
+    protected $thumbnail_path;
 
     /**
-     * @param $folderPath
-     * @return Config
-     * @throws InvalidArgumentException
-     * @throws \Exception
+     * @var string
      */
-    public static function fromIniFilesInFolder( $folderPath )
-    {
-        if ( !is_string($folderPath) ) {
-            throw new InvalidArgumentException( 'Param $folderPath needs to be a string' );
-        }
+    protected $picture_source_path;
 
-        if ( !file_exists( $folderPath . '/config_global.ini.php' ) || !is_readable( $folderPath . '/config_global.ini.php' ) ) {
-            throw new Exception( 'global config file not readable' );
-        }
+    /**
+     * @return string
+     */
 
-        if ( !file_exists( $folderPath . '/config_local.ini.php' ) || !is_readable( $folderPath . '/config_local.ini.php' ) ) {
-            throw new Exception( 'local config file not readable' );
-        }
-
-
-        $config = parse_ini_file( $folderPath . '/config_global.ini.php' );
-        $config = array_merge( $config, parse_ini_file( $folderPath . '/config_local.ini.php' ) );
-        $config['isSetupMode'] = file_exists( $folderPath . '/setup_in_progress___remove_me' );
-
-        return new Config( $config );
-    }
-
-    public function __construct( array $config )
-    {
-        foreach( $config as $entry => $value ) {
-            if ( property_exists( $this, $entry )  ) {
-                $this->{$entry} = (string)$value;
-            }
-        }
-    }
 
     public function getThumbnailPath()
     {
         return $this->thumbnail_path;
-    }
+
+    /**
+     * @return string
+     */  }
 
     public function getSourcePicturePath()
     {
         return $this->picture_source_path;
-    }
-
-    public function getLogFilePath()
-    {
-        return $this->log_path;
-    }
-
-    public function getDatabaseUser()
-    {
-        return $this->db_user;
-    }
-
-    public function getDatabasePassword()
-    {
-        return $this->db_password;
-    }
-
-    public function getDatabaseDsn()
-    {
-        return $this->db_dsn;
-    }
-
-    public function isSetupMode()
-    {
-        return $this->isSetupMode;
-    }
+   }
 
 
-} 
+}

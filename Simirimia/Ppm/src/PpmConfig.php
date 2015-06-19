@@ -16,6 +16,4 @@ interface PpmConfig extends CoreConfig, DatabaseConfig
 
     public function getSourcePicturePath();
 
-    public function getLogFilePath();
-
 }

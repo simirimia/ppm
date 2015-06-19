@@ -15,6 +15,7 @@ register_shutdown_function( function() {
 
 ob_start();
 
+/** @var Simirimia\Ppm\Config $config */
 $config = \Simirimia\Ppm\Config::fromIniFilesInFolder( __DIR__ . '/../../config/' );
 
 if ( ! $config->isSetupMode() ) {

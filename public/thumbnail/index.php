@@ -9,7 +9,7 @@ if ( !isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW']) ) {
     die('401');
 }
 
-$config = \Simirimia\Ppm\Config::fromIniFilesInFolder( __DIR__ . '/../../config/' );
+$config = \Simirimia\Ppm\ConfigDb::fromIniFilesInFolder( __DIR__ . '/../../config/' );
 
 R::setup( $config->getDatabaseDsn(), $config->getDatabaseUser(), $config->getDatabasePassword() );
 
@@ -29,7 +29,7 @@ if ( $authCommand->process()->getResultCode() != \Simirimia\Core\Result\Result::
     die('403');
 }
 
-$config = \Simirimia\Ppm\Config::fromIniFilesInFolder( __DIR__ . '/../../config/' );
+$config = \Simirimia\Ppm\ConfigDb::fromIniFilesInFolder( __DIR__ . '/../../config/' );
 
 $uri = explode( '/', $_SERVER['REQUEST_URI'] );
 $path = array_pop( $uri );
