@@ -12,6 +12,7 @@
       "php5-gd",
       "php5-cli",
       "php5-xdebug",
+      "php5-curl",
       "mysql-server"
     ]:
         ensure => present

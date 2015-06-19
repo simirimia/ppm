@@ -91,7 +91,9 @@ abstract class Dispatcher
 
                 return new RedbeanPictureRepository();
             case 'elasticsearch':
-                return new ElasticsearchPictureRepository();
+                return new ElasticsearchPictureRepository( $this->config->getPictureDatabaseDsn(), 'ppm_picture',
+                    $this->config->getPictureDatabaseUser(),
+                        $this->config->getPictureDatabasePassword() );
         }
         throw new InvalidArgumentException( 'Unknown repository type: ' . $this->config->getRepositoryType() );
     }

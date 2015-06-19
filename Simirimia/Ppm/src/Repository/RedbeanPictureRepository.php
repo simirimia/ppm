@@ -162,6 +162,7 @@ class RedbeanPictureRepository implements PictureRepository
         $entity->setExif( @unserialize($bean->exif) );
         $entity->setHasAlternatives( (bool)$bean->hasAternatives );
         $entity->setIsInGallery( (bool)$bean->isInGallery );
+        $entity->setExifExtracted( (bool)$bean->exifExtracted );
 
         $tags = R::tag( $bean );
         $entity->setTags( $tags );
@@ -204,6 +205,7 @@ class RedbeanPictureRepository implements PictureRepository
         $bean->thumbLarge = $entity->getThumbLarge();
         $bean->exifComplete = $exifComplete;
         $bean->exif = $exif;
+        $bean->exifExtracted = $entity->isExifExtracted();
 
         $alternative = $entity->getIsAlternativeTo();
         if ( $alternative === null ) {

@@ -75,6 +75,11 @@ class Picture {
     private $isInGallery = false;
 
     /**
+     * @var bool
+     */
+    private $exifExtracted = false;
+
+    /**
      * @param int $id
      */
     public function setId($id)
@@ -303,6 +308,23 @@ class Picture {
     {
         $this->isInGallery = $isInGallery;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isExifExtracted()
+    {
+        return $this->exifExtracted;
+    }
+
+    /**
+     * @param boolean $exifExtracted
+     */
+    public function setExifExtracted( $exifExtracted )
+    {
+        $this->exifExtracted = $exifExtracted;
+    }
+
 
 
 
