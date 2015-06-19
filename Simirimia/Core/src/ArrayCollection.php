@@ -1,20 +1,24 @@
 <?php
-/**
- * This file is part of PPM by simirimia
- * 
- * Date: 08.01.15
- * Time: 22:19
+/*
+ * This file is part of the simirimia/core package.
+ *
+ * (c) https://github.com/simirimia
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Simirimia\Core;
 
 
+use ArrayAccess;
+use ArrayIterator;
+use Countable;
+use Exception;
+use IteratorAggregate;
 use Traversable;
 
-use Simirimia\Ppm\Entity\Picture;
-
-
-class ArrayCollection implements \Countable, \ArrayAccess, \IteratorAggregate, Collection
+class ArrayCollection implements Countable, ArrayAccess, IteratorAggregate, Collection
 {
     /**
      * @var string
@@ -32,13 +36,18 @@ class ArrayCollection implements \Countable, \ArrayAccess, \IteratorAggregate, C
     private $data = [];
 
 
+    /**
+     * @param $elementClassName
+     * @param $elementIdMethod
+     * @throws Exception
+     */
     public function __construct( $elementClassName, $elementIdMethod )
     {
         if ( !is_string($elementClassName) ) {
-            throw new \Exception( 'Class mame must be a string' );
+            throw new Exception( 'Class mame must be a string' );
         }
         if ( !is_string($elementIdMethod) ) {
-            throw new \Exception( 'ID method mame must be a string' );
+            throw new Exception( 'ID method mame must be a string' );
         }
         $this->elementClassName = $elementClassName;
         $this->elementIdMethod = $elementIdMethod;
@@ -53,7 +62,7 @@ class ArrayCollection implements \Countable, \ArrayAccess, \IteratorAggregate, C
      */
     public function getIterator()
     {
-        return new \ArrayIterator( $this->data );
+        return new ArrayIterator( $this->data );
     }
 
     /**
@@ -80,7 +89,7 @@ class ArrayCollection implements \Countable, \ArrayAccess, \IteratorAggregate, C
      * @param mixed $offset <p>
      * The offset to retrieve.
      * </p>
-     * @return Picture Can return all value types.
+     * @return mixed Can return all value types.
      */
     public function offsetGet($offset)
     {
@@ -96,11 +105,11 @@ class ArrayCollection implements \Countable, \ArrayAccess, \IteratorAggregate, C
      * @param mixed $offset <p>
      * The offset to assign the value to.
      * </p>
-     * @param Picture $value <p>
+     * @param mixed $value <p>
      * The value to set.
      * </p>
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function offsetSet($offset, $value)
     {
@@ -139,6 +148,12 @@ class ArrayCollection implements \Countable, \ArrayAccess, \IteratorAggregate, C
 
     // Custom Collection methods
 
+    /**
+     * Add element to collection. Element needs to be instance of $elementClassName
+     *
+     * @param elementClassName $element
+     * @throws Exception
+     */
     public function add( $element ) {
 
         $this->ensureElementType( $element );
@@ -146,13 +161,17 @@ class ArrayCollection implements \Countable, \ArrayAccess, \IteratorAggregate, C
         $this->data[$element->{$this->elementIdMethod}()] = $element;
     }
 
+    /**
+     * @param $element
+     * @throws Exception
+     */
     private function ensureElementType( $element )
     {
         if ( !($element instanceof $this->elementClassName) ) {
-            throw new \Exception( 'Element must be of type: ' . $this->elementClassName );
+            throw new Exception( 'Element must be of type: ' . $this->elementClassName );
         }
         if ( !method_exists( $element, $this->elementIdMethod ) ) {
-            throw new \Exception( 'Element must have public method: ' . $this->elementIdMethod );
+            throw new Exception( 'Element must have public method: ' . $this->elementIdMethod );
         }
     }
 

@@ -1,9 +1,11 @@
 <?php
-/**
- * This file is part of PPM by simirimia
- * 
- * Date: 08.03.15
- * Time: 18:39
+/*
+ * This file is part of the simirimia/core package.
+ *
+ * (c) https://github.com/simirimia
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Simirimia\Core;
@@ -36,6 +38,9 @@ abstract class Response
         throw new InvalidArgumentException( 'Unknown $request type' );
     }
 
+    /**
+     * output data
+     */
     abstract public function send();
 
 
@@ -77,6 +82,9 @@ abstract class Response
         $this->body = $body;
     }
 
+    /**
+     * @param $body
+     */
     public function appendToBody( $body )
     {
         if ( !is_string( $body ) ) {

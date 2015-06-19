@@ -1,13 +1,15 @@
 <?php
-/**
- * This file is part of PPM by simirimia
+/*
+ * This file is part of the simirimia/core package.
  *
- * Date: 08.02.15
- * Time: 16:02
+ * (c) https://github.com/simirimia
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
+
 namespace Simirimia\Core;
 
-use Simirimia\Ppm\Entity\Picture;
 use Traversable;
 
 interface Collection
@@ -28,10 +30,15 @@ interface Collection
      * @param mixed $offset <p>
      * The offset to retrieve.
      * </p>
-     * @return Picture Can return all value types.
+     * @return mixed Can return all value types.
      */
     public function offsetGet($offset);
 
+    /**
+     * Add element to collection
+     *
+     * @param $element
+     */
     public function add($element);
 
     /**
@@ -77,7 +84,7 @@ interface Collection
      * @param mixed $offset <p>
      * The offset to assign the value to.
      * </p>
-     * @param Picture $value <p>
+     * @param mixed $value <p>
      * The value to set.
      * </p>
      * @return void

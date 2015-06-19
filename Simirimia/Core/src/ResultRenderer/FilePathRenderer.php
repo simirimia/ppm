@@ -1,13 +1,14 @@
 <?php
-/**
- * This file is part of PPM by simirimia
- * 
- * Date: 15.10.14
- * Time: 23:48
+/*
+ * This file is part of the simirimia/core package.
+ *
+ * (c) https://github.com/simirimia
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Simirimia\Core\ResultRenderer;
-
 
 use Simirimia\Core\Result\FilePathResult;
 
@@ -24,7 +25,6 @@ class FilePathRenderer implements ResultRenderer
         }
 
         if ( file_exists( $result->getPath() ) ) {
-            // todo: renderer needs possibility to define mime type
             header(  'Content-type: ' . $result->getMimeType() );
             return file_get_contents( $result->getPath() );
             //$handle = fopen( $result->getPath(), 'r' );

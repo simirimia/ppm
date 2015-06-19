@@ -1,14 +1,16 @@
 <?php
 /**
- * This file is part of PPM by simirimia
- * 
- * Date: 08.03.15
- * Time: 18:24
+ * @author: https://github.com/simirimia
+ * @license: @license BSD/GPL
+ * @copyright:
+ * copyright (c) simirima
+ * This source file is subject to the BSD/GPL License that is bundled
+ * with this source code in the file license.txt.
  */
 
 namespace Simirimia\Core\Result;
 
-use InvalidArgumentException;
+use \InvalidArgumentException;
 
 trait ResultCode
 {
