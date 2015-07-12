@@ -17,10 +17,13 @@ Vagrant.configure(2) do |config|
 
   # network
   # port forwarding - should work everywhere
-  config.vm.network "forwarded_port", guest: 80, host: 8081
+  config.vm.network "forwarded_port", guest: 80, host: 8083
 
   # public network -> for typical home network setups system is reachable via http://ppm
-  config.vm.network "public_network", type: "dhcp"
+  # config.vm.network "public_network", type: "dhcp"
+
+  # try private network
+  config.vm.network "private_network", ip: "192.168.50.2"
 
   config.vm.provider "virtualbox" do |v|
     # https://stefanwrobel.com/how-to-make-vagrant-performance-not-suck
