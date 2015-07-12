@@ -68,10 +68,17 @@
 ;die()
 ;?>
 
+; repository configuration
+repository_type = elasticsearch
+
 ; database configuration
-db_dsn              = "mysql:host=localhost;dbname=ppm"
-db_user             = ppm
-db_password         = ppm-dev-only-pw
+user_db_dsn              = "mysql:host=localhost;dbname=ppm"
+user_db_user             = ppm
+user_db_password         = ppm-dev-only-pw
+
+picture_db_dsn = "localhost"
+picture_db_user = ""
+picture_db_password = ""
 
 ; storage folders
 ; webserver user needs write permission here
